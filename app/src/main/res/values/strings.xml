@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Sınav Puan Hesaplama</string>
+    <string name="ales">ALES</string>
+    <string name="kpss">KPSS</string>
+    <string name="yks">YKS</string>
+    <string name="yds">YDS</string>
+    <string name="ekpss">EKPSS</string>
+    <string name="tus">TUS</string>
+    <string name="dgs">DGS</string>
+    <string name="ydus">YDUS</string>
+    <string name="dus">DUS</string>
+    <string name="eus">EUS</string>
+</resources>
