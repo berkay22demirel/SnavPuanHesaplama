@@ -9,12 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EusActivity"></activity>
+        <activity android:name=".YdusActivity" />
+        <activity android:name=".TusActivity" />
+        <activity android:name=".DusActivity" />
+        <activity android:name=".EkpssActivity" />
+        <activity android:name=".DgsActivity" />
+        <activity android:name=".YdsActivity" />
+        <activity android:name=".YksActivity" />
+        <activity android:name=".KpssActivity" />
+        <activity android:name=".AlesActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
