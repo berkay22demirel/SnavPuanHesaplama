@@ -110,7 +110,8 @@
                             android:inputType="number"
                             android:hint="@string/question_true"
                             android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:maxEms="50"/>
 
                         <EditText
                             android:id="@+id/editTextALESMathsFalse"
@@ -123,7 +124,8 @@
                             android:inputType="number"
                             android:hint="@string/question_false"
                             android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:maxEms="50"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -194,7 +196,8 @@
                             android:inputType="number"
                             android:hint="@string/question_true"
                             android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:maxEms="50"/>
 
                         <EditText
                             android:id="@+id/editTextALESTurkishFalse"
@@ -207,7 +210,8 @@
                             android:inputType="number"
                             android:hint="@string/question_false"
                             android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:maxEms="50"/>
                     </LinearLayout>
                 </LinearLayout>
 

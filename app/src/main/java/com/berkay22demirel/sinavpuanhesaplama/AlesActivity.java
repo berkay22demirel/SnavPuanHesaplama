@@ -1,29 +1,31 @@
 package com.berkay22demirel.sinavpuanhesaplama;
 
-import android.icu.text.RelativeDateTimeFormatter;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ExamDateUtil;
-import com.berkay22demirel.sinavpuanhesaplama.Util.ValidatorUtil;
 
-import org.w3c.dom.Text;
-
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class AlesActivity extends AppCompatActivity {
+
+    private static int MATHS_NUMBER_OF_QUESTIONS = 50;
+    private static int TURKISH_NUMBER_OF_QUESTIONS = 50;
+
+    EditText editTextMathsTrue;
+    EditText editTextMathsFalse;
+    EditText editTextTurkishTrue;
+    EditText editTextTurkishFalse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class AlesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ales);
         getSupportActionBar().setTitle("ALES Puan Hesapla");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setViewReferences();
+        provideSecurityEditText();
         addCountDown();
     }
 
@@ -51,6 +55,13 @@ public class AlesActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setViewReferences() {
+        editTextMathsTrue = (EditText) findViewById(R.id.editTextALESMathsTrue);
+        editTextMathsFalse = (EditText) findViewById(R.id.editTextALESMathsFalse);
+        editTextTurkishTrue = (EditText) findViewById(R.id.editTextALESTurkishTrue);
+        editTextTurkishFalse = (EditText) findViewById(R.id.editTextALESTurkishFalse);
     }
 
     private void addCountDown() {
@@ -82,5 +93,11 @@ public class AlesActivity extends AppCompatActivity {
         }
     }
 
+    private void provideSecurityEditText() {
+        CommonUtil.setEditTextChangedListener(MATHS_NUMBER_OF_QUESTIONS, editTextMathsTrue, editTextMathsFalse);
+        CommonUtil.setEditTextChangedListener(MATHS_NUMBER_OF_QUESTIONS, editTextMathsFalse, editTextMathsTrue);
+        CommonUtil.setEditTextChangedListener(TURKISH_NUMBER_OF_QUESTIONS, editTextTurkishTrue, editTextTurkishFalse);
+        CommonUtil.setEditTextChangedListener(TURKISH_NUMBER_OF_QUESTIONS, editTextTurkishFalse, editTextTurkishTrue);
+    }
 
 }

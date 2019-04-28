@@ -10,4 +10,11 @@ public class ValidatorUtil {
         }
         return false;
     }
+
+    public static boolean isValidString(String value) {
+        if (value != null && !value.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
 }
