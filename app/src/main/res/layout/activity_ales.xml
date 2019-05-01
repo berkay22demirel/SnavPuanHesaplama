@@ -38,11 +38,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="108 Gün 22 Saat 55 Dakika"
+                    android:layout_margin="@dimen/activity_small_margin"
                     android:gravity="center"
+                    android:text=""
                     android:textSize="@dimen/middle_text_size"
                     android:textColor="@color/black"
-                    android:layout_margin="@dimen/activity_small_margin"/>
+                    />
             </LinearLayout>
 
             <android.support.v7.widget.CardView
@@ -88,10 +89,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:gravity="end"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/middle_text_size"
-                            android:text="@string/questions_fifth"
-                            android:gravity="end"/>
+                            android:text="@string/questions_fifth" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -104,14 +105,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/activity_small_margin"
-                            android:gravity="center"
                             android:layout_weight="1"
+                            android:gravity="center"
                             android:ems="10"
                             android:inputType="number"
                             android:hint="@string/question_true"
                             android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:maxEms="50"/>
+                            android:textColor="@color/black"/>
 
                         <EditText
                             android:id="@+id/editTextALESMathsFalse"
@@ -124,15 +124,13 @@
                             android:inputType="number"
                             android:hint="@string/question_false"
                             android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:maxEms="50"/>
+                            android:textColor="@color/black"/>
                     </LinearLayout>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cardViewALES"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
@@ -196,8 +194,7 @@
                             android:inputType="number"
                             android:hint="@string/question_true"
                             android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:maxEms="50"/>
+                            android:textColor="@color/black"/>
 
                         <EditText
                             android:id="@+id/editTextALESTurkishFalse"
@@ -210,9 +207,66 @@
                             android:inputType="number"
                             android:hint="@string/question_false"
                             android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:maxEms="50"/>
+                            android:textColor="@color/black"/>
                     </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="@dimen/activity_margin"
+                android:layout_marginRight="@dimen/activity_margin"
+                android:layout_marginBottom="@dimen/activity_margin"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_margin">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/activity_small_margin"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/lesson_turkish_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/middle_text_size"
+                            android:text="@string/lesson_turkish"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/result"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/middle_text_size"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -234,14 +288,14 @@
         android:layout_gravity="bottom"
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/my_button"
         android:textColor="@color/yellow"
         android:textStyle="bold"
         android:textSize="@dimen/middle_text_size"
-        android:text="@string/button_calculate"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="@string/button_calculate" />
 
 </RelativeLayout>

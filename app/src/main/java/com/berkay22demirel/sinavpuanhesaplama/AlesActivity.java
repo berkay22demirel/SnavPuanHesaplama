@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamTypeEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
+import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ExamDateUtil;
 
 import java.util.Date;
@@ -26,6 +29,7 @@ public class AlesActivity extends AppCompatActivity {
     EditText editTextMathsFalse;
     EditText editTextTurkishTrue;
     EditText editTextTurkishFalse;
+    Button buttonCalculate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class AlesActivity extends AppCompatActivity {
         setViewReferences();
         provideSecurityEditText();
         addCountDown();
+        setCalculateButtonListener();
     }
 
     @Override
@@ -62,6 +67,7 @@ public class AlesActivity extends AppCompatActivity {
         editTextMathsFalse = (EditText) findViewById(R.id.editTextALESMathsFalse);
         editTextTurkishTrue = (EditText) findViewById(R.id.editTextALESTurkishTrue);
         editTextTurkishFalse = (EditText) findViewById(R.id.editTextALESTurkishFalse);
+        buttonCalculate = (Button) findViewById(R.id.buttonALESCalculate);
     }
 
     private void addCountDown() {
@@ -98,6 +104,69 @@ public class AlesActivity extends AppCompatActivity {
         CommonUtil.setEditTextChangedListener(MATHS_NUMBER_OF_QUESTIONS, editTextMathsFalse, editTextMathsTrue);
         CommonUtil.setEditTextChangedListener(TURKISH_NUMBER_OF_QUESTIONS, editTextTurkishTrue, editTextTurkishFalse);
         CommonUtil.setEditTextChangedListener(TURKISH_NUMBER_OF_QUESTIONS, editTextTurkishFalse, editTextTurkishTrue);
+    }
+
+    private void setCalculateButtonListener () {
+        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int mathsTrue = ConverterUtil.convertToInteger(editTextMathsTrue.getText().toString());
+                int mathsFalse = ConverterUtil.convertToInteger(editTextMathsFalse.getText().toString());
+                int turkishTrue = ConverterUtil.convertToInteger(editTextTurkishTrue.getText().toString());
+                int turkishFalse = ConverterUtil.convertToInteger(editTextTurkishFalse.getText().toString());
+                double bir = getNumericalResult(mathsTrue, mathsFalse, turkishTrue, turkishFalse);
+                double iki = getVerbalResult(mathsTrue, mathsFalse, turkishTrue, turkishFalse);
+                double uc = getEqualWeightResult(mathsTrue, mathsFalse, turkishTrue, turkishFalse);
+                TextView result = findViewById(R.id.result);
+                result.setText( bir  + " - " + iki + " - " + uc);
+            }
+        });
+    }
+
+    private double getNumericalResult(int mathsTrue, int mathsFalse, int turkishTrue, int turkishFalse) {
+        double mathsNet = getNet(mathsTrue, mathsFalse);
+        double turkishNet = getNet(turkishTrue, turkishFalse);
+        //Adayın Ağırlıklı Puanı
+        double ap = mathsNet * 0.75 + turkishNet * 0.25;
+        //Ağırlıklı Puanların Ortalaması
+        double x = 0.75 * 19.07 + 0.25 * 28.85;
+        //Ağırlıklı Puanların Standart Sapması
+        double s = 0.75 * 13.03 + 0.25 * 9.97;
+        //Ağırlıklı Puanların En Büyüğü
+        double b = 50.0;
+        return  70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
+    }
+
+    private double getVerbalResult(int mathsTrue, int mathsFalse, int turkishTrue, int turkishFalse) {
+        double mathsNet = getNet(mathsTrue, mathsFalse);
+        double turkishNet = getNet(turkishTrue, turkishFalse);
+        //Adayın Ağırlıklı Puanı
+        double ap = mathsNet * 0.25 + turkishNet * 0.75;
+        //Ağırlıklı Puanların Ortalaması
+        double x = 0.25 * 19.07 + 0.75 * 28.85;
+        //Ağırlıklı Puanların Standart Sapması
+        double s = 0.25 * 13.03 + 0.75 * 9.97;
+        //Ağırlıklı Puanların En Büyüğü
+        double b = 50.0;
+        return  70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
+    }
+
+    private double getEqualWeightResult(int mathsTrue, int mathsFalse, int turkishTrue, int turkishFalse) {
+        double mathsNet = getNet(mathsTrue, mathsFalse);
+        double turkishNet = getNet(turkishTrue, turkishFalse);
+        //Adayın Ağırlıklı Puanı
+        double ap = mathsNet * 0.50 + turkishNet * 0.50;
+        //Ağırlıklı Puanların Ortalaması
+        double x = 0.50 * 19.07 + 0.50 * 28.85;
+        //Ağırlıklı Puanların Standart Sapması
+        double s = 0.50 * 13.03 + 0.50 * 9.97;
+        //Ağırlıklı Puanların En Büyüğü
+        double b = 50.0;
+        return  70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
+    }
+
+    private double getNet(double trueNumber, double falseNumber) {
+        return (trueNumber - (falseNumber / 4));
     }
 
 }
