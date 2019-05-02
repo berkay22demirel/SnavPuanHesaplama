@@ -1,17 +1,20 @@
 package com.berkay22demirel.sinavpuanhesaplama;
 
+import android.app.Dialog;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamTypeEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
@@ -106,7 +109,7 @@ public class AlesActivity extends AppCompatActivity {
         CommonUtil.setEditTextChangedListener(TURKISH_NUMBER_OF_QUESTIONS, editTextTurkishFalse, editTextTurkishTrue);
     }
 
-    private void setCalculateButtonListener () {
+    private void setCalculateButtonListener() {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,18 +117,34 @@ public class AlesActivity extends AppCompatActivity {
                 int mathsFalse = ConverterUtil.convertToInteger(editTextMathsFalse.getText().toString());
                 int turkishTrue = ConverterUtil.convertToInteger(editTextTurkishTrue.getText().toString());
                 int turkishFalse = ConverterUtil.convertToInteger(editTextTurkishFalse.getText().toString());
-                double bir = getNumericalResult(mathsTrue, mathsFalse, turkishTrue, turkishFalse);
-                double iki = getVerbalResult(mathsTrue, mathsFalse, turkishTrue, turkishFalse);
-                double uc = getEqualWeightResult(mathsTrue, mathsFalse, turkishTrue, turkishFalse);
-                TextView result = findViewById(R.id.result);
-                result.setText( bir  + " - " + iki + " - " + uc);
+                double mathsNet = CommonUtil.getNet(mathsTrue, mathsFalse);
+                double turkishNet = CommonUtil.getNet(turkishTrue, turkishFalse);
+                double numericalResult = getNumericalResult(mathsNet, turkishNet);
+                double verbalResult = getVerbalResult(mathsNet, turkishNet);
+                double equalWeightResult = getEqualWeightResult(mathsNet, turkishNet);
+                showResultDailog(mathsNet, turkishNet, numericalResult, verbalResult, equalWeightResult);
             }
         });
     }
 
-    private double getNumericalResult(int mathsTrue, int mathsFalse, int turkishTrue, int turkishFalse) {
-        double mathsNet = getNet(mathsTrue, mathsFalse);
-        double turkishNet = getNet(turkishTrue, turkishFalse);
+    private void showResultDailog(double mathsNet, double turkishNet, double numericalResult, double verbalResult, double equalWeightResult) {
+        final Dialog dialog = new Dialog(AlesActivity.this);
+        dialog.setContentView(R.layout.dialog_ales);
+        TextView textViewMathsNet = dialog.findViewById(R.id.textViewALESResultMathsNet);
+        TextView textViewTurkishNet = dialog.findViewById(R.id.textViewALESResultTurkishNet);
+        TextView textViewNumeric = dialog.findViewById(R.id.textViewALESResultNumeric);
+        TextView textViewVerbal = dialog.findViewById(R.id.textViewALESResultVerbal);
+        TextView textViewEqualWeight = dialog.findViewById(R.id.textViewALESResultEqualWeight);
+        textViewMathsNet.setText(String.valueOf(mathsNet) + CommonUtil.HELPER_NET_TEXT);
+        textViewTurkishNet.setText(String.valueOf(turkishNet) + CommonUtil.HELPER_NET_TEXT);
+        textViewNumeric.setText(String.valueOf(CommonUtil.round(numericalResult, 2)));
+        textViewVerbal.setText(String.valueOf(CommonUtil.round(verbalResult, 2)));
+        textViewEqualWeight.setText(String.valueOf(CommonUtil.round(equalWeightResult, 2)));
+        setDialogButtonsListener(dialog);
+        dialog.show();
+    }
+
+    private double getNumericalResult(double mathsNet, double turkishNet) {
         //Adayın Ağırlıklı Puanı
         double ap = mathsNet * 0.75 + turkishNet * 0.25;
         //Ağırlıklı Puanların Ortalaması
@@ -134,12 +153,10 @@ public class AlesActivity extends AppCompatActivity {
         double s = 0.75 * 13.03 + 0.25 * 9.97;
         //Ağırlıklı Puanların En Büyüğü
         double b = 50.0;
-        return  70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
+        return 70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
     }
 
-    private double getVerbalResult(int mathsTrue, int mathsFalse, int turkishTrue, int turkishFalse) {
-        double mathsNet = getNet(mathsTrue, mathsFalse);
-        double turkishNet = getNet(turkishTrue, turkishFalse);
+    private double getVerbalResult(double mathsNet, double turkishNet) {
         //Adayın Ağırlıklı Puanı
         double ap = mathsNet * 0.25 + turkishNet * 0.75;
         //Ağırlıklı Puanların Ortalaması
@@ -148,12 +165,10 @@ public class AlesActivity extends AppCompatActivity {
         double s = 0.25 * 13.03 + 0.75 * 9.97;
         //Ağırlıklı Puanların En Büyüğü
         double b = 50.0;
-        return  70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
+        return 70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
     }
 
-    private double getEqualWeightResult(int mathsTrue, int mathsFalse, int turkishTrue, int turkishFalse) {
-        double mathsNet = getNet(mathsTrue, mathsFalse);
-        double turkishNet = getNet(turkishTrue, turkishFalse);
+    private double getEqualWeightResult(double mathsNet, double turkishNet) {
         //Adayın Ağırlıklı Puanı
         double ap = mathsNet * 0.50 + turkishNet * 0.50;
         //Ağırlıklı Puanların Ortalaması
@@ -162,11 +177,25 @@ public class AlesActivity extends AppCompatActivity {
         double s = 0.50 * 13.03 + 0.50 * 9.97;
         //Ağırlıklı Puanların En Büyüğü
         double b = 50.0;
-        return  70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
+        return 70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
     }
 
-    private double getNet(double trueNumber, double falseNumber) {
-        return (trueNumber - (falseNumber / 4));
+    private void setDialogButtonsListener(final Dialog dialog) {
+        Button buttonCalculate = dialog.findViewById(R.id.buttonALESDialogCalculate);
+        Button buttonSave = dialog.findViewById(R.id.buttonALESDialogSave);
+        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AlesActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

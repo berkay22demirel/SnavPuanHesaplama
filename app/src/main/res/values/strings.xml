@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Sınav Puan Hesaplama</string>
     <string name="button_calculate">Hesapla</string>
+    <string name="button_save">Kaydet</string>
+    <string name="button_close">Kapat</string>
     <string name="ales">ALES</string>
     <string name="kpss">KPSS</string>
     <string name="yks">YKS</string>
@@ -27,4 +29,11 @@
     <string name="question_false">Yanlış</string>
     <string name="questions_fourth">40 Soru</string>
     <string name="questions_fifth">50 Soru</string>
+    <string name="result_maths_net">Matematik Testi</string>
+    <string name="result_turkish_net">Türkçe Testi</string>
+    <string name="result_default_net">0 Net</string>
+    <string name="result_numerical">Sayısal Puanı</string>
+    <string name="result_verbal">Sözel Puanı</string>
+    <string name="result_equal_weight">Eşit Ağırlık Puanı</string>
+    <string name="result_default">00.00</string>
 </resources>
