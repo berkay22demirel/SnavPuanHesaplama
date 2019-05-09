@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
+import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ExamDateUtil;
 
 import java.util.Date;
@@ -25,25 +26,29 @@ import java.util.concurrent.TimeUnit;
 
 public class AlesActivity extends AppCompatActivity {
 
-    private static int MATHS_NUMBER_OF_QUESTIONS = 50;
-    private static int TURKISH_NUMBER_OF_QUESTIONS = 50;
 
     EditText editTextMathsTrue;
     EditText editTextMathsFalse;
+    EditText editTextMathsNet;
     EditText editTextTurkishTrue;
     EditText editTextTurkishFalse;
+    EditText editTextTurkishNet;
+    TextView textViewALESTime;
     Button buttonCalculate;
+
+    private static String PAGE_TITLE = ExamsEnum.ALES.getTitle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ales);
-        getSupportActionBar().setTitle("ALES Puan Hesapla");
+        getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setViewReferences();
-        provideSecurityEditText();
-        addCountDown();
+        provideSecurityEditTexts();
+        DateTimeUtil.addCountDown(textViewALESTime, PAGE_TITLE);
         setCalculateButtonListener();
+
     }
 
     @Override
@@ -70,43 +75,16 @@ public class AlesActivity extends AppCompatActivity {
         editTextMathsFalse = (EditText) findViewById(R.id.editTextALESMathsFalse);
         editTextTurkishTrue = (EditText) findViewById(R.id.editTextALESTurkishTrue);
         editTextTurkishFalse = (EditText) findViewById(R.id.editTextALESTurkishFalse);
+        //FIXME
+        textViewALESTime = findViewById(R.id.textViewALESTime);
         buttonCalculate = (Button) findViewById(R.id.buttonALESCalculate);
     }
 
-    private void addCountDown() {
-        Date today = new Date();
-        Date nextAlesDate = ExamDateUtil.getNextExamDate(ExamsEnum.ALES.getTitle());
-        if (nextAlesDate != null) {
-            Long time = nextAlesDate.getTime() - today.getTime();
-            new CountDownTimer(time, 60000) {
-                TextView textViewALESTime = findViewById(R.id.textViewALESTime);
-
-                public void onTick(long millisUntilFinished) {
-                    Date date = new Date();
-                    date.setTime(millisUntilFinished);
-                    long days = TimeUnit.DAYS.convert(millisUntilFinished, TimeUnit.MILLISECONDS);
-                    long hours = TimeUnit.HOURS.convert(millisUntilFinished, TimeUnit.MILLISECONDS);
-                    long minutes = TimeUnit.MINUTES.convert(millisUntilFinished, TimeUnit.MILLISECONDS);
-                    hours = hours % 24;
-                    minutes = minutes % 60;
-                    textViewALESTime.setText(days + " Gün " + hours + " Saat " + minutes + " Dakika");
-                }
-
-                public void onFinish() {
-                    textViewALESTime.setText("Sınav Zamanı Geldi!");
-                }
-            }.start();
-        } else {
-            TextView textViewALESTime = findViewById(R.id.textViewALESTime);
-            textViewALESTime.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    private void provideSecurityEditText() {
-        CommonUtil.setEditTextChangedListener(MATHS_NUMBER_OF_QUESTIONS, editTextMathsTrue, editTextMathsFalse);
-        CommonUtil.setEditTextChangedListener(MATHS_NUMBER_OF_QUESTIONS, editTextMathsFalse, editTextMathsTrue);
-        CommonUtil.setEditTextChangedListener(TURKISH_NUMBER_OF_QUESTIONS, editTextTurkishTrue, editTextTurkishFalse);
-        CommonUtil.setEditTextChangedListener(TURKISH_NUMBER_OF_QUESTIONS, editTextTurkishFalse, editTextTurkishTrue);
+    private void provideSecurityEditTexts() {
+        CommonUtil.provideEditTextTrue(CommonUtil.FIFTY_QUESTIONS, editTextMathsTrue, editTextMathsFalse, editTextMathsNet);
+        CommonUtil.provideEditTextFalse(CommonUtil.FIFTY_QUESTIONS, editTextMathsFalse, editTextMathsTrue, editTextMathsNet);
+        CommonUtil.provideEditTextTrue(CommonUtil.FIFTY_QUESTIONS, editTextTurkishTrue, editTextTurkishFalse, editTextTurkishNet);
+        CommonUtil.provideEditTextFalse(CommonUtil.FIFTY_QUESTIONS, editTextTurkishFalse, editTextTurkishTrue, editTextTurkishNet);
     }
 
     private void setCalculateButtonListener() {

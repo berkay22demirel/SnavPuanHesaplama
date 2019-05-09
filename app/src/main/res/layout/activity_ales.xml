@@ -74,6 +74,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
                             android:src="@drawable/lesson_maths_icon" />
 
                         <TextView
@@ -92,7 +93,7 @@
                             android:gravity="end"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/middle_text_size"
-                            android:text="@string/questions_fifth" />
+                            android:text="@string/questions_fifty" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -157,6 +158,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
                             android:src="@drawable/lesson_turkish_icon" />
 
                         <TextView
@@ -174,7 +176,7 @@
                             android:layout_weight="1"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/middle_text_size"
-                            android:text="@string/questions_fifth"
+                            android:text="@string/questions_fifty"
                             android:gravity="end"/>
                     </LinearLayout>
 
