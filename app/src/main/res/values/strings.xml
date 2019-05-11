@@ -39,14 +39,19 @@
     <string name="lesson_history">Tarih</string>
     <string name="lesson_literature">Türk Dili ve Edebiyatı</string>
     <string name="lesson_language">Yabancı Dil</string>
+    <string name="lesson_numerical">Sayısal Testi</string>
+    <string name="lesson_verbal">Sözel Testi</string>
     <string name="diploma_grade">Diploma Notu</string>
     <string name="diploma_grade_description">0-100</string>
+    <string name="associate_degree_success_grade">Önlisans Başarı Puanı</string>
     <string name="diploma_notification">Daha Önce Bir Bölüme Yerleştim</string>
+    <string name="dgs_notification">Daha önce Bir DGS programına yerleştim</string>
     <string name="exam_yks_1">TYT Sınavı (YKS 1. Oturum)</string>
     <string name="exam_yks_2">AYT Sınavı (YKS 2. Oturum)</string>
     <string name="exam_yks_2_science">Fen Bilimleri</string>
     <string name="exam_yks_2_social1">Türk Dili ve Edebiyatı / Sosyal Bilimler 1</string>
     <string name="exam_yks_2_social2">Sosyal Bilimler 2</string>
+    <string name="exam_dgs_before_result">Önceki DGS Sonucu</string>
     <string name="question_true">Doğru</string>
     <string name="question_false">Yanlış</string>
     <string name="question_net">Net</string>
@@ -60,6 +65,7 @@
     <string name="questions_twenty_four">24 Soru</string>
     <string name="questions_forty">40 Soru</string>
     <string name="questions_fifty">50 Soru</string>
+    <string name="questions_sixty">60 Soru</string>
     <string name="questions_eighty">80 Soru</string>
     <string name="result_maths_net">Matematik Testi</string>
     <string name="result_turkish_net">Türkçe Testi</string>
@@ -73,4 +79,7 @@
     <string name="result_calculated_points">Yerleştirme Puanları</string>
     <string name="result_simple_points">Ham Puanlar</string>
     <string name="result_tyt">TYT Puanı</string>
+    <string name="result_yds">YDS Puanı</string>
+    <string name="result_yds_level">YDS Seviyesi</string>
+    <string name="error_validate">Lütfen bu alanı doldurunuz!</string>
 </resources>

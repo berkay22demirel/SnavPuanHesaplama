@@ -39,7 +39,6 @@ public class AlesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setViewReferences();
         provideViews();
-        DateTimeUtil.addCountDown(textViewALESTime, PAGE_TITLE);
         setCalculateButtonListener();
     }
 
@@ -80,6 +79,7 @@ public class AlesActivity extends AppCompatActivity {
         CommonUtil.provideEditTextFalse(CommonUtil.FIFTY_QUESTIONS, editTextMathsFalse, editTextMathsTrue, editTextMathsNet);
         CommonUtil.provideEditTextTrue(CommonUtil.FIFTY_QUESTIONS, editTextTurkishTrue, editTextTurkishFalse, editTextTurkishNet);
         CommonUtil.provideEditTextFalse(CommonUtil.FIFTY_QUESTIONS, editTextTurkishFalse, editTextTurkishTrue, editTextTurkishNet);
+        DateTimeUtil.addCountDown(textViewALESTime, PAGE_TITLE);
     }
 
     private void setCalculateButtonListener() {
@@ -95,12 +95,12 @@ public class AlesActivity extends AppCompatActivity {
                 double numericalResult = getNumericalResult(mathsNet, turkishNet);
                 double verbalResult = getVerbalResult(mathsNet, turkishNet);
                 double equalWeightResult = getEqualWeightResult(mathsNet, turkishNet);
-                showResultDailog(mathsNet, turkishNet, numericalResult, verbalResult, equalWeightResult);
+                showResultDialog(numericalResult, verbalResult, equalWeightResult);
             }
         });
     }
 
-    private void showResultDailog(double mathsNet, double turkishNet, double numericalResult, double verbalResult, double equalWeightResult) {
+    private void showResultDialog(double numericalResult, double verbalResult, double equalWeightResult) {
         final Dialog dialog = new Dialog(AlesActivity.this);
         dialog.setContentView(R.layout.dialog_ales);
         TextView textViewNumeric = dialog.findViewById(R.id.textViewALESResultNumeric);

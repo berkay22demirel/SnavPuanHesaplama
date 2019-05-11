@@ -10,6 +10,7 @@ import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 
 public class CommonUtil {
 
+    public static String EMPTY_STRING = "";
     public static int SIX_QUESTIONS = 6;
     public static int TEN_QUESTIONS = 10;
     public static int ELEVEN_QUESTIONS = 11;
@@ -18,8 +19,9 @@ public class CommonUtil {
     public static int FOURTEEN_QUESTIONS = 14;
     public static int TWENTY_QUESTIONS = 20;
     public static int TWENTY_FOUR_QUESTIONS = 24;
-    public static int FIFTY_QUESTIONS = 50;
     public static int FOURTY_QUESTIONS = 40;
+    public static int FIFTY_QUESTIONS = 50;
+    public static int SIXTY_QUESTIONS = 60;
     public static int EIGHTY_QUESTIONS = 80;
 
     public static void provideEditTextTrue(final int totalNumberOfQuestions, final EditText editTextTrue, final EditText editTextFalse, final EditText editTextNet) {

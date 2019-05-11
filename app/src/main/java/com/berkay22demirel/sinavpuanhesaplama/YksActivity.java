@@ -87,7 +87,6 @@ public class YksActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setViewReferences();
-        DateTimeUtil.addCountDown(textViewYKSTime, PAGE_TITLE);
         provideViews();
         setCalculateButtonListener();
     }
@@ -167,6 +166,7 @@ public class YksActivity extends AppCompatActivity {
         textViewYKSTime = findViewById(R.id.textViewYKSTime);
         checkBoxDiplamaNotification = findViewById(R.id.checkBoxYKSDiplomaNotification);
         buttonCalculate = findViewById(R.id.buttonYKSCalculate);
+        DateTimeUtil.addCountDown(textViewYKSTime, PAGE_TITLE);
     }
 
     private void provideViews() {
@@ -210,12 +210,12 @@ public class YksActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setYKSValue();
-                showDailog();
+                showDialog();
             }
         });
     }
 
-    private void showDailog() {
+    private void showDialog() {
         double simpleTYTResult = getTYTResult();
         if (simpleTYTResult == INCALCULABLE_RESULT) {
             new AlertDialog.Builder(YksActivity.this)
