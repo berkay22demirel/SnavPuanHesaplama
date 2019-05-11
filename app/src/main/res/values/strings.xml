@@ -3,6 +3,9 @@
     <string name="button_calculate">Hesapla</string>
     <string name="button_save">Kaydet</string>
     <string name="button_close">Kapat</string>
+    <string name="button_ok">Tamam</string>
+    <string name="button_recalculate">Tekrar Hesapla</string>
+    <string name="button_show_result">Sonucumu Göster</string>
     <string name="ales">ALES</string>
     <string name="kpss">KPSS</string>
     <string name="yks">YKS</string>
@@ -19,7 +22,8 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="action_alert">Uyarı</string>
     <string name="lesson_maths">Matematik</string>
     <string name="lesson_basic_maths">Temel Matematik</string>
     <string name="lesson_geometry">Geometri</string>
@@ -56,6 +60,7 @@
     <string name="questions_twenty_four">24 Soru</string>
     <string name="questions_forty">40 Soru</string>
     <string name="questions_fifty">50 Soru</string>
+    <string name="questions_eighty">80 Soru</string>
     <string name="result_maths_net">Matematik Testi</string>
     <string name="result_turkish_net">Türkçe Testi</string>
     <string name="result_default_net">0 Net</string>

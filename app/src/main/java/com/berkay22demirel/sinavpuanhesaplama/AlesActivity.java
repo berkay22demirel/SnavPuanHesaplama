@@ -1,15 +1,13 @@
 package com.berkay22demirel.sinavpuanhesaplama;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.os.CountDownTimer;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,13 +17,8 @@ import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
-import com.berkay22demirel.sinavpuanhesaplama.Util.ExamDateUtil;
-
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class AlesActivity extends AppCompatActivity {
-
 
     EditText editTextMathsTrue;
     EditText editTextMathsFalse;
@@ -45,10 +38,9 @@ public class AlesActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setViewReferences();
-        provideSecurityEditTexts();
+        provideViews();
         DateTimeUtil.addCountDown(textViewALESTime, PAGE_TITLE);
         setCalculateButtonListener();
-
     }
 
     @Override
@@ -65,22 +57,25 @@ public class AlesActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-
+            case R.id.action_alert:
+                showAlertDialog();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void setViewReferences() {
-        editTextMathsTrue = (EditText) findViewById(R.id.editTextALESMathsTrue);
-        editTextMathsFalse = (EditText) findViewById(R.id.editTextALESMathsFalse);
-        editTextTurkishTrue = (EditText) findViewById(R.id.editTextALESTurkishTrue);
-        editTextTurkishFalse = (EditText) findViewById(R.id.editTextALESTurkishFalse);
-        //FIXME
+        editTextMathsTrue = findViewById(R.id.editTextALESMathsTrue);
+        editTextMathsFalse = findViewById(R.id.editTextALESMathsFalse);
+        editTextMathsNet = findViewById(R.id.editTextALESMathsNet);
+        editTextTurkishTrue = findViewById(R.id.editTextALESTurkishTrue);
+        editTextTurkishFalse = findViewById(R.id.editTextALESTurkishFalse);
+        editTextTurkishNet = findViewById(R.id.editTextALESTurkishNet);
         textViewALESTime = findViewById(R.id.textViewALESTime);
-        buttonCalculate = (Button) findViewById(R.id.buttonALESCalculate);
+        buttonCalculate = findViewById(R.id.buttonALESCalculate);
     }
 
-    private void provideSecurityEditTexts() {
+    private void provideViews() {
         CommonUtil.provideEditTextTrue(CommonUtil.FIFTY_QUESTIONS, editTextMathsTrue, editTextMathsFalse, editTextMathsNet);
         CommonUtil.provideEditTextFalse(CommonUtil.FIFTY_QUESTIONS, editTextMathsFalse, editTextMathsTrue, editTextMathsNet);
         CommonUtil.provideEditTextTrue(CommonUtil.FIFTY_QUESTIONS, editTextTurkishTrue, editTextTurkishFalse, editTextTurkishNet);
@@ -108,18 +103,27 @@ public class AlesActivity extends AppCompatActivity {
     private void showResultDailog(double mathsNet, double turkishNet, double numericalResult, double verbalResult, double equalWeightResult) {
         final Dialog dialog = new Dialog(AlesActivity.this);
         dialog.setContentView(R.layout.dialog_ales);
-        TextView textViewMathsNet = dialog.findViewById(R.id.textViewALESResultMathsNet);
-        TextView textViewTurkishNet = dialog.findViewById(R.id.textViewALESResultTurkishNet);
         TextView textViewNumeric = dialog.findViewById(R.id.textViewALESResultNumeric);
         TextView textViewVerbal = dialog.findViewById(R.id.textViewALESResultVerbal);
         TextView textViewEqualWeight = dialog.findViewById(R.id.textViewALESResultEqualWeight);
-        textViewMathsNet.setText(String.valueOf(mathsNet) + CommonUtil.HELPER_NET_TEXT);
-        textViewTurkishNet.setText(String.valueOf(turkishNet) + CommonUtil.HELPER_NET_TEXT);
         textViewNumeric.setText(String.valueOf(CommonUtil.round(numericalResult, 2)));
         textViewVerbal.setText(String.valueOf(CommonUtil.round(verbalResult, 2)));
         textViewEqualWeight.setText(String.valueOf(CommonUtil.round(equalWeightResult, 2)));
         setDialogButtonsListener(dialog);
         dialog.show();
+    }
+
+    private void showAlertDialog() {
+        new AlertDialog.Builder(AlesActivity.this)
+                .setTitle("UYARI!")
+                .setMessage("*Sınav Sonucunuz 2018 katsayılarına göre hesaplanmıştır. Gireceğiniz sınavda ufak farklılıklar gösterebilir.")
+                .setPositiveButton(getResources().getText(R.string.button_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setIcon(getResources().getDrawable(R.drawable.alert_dialog_icon))
+                .show();
     }
 
     private double getNumericalResult(double mathsNet, double turkishNet) {

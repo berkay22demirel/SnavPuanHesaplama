@@ -1,6 +1,8 @@
 package com.berkay22demirel.sinavpuanhesaplama.Util;
 
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
@@ -8,9 +10,17 @@ import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 
 public class CommonUtil {
 
-    public static String HELPER_NET_TEXT = " NET";
+    public static int SIX_QUESTIONS = 6;
+    public static int TEN_QUESTIONS = 10;
+    public static int ELEVEN_QUESTIONS = 11;
+    public static int TWELVE_QUESTIONS = 12;
+    public static int THIRTEEN_QUESTIONS = 13;
+    public static int FOURTEEN_QUESTIONS = 14;
+    public static int TWENTY_QUESTIONS = 20;
+    public static int TWENTY_FOUR_QUESTIONS = 24;
     public static int FIFTY_QUESTIONS = 50;
     public static int FOURTY_QUESTIONS = 40;
+    public static int EIGHTY_QUESTIONS = 80;
 
     public static void provideEditTextTrue(final int totalNumberOfQuestions, final EditText editTextTrue, final EditText editTextFalse, final EditText editTextNet) {
         editTextTrue.addTextChangedListener(new TextWatcher() {
@@ -56,6 +66,30 @@ public class CommonUtil {
                 editTextNet.setText("" + getNet(editTextTrueValue, editFalseTextValue));
             }
         });
+    }
+
+    public static void setEditTextMaxValue(final EditText editText, final int maxValue) {
+        if (editText != null) {
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    int value = ConverterUtil.convertToInteger(editText.getText().toString());
+                    if (value > maxValue) {
+                        editText.setText("" + maxValue);
+                    }
+                }
+            });
+        }
     }
 
     private static void controlNumberOfQuestions(EditText changedEditText, int totalNumberOfQuestions, int changedEditTextValue, int otherEditTextValue) {

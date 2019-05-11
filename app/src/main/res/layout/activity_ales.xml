@@ -126,6 +126,20 @@
                             android:hint="@string/question_false"
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"/>
+
+                        <EditText
+                            android:id="@+id/editTextALESMathsNet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/activity_small_margin"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:inputType="number"
+                            android:hint="@string/question_net"
+                            android:textSize="@dimen/middle_text_size"
+                            android:textColor="@color/black"
+                            android:enabled="false"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -210,6 +224,20 @@
                             android:hint="@string/question_false"
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"/>
+
+                        <EditText
+                            android:id="@+id/editTextALESTurkishNet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/activity_small_margin"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:inputType="number"
+                            android:hint="@string/question_net"
+                            android:textSize="@dimen/middle_text_size"
+                            android:textColor="@color/black"
+                            android:enabled="false"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -226,9 +254,6 @@
         android:id="@+id/buttonALESCalculate"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginRight="@dimen/activity_margin"
-        android:layout_marginBottom="@dimen/activity_margin"
         android:layout_gravity="bottom"
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
@@ -236,7 +261,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/my_button"
+        android:background="@drawable/my_calculate_button"
         android:textColor="@color/yellow"
         android:textStyle="bold"
         android:textSize="@dimen/middle_text_size"
