@@ -24,6 +24,8 @@ public class CommonUtil {
     public static int FIFTY_QUESTIONS = 50;
     public static int SIXTY_QUESTIONS = 60;
     public static int EIGHTY_QUESTIONS = 80;
+    public static int HUNDRED_QUESTIONS = 100;
+    public static int HUNDRED_TWENTY_QUESTIONS = 120;
 
     public static void provideEditTextTrue(final int totalNumberOfQuestions, final EditText editTextTrue, final EditText editTextFalse, final EditText editTextNet) {
         editTextTrue.addTextChangedListener(new TextWatcher() {

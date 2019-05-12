@@ -22,7 +22,6 @@ public class ExamDateUtil {
     private static List<Date> kpssDateList;
     private static List<Date> tusDateList;
     private static List<Date> ydsDateList;
-    private static List<Date> ydusDateList;
     private static List<Date> yksDateList;
 
     public static Date getNextExamDate(String examName) {
@@ -56,8 +55,6 @@ public class ExamDateUtil {
                 return getTusDateList();
             } else if (ExamsEnum.YDS.getTitle().equals(examName)) {
                 return getYdsDateList();
-            } else if (ExamsEnum.YDUS.getTitle().equals(examName)) {
-                return getYdusDateList();
             } else if (ExamsEnum.YKS.getTitle().equals(examName)) {
                 return getYksDateList();
             }
@@ -141,15 +138,6 @@ public class ExamDateUtil {
         ydsDateList.add(getDate(2019, 8, 8, 10, 15));
         ydsDateList.add(getDate(2019, 11, 1, 10, 15));
         return ydsDateList;
-    }
-
-    private static List<Date> getYdusDateList() {
-        if (ValidatorUtil.isValidList(ydusDateList)) {
-            return ydusDateList;
-        }
-        ydusDateList = new ArrayList<>();
-        ydusDateList.add(getDate(2019, 11, 22, 10, 15));
-        return ydusDateList;
     }
 
     private static List<Date> getYksDateList() {

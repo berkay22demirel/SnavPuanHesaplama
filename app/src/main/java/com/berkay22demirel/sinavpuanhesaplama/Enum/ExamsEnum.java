@@ -9,7 +9,6 @@ import com.berkay22demirel.sinavpuanhesaplama.KpssActivity;
 import com.berkay22demirel.sinavpuanhesaplama.Model.Exam;
 import com.berkay22demirel.sinavpuanhesaplama.TusActivity;
 import com.berkay22demirel.sinavpuanhesaplama.YdsActivity;
-import com.berkay22demirel.sinavpuanhesaplama.YdusActivity;
 import com.berkay22demirel.sinavpuanhesaplama.YksActivity;
 
 import java.util.ArrayList;
@@ -24,8 +23,7 @@ public enum ExamsEnum {
     EKPSS(6, "EKPSS", "Engelli Kamu Personeli Seçme Sınavı", EkpssActivity.class),
     DUS(7, "DUS", "Diş Hekimliği Uzmanlık Sınavı", DusActivity.class),
     TUS(8, "TUS", "Tıpta Uzmanlık Sınavı", TusActivity.class),
-    YDUS(9, "YDUS", "Tıpta Yan Dal Uzmanlık Sınavı", YdusActivity.class),
-    EUS(10, "EUS", "Eczacılıkta Uzmanlık Sınavı", EusActivity.class);
+    EUS(9, "EUS", "Eczacılıkta Uzmanlık Sınavı", EusActivity.class);
 
     private int id;
     private String title;

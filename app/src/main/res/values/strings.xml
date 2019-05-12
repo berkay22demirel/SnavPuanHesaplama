@@ -43,6 +43,11 @@
     <string name="lesson_verbal">Sözel Testi</string>
     <string name="lesson_general_knowledge">Genel Kültür</string>
     <string name="lesson_general_ability">Genel Yetenek</string>
+    <string name="lesson_basic_sciences">Temel Bilimler</string>
+    <string name="lesson_clinical_sciences">Klinik Bilimler</string>
+    <string name="lesson_basic_medicine_sciences">Temel Tıp Bilimleri</string>
+    <string name="lesson_clinical_medicine_sciences">Klinik Tıp Bilimleri</string>
+    <string name="lesson_eus">Eczacılıkta Uzmanık Sınavı</string>
     <string name="diploma_grade">Diploma Notu</string>
     <string name="diploma_grade_description">0-100</string>
     <string name="associate_degree_success_grade">Önlisans Başarı Puanı</string>
@@ -71,6 +76,8 @@
     <string name="questions_fifty">50 Soru</string>
     <string name="questions_sixty">60 Soru</string>
     <string name="questions_eighty">80 Soru</string>
+    <string name="questions_hundred">100 Soru</string>
+    <string name="questions_hundred_twenty">120 Soru</string>
     <string name="result_maths_net">Matematik Testi</string>
     <string name="result_turkish_net">Türkçe Testi</string>
     <string name="result_default_net">0 Net</string>
@@ -82,9 +89,17 @@
     <string name="result_save_name">Sınav Adını Giriniz...</string>
     <string name="result_calculated_points">Yerleştirme Puanları</string>
     <string name="result_simple_points">Ham Puanlar</string>
+    <string name="result_graduate_medicine_title">Tıp Fakültesi Mezunu Adaylar İçin Puanlar</string>
+    <string name="result_not_graduate_medicine_title">Tıp Dışı Meslek Mensubu Adaylar İçin Puanlar</string>
+    <string name="result_graduate_medicine_k_point">Ağırlıklı Klinik Tıp Bilimleri (K) Puanı</string>
+    <string name="result_graduate_medicine_t_point">Ağırlıklı Temel Tıp Bilimleri (T) Puanı</string>
+    <string name="result_graduate_medicine_a_point">Aile Hekimliği Uzmanlık Eğitimi (A) Puanı</string>
+    <string name="result_not_graduate_medicine_t_point">Ağırlıklı Temel Tıp Bilimleri (T) Puanı</string>
     <string name="result_tyt">TYT Puanı</string>
     <string name="result_yds">YDS Puanı</string>
     <string name="result_yds_level">YDS Seviyesi</string>
     <string name="result_ekpss">EKPSS Puanı</string>
+    <string name="result_dus">DUS Puanı</string>
+    <string name="result_eus">EUS Puanı</string>
     <string name="error_validate">Lütfen bu alanı doldurunuz!</string>
 </resources>

@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".EusActivity"></activity>
-        <activity android:name=".YdusActivity" />
         <activity android:name=".TusActivity" />
         <activity android:name=".DusActivity" />
         <activity android:name=".EkpssActivity" />
