@@ -41,11 +41,14 @@
     <string name="lesson_language">Yabancı Dil</string>
     <string name="lesson_numerical">Sayısal Testi</string>
     <string name="lesson_verbal">Sözel Testi</string>
+    <string name="lesson_general_knowledge">Genel Kültür</string>
+    <string name="lesson_general_ability">Genel Yetenek</string>
     <string name="diploma_grade">Diploma Notu</string>
     <string name="diploma_grade_description">0-100</string>
     <string name="associate_degree_success_grade">Önlisans Başarı Puanı</string>
     <string name="diploma_notification">Daha Önce Bir Bölüme Yerleştim</string>
     <string name="dgs_notification">Daha önce Bir DGS programına yerleştim</string>
+    <string name="ekpss_type">EKPSS Düzeyi</string>
     <string name="exam_yks_1">TYT Sınavı (YKS 1. Oturum)</string>
     <string name="exam_yks_2">AYT Sınavı (YKS 2. Oturum)</string>
     <string name="exam_yks_2_science">Fen Bilimleri</string>
@@ -63,6 +66,7 @@
     <string name="questions_fourteen">14 Soru</string>
     <string name="questions_twenty">20 Soru</string>
     <string name="questions_twenty_four">24 Soru</string>
+    <string name="questions_thirty">30 Soru</string>
     <string name="questions_forty">40 Soru</string>
     <string name="questions_fifty">50 Soru</string>
     <string name="questions_sixty">60 Soru</string>
@@ -81,5 +85,6 @@
     <string name="result_tyt">TYT Puanı</string>
     <string name="result_yds">YDS Puanı</string>
     <string name="result_yds_level">YDS Seviyesi</string>
+    <string name="result_ekpss">EKPSS Puanı</string>
     <string name="error_validate">Lütfen bu alanı doldurunuz!</string>
 </resources>

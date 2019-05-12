@@ -19,6 +19,7 @@ public class CommonUtil {
     public static int FOURTEEN_QUESTIONS = 14;
     public static int TWENTY_QUESTIONS = 20;
     public static int TWENTY_FOUR_QUESTIONS = 24;
+    public static int THIRTY_QUESTIONS = 30;
     public static int FOURTY_QUESTIONS = 40;
     public static int FIFTY_QUESTIONS = 50;
     public static int SIXTY_QUESTIONS = 60;
