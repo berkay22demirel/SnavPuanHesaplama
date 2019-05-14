@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Enum.EkpssTypeEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
@@ -32,12 +33,6 @@ public class EkpssActivity extends AppCompatActivity {
     TextView textViewEKPSSTime;
     Button buttonCalculate;
     private static final String PAGE_TITLE = ExamsEnum.EKPSS.getTitle();
-    private static final String SECONDARY_EDUCATION_STRING = "Ortaöğretim";
-    private static final int SECONDARY_EDUCATION_CODE = 0;
-    private static final String ASSOCIATE_DEGREE_STRING = "Önlisans";
-    private static final int ASSOCIATE_DEGREE_CODE = 1;
-    private static final String BACHELOR_DEGREE_STRING = "Lisans";
-    private static final int BACHELOR_DEGREE_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +83,7 @@ public class EkpssActivity extends AppCompatActivity {
         CommonUtil.provideEditTextFalse(CommonUtil.THIRTY_QUESTIONS, editTextGeneralAbilityFalse, editTextGeneralAbilityTrue, editTextGeneralAbilityNet);
         CommonUtil.provideEditTextTrue(CommonUtil.THIRTY_QUESTIONS, editTextGeneralKnowledgeTrue, editTextGeneralKnowledgeFalse, editTextGeneralKnowledgeNet);
         CommonUtil.provideEditTextFalse(CommonUtil.THIRTY_QUESTIONS, editTextGeneralKnowledgeFalse, editTextGeneralKnowledgeTrue, editTextGeneralKnowledgeNet);
-        String[] ekpssType = {SECONDARY_EDUCATION_STRING, ASSOCIATE_DEGREE_STRING, BACHELOR_DEGREE_STRING};
+        String[] ekpssType = EkpssTypeEnum.getEkpssTypes();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ekpssType);
         spinnerEKPSSType.setAdapter(adapter);
         DateTimeUtil.addCountDown(textViewEKPSSTime, PAGE_TITLE);
@@ -135,11 +130,11 @@ public class EkpssActivity extends AppCompatActivity {
 
     private double getResult(double generalAbilityNet, double generalKnowledgeNet, int ekpssType) {
         if (generalAbilityNet != 0.0 || generalKnowledgeNet != 0.0) {
-            if (ekpssType == SECONDARY_EDUCATION_CODE) {
+            if (EkpssTypeEnum.SECONDARY_EDUCATION.getId() == ekpssType) {
                 return 57.420 + generalAbilityNet * 0.637 + generalKnowledgeNet * 0.783;
-            } else if (ekpssType == ASSOCIATE_DEGREE_CODE) {
+            } else if (EkpssTypeEnum.ASSOCIATE_DEGREE.getId() == ekpssType) {
                 return 55.262 + generalAbilityNet * 0.772 + generalKnowledgeNet * 0.725;
-            } else if (ekpssType == BACHELOR_DEGREE_CODE) {
+            } else if (EkpssTypeEnum.BACHELOR_DEGREE.getId() == ekpssType) {
                 return 50.906 + generalAbilityNet * 0.878 + generalKnowledgeNet * 0.759;
             }
         }

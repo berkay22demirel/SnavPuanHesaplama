@@ -17,4 +17,11 @@ public class ValidatorUtil {
         }
         return false;
     }
+
+    public static <T> boolean isValidArray(Object[] array) {
+        if (array != null && array.length > 0) {
+            return true;
+        }
+        return false;
+    }
 }
