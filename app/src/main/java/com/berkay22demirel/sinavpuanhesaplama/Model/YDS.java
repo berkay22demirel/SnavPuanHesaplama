@@ -1,18 +1,18 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
 public class YDS {
-    private Integer id;
+    private Long id;
     private String name;
     private Integer languageTrue;
     private Integer languageFalse;
     private Double languageNet;
     private Double result;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

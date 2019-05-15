@@ -1,7 +1,7 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
 public class TUS {
-    private Integer id;
+    private Long id;
     private String name;
     private Integer basicMedicineSciencesTrue;
     private Integer basicMedicineSciencesFalse;
@@ -14,11 +14,11 @@ public class TUS {
     private Double graduateMedicineAPoint;
     private Double notGraduateMedicineTPoint;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

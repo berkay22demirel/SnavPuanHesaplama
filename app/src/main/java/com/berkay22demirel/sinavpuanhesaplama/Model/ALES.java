@@ -1,7 +1,7 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
 public class ALES {
-    private Integer id;
+    private Long id;
     private String name;
     private Integer mathsTrue;
     private Integer mathsFalse;
@@ -9,15 +9,15 @@ public class ALES {
     private Integer turkishTrue;
     private Integer turkishFalse;
     private Double turkishNet;
-    private Double numericResult;
+    private Double numericalResult;
     private Double verbalResult;
     private Double equalWeightResult;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -77,12 +77,12 @@ public class ALES {
         this.turkishNet = turkishNet;
     }
 
-    public Double getNumericResult() {
-        return numericResult;
+    public Double getNumericalResult() {
+        return numericalResult;
     }
 
-    public void setNumericResult(Double numericResult) {
-        this.numericResult = numericResult;
+    public void setNumericalResult(Double numericResult) {
+        this.numericalResult = numericResult;
     }
 
     public Double getVerbalResult() {

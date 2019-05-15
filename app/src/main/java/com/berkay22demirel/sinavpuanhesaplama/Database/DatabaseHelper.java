@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             EXAMS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             EXAMS_COLUMN_NAME + " TEXT NOT NULL, " +
             EXAMS_COLUMN_EXAM_TYPE + " INTEGER NOT NULL, " +
-            EXAMS_COLUMN_EXAM_SUB_TYPE + " INTEGER NOT NULL); ";
+            EXAMS_COLUMN_EXAM_SUB_TYPE + " INTEGER); ";
     private static final String QUESTIONS_TABLE_CREATE = "CREATE TABLE " + QUESTIONS_TABLE_NAME + " (" +
             QUESTIONS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             QUESTIONS_COLUMN_EXAM_ID + " INTEGER NOT NULL, " +

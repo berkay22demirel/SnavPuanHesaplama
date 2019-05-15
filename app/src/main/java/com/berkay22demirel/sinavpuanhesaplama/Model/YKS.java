@@ -3,7 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama.Model;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 
 public class YKS {
-    private Integer id;
+    private Long id;
     private String name;
     private Integer diplomaGrade;
     private Integer turkishTrue;
@@ -66,11 +66,11 @@ public class YKS {
     private Double resultCalculatedEqualWeight;
     private Double resultCalculatedLanguage;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

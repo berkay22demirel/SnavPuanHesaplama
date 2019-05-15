@@ -1,18 +1,18 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
 public class EUS {
-    private Integer id;
+    private Long id;
     private String name;
-    private Integer editTextTrue;
-    private Integer editTextFalse;
-    private Double editTextNet;
+    private Integer eusTrue;
+    private Integer eusFalse;
+    private Double eusNet;
     private Double result;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -24,28 +24,28 @@ public class EUS {
         this.name = name;
     }
 
-    public Integer getEditTextTrue() {
-        return editTextTrue;
+    public Integer getEusTrue() {
+        return eusTrue;
     }
 
-    public void setEditTextTrue(Integer editTextTrue) {
-        this.editTextTrue = editTextTrue;
+    public void setEusTrue(Integer eusTrue) {
+        this.eusTrue = eusTrue;
     }
 
-    public Integer getEditTextFalse() {
-        return editTextFalse;
+    public Integer getEusFalse() {
+        return eusFalse;
     }
 
-    public void setEditTextFalse(Integer editTextFalse) {
-        this.editTextFalse = editTextFalse;
+    public void setEusFalse(Integer eusFalse) {
+        this.eusFalse = eusFalse;
     }
 
-    public Double getEditTextNet() {
-        return editTextNet;
+    public Double getEusNet() {
+        return eusNet;
     }
 
-    public void setEditTextNet(Double editTextNet) {
-        this.editTextNet = editTextNet;
+    public void setEusNet(Double eusNet) {
+        this.eusNet = eusNet;
     }
 
     public Double getResult() {

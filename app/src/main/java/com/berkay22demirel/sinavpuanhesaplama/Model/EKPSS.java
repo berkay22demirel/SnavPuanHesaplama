@@ -3,63 +3,79 @@ package com.berkay22demirel.sinavpuanhesaplama.Model;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.EkpssTypeEnum;
 
 public class EKPSS {
-    private Integer id;
+    private Long id;
     private String name;
-    private Integer editTextGeneralAbilityTrue;
-    private Integer editTextGeneralAbilityFalse;
-    private Double editTextGeneralAbilityNet;
-    private Integer editTextGeneralKnowledgeTrue;
-    private Integer editTextGeneralKnowledgeFalse;
-    private Double editTextGeneralKnowledgeNet;
+    private Integer generalAbilityTrue;
+    private Integer generalAbilityFalse;
+    private Double generalAbilityNet;
+    private Integer generalKnowledgeTrue;
+    private Integer generalKnowledgeFalse;
+    private Double generalKnowledgeNet;
     private EkpssTypeEnum ekpssType;
     private Double result;
 
-    public Integer getEditTextGeneralAbilityTrue() {
-        return editTextGeneralAbilityTrue;
+    public Long getId() {
+        return id;
     }
 
-    public void setEditTextGeneralAbilityTrue(Integer editTextGeneralAbilityTrue) {
-        this.editTextGeneralAbilityTrue = editTextGeneralAbilityTrue;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Integer getEditTextGeneralAbilityFalse() {
-        return editTextGeneralAbilityFalse;
+    public String getName() {
+        return name;
     }
 
-    public void setEditTextGeneralAbilityFalse(Integer editTextGeneralAbilityFalse) {
-        this.editTextGeneralAbilityFalse = editTextGeneralAbilityFalse;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Double getEditTextGeneralAbilityNet() {
-        return editTextGeneralAbilityNet;
+    public Integer getGeneralAbilityTrue() {
+        return generalAbilityTrue;
     }
 
-    public void setEditTextGeneralAbilityNet(Double editTextGeneralAbilityNet) {
-        this.editTextGeneralAbilityNet = editTextGeneralAbilityNet;
+    public void setGeneralAbilityTrue(Integer generalAbilityTrue) {
+        this.generalAbilityTrue = generalAbilityTrue;
     }
 
-    public Integer getEditTextGeneralKnowledgeTrue() {
-        return editTextGeneralKnowledgeTrue;
+    public Integer getGeneralAbilityFalse() {
+        return generalAbilityFalse;
     }
 
-    public void setEditTextGeneralKnowledgeTrue(Integer editTextGeneralKnowledgeTrue) {
-        this.editTextGeneralKnowledgeTrue = editTextGeneralKnowledgeTrue;
+    public void setGeneralAbilityFalse(Integer generalAbilityFalse) {
+        this.generalAbilityFalse = generalAbilityFalse;
     }
 
-    public Integer getEditTextGeneralKnowledgeFalse() {
-        return editTextGeneralKnowledgeFalse;
+    public Double getGeneralAbilityNet() {
+        return generalAbilityNet;
     }
 
-    public void setEditTextGeneralKnowledgeFalse(Integer editTextGeneralKnowledgeFalse) {
-        this.editTextGeneralKnowledgeFalse = editTextGeneralKnowledgeFalse;
+    public void setGeneralAbilityNet(Double generalAbilityNet) {
+        this.generalAbilityNet = generalAbilityNet;
     }
 
-    public Double getEditTextGeneralKnowledgeNet() {
-        return editTextGeneralKnowledgeNet;
+    public Integer getGeneralKnowledgeTrue() {
+        return generalKnowledgeTrue;
     }
 
-    public void setEditTextGeneralKnowledgeNet(Double editTextGeneralKnowledgeNet) {
-        this.editTextGeneralKnowledgeNet = editTextGeneralKnowledgeNet;
+    public void setGeneralKnowledgeTrue(Integer generalKnowledgeTrue) {
+        this.generalKnowledgeTrue = generalKnowledgeTrue;
+    }
+
+    public Integer getGeneralKnowledgeFalse() {
+        return generalKnowledgeFalse;
+    }
+
+    public void setGeneralKnowledgeFalse(Integer generalKnowledgeFalse) {
+        this.generalKnowledgeFalse = generalKnowledgeFalse;
+    }
+
+    public Double getGeneralKnowledgeNet() {
+        return generalKnowledgeNet;
+    }
+
+    public void setGeneralKnowledgeNet(Double generalKnowledgeNet) {
+        this.generalKnowledgeNet = generalKnowledgeNet;
     }
 
     public EkpssTypeEnum getEkpssType() {

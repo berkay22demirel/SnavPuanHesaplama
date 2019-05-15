@@ -1,7 +1,7 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
 public class DGS {
-    private Integer id;
+    private Long id;
     private String name;
     private Integer numericalTrue;
     private Integer numericalFalse;
@@ -15,11 +15,11 @@ public class DGS {
     private Double verbalResult;
     private Double equalWeightResult;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

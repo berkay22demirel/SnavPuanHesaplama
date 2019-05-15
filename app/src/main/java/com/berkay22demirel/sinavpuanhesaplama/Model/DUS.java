@@ -1,7 +1,7 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
 public class DUS {
-    private Integer id;
+    private Long id;
     private String name;
     private Integer basicSciencesTrue;
     private Integer basicSciencesFalse;
@@ -10,6 +10,22 @@ public class DUS {
     private Integer clinicalSciencesFalse;
     private Double clinicalSciencesNet;
     private Double result;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Integer getBasicSciencesTrue() {
         return basicSciencesTrue;
