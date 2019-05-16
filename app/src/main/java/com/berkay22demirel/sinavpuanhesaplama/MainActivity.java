@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
-import com.berkay22demirel.sinavpuanhesaplama.Model.Exam;
+import com.berkay22demirel.sinavpuanhesaplama.Model.ExamType;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ValidatorUtil;
 
 import java.util.List;
@@ -98,12 +98,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void addClickListenerToCardViews() {
-        List<Exam> examList = ExamsEnum.getExamsList();
-        if (ValidatorUtil.isValidList(examList)) {
-            for (Exam exam : examList) {
-                String cardViewId = "cardView" + exam.getTitle();
+        List<ExamType> examTypeList = ExamsEnum.getExamsList();
+        if (ValidatorUtil.isValidList(examTypeList)) {
+            for (ExamType examType : examTypeList) {
+                String cardViewId = "cardView" + examType.getTitle();
                 CardView cardView = (CardView) findViewById(getResources().getIdentifier(cardViewId, "id", getPackageName()));
-                addClickListenerToCardView(cardView, exam.getActivityReferance());
+                addClickListenerToCardView(cardView, examType.getActivityReferance());
             }
         }
     }

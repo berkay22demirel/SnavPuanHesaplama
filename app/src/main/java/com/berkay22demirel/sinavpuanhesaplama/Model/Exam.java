@@ -1,40 +1,31 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
 public class Exam {
-    private int id;
-    private String title;
-    private String description;
-    private Class activityReferance;
+    private Long id;
+    private String name;
+    private Integer examSubType;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getExamSubType() {
+        return examSubType;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Class getActivityReferance() {
-        return activityReferance;
-    }
-
-    public void setActivityReferance(Class activityReferance) {
-        this.activityReferance = activityReferance;
+    public void setExamSubType(Integer examSubType) {
+        this.examSubType = examSubType;
     }
 }

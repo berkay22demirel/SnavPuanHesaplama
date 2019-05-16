@@ -28,6 +28,16 @@ public enum EkpssTypeEnum {
         return ekpssTypes;
     }
 
+    public static EkpssTypeEnum getEkpssTypeById(int id) {
+        EkpssTypeEnum[] ekpssTypeEnum = EkpssTypeEnum.values();
+        for (int i = 0; i < ekpssTypeEnum.length; i++) {
+            if (id == ekpssTypeEnum[i].getId()) {
+                return ekpssTypeEnum[i];
+            }
+        }
+        return null;
+    }
+
     public int getId() {
         return id;
     }

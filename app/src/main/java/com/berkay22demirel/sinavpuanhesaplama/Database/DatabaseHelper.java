@@ -14,6 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String EXAMS_COLUMN_NAME = "NAME";
     public static final String EXAMS_COLUMN_EXAM_TYPE = "EXAM_TYPE";
     public static final String EXAMS_COLUMN_EXAM_SUB_TYPE = "EXAM_SUB_TYPE";
+    public static final String[] EXAM_FULL_PROJECTION = new String[]{EXAMS_COLUMN_ID, EXAMS_COLUMN_NAME, EXAMS_COLUMN_EXAM_TYPE, EXAMS_COLUMN_EXAM_SUB_TYPE};
     public static final String QUESTIONS_TABLE_NAME = "QUESTIONS";
     public static final String QUESTIONS_COLUMN_ID = "_ID";
     public static final String QUESTIONS_COLUMN_EXAM_ID = "EXAM_ID";
@@ -21,11 +22,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String QUESTIONS_COLUMN_TRUE = "TRUE";
     public static final String QUESTIONS_COLUMN_FALSE = "FALSE";
     public static final String QUESTIONS_COLUMN_NET = "NET";
+    public static final String[] QUESTIONS_FULL_PROJECTION = new String[]{QUESTIONS_COLUMN_ID, QUESTIONS_COLUMN_EXAM_ID, QUESTIONS_COLUMN_LESSON_ID, QUESTIONS_COLUMN_TRUE, QUESTIONS_COLUMN_FALSE, QUESTIONS_COLUMN_NET};
     public static final String RESULTS_TABLE_NAME = "RESULTS";
     public static final String RESULTS_COLUMN_ID = "_ID";
     public static final String RESULTS_COLUMN_EXAM_ID = "EXAM";
     public static final String RESULTS_COLUMN_RESULT_TYPE = "RESULT_TYPE";
     public static final String RESULTS_COLUMN_RESULT = "RESULT";
+    public static final String[] RESULTS_FULL_PROJECTION = new String[]{RESULTS_COLUMN_ID, RESULTS_COLUMN_EXAM_ID, RESULTS_COLUMN_RESULT_TYPE, RESULTS_COLUMN_RESULT};
     private static final String EXAMS_TABLE_CREATE = "CREATE TABLE " + EXAMS_TABLE_NAME + " (" +
             EXAMS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             EXAMS_COLUMN_NAME + " TEXT NOT NULL, " +

@@ -6,7 +6,7 @@ import com.berkay22demirel.sinavpuanhesaplama.DusActivity;
 import com.berkay22demirel.sinavpuanhesaplama.EkpssActivity;
 import com.berkay22demirel.sinavpuanhesaplama.EusActivity;
 import com.berkay22demirel.sinavpuanhesaplama.KpssActivity;
-import com.berkay22demirel.sinavpuanhesaplama.Model.Exam;
+import com.berkay22demirel.sinavpuanhesaplama.Model.ExamType;
 import com.berkay22demirel.sinavpuanhesaplama.TusActivity;
 import com.berkay22demirel.sinavpuanhesaplama.YdsActivity;
 import com.berkay22demirel.sinavpuanhesaplama.YksActivity;
@@ -29,7 +29,7 @@ public enum ExamsEnum {
     private String title;
     private String description;
     private Class activityReferance;
-    private static List<Exam> examsList;
+    private static List<ExamType> examsList;
 
     ExamsEnum(int id, String title, String description, Class activityReferance) {
         this.id = id;
@@ -38,18 +38,18 @@ public enum ExamsEnum {
         this.activityReferance = activityReferance;
     }
 
-    public static List<Exam> getExamsList() {
+    public static List<ExamType> getExamsList() {
         if (examsList != null && !examsList.isEmpty()) {
             return examsList;
         }
         examsList = new ArrayList<>();
         for (ExamsEnum examsEnum : ExamsEnum.values()) {
-            Exam exam = new Exam();
-            exam.setId(examsEnum.getId());
-            exam.setTitle(examsEnum.getTitle());
-            exam.setDescription(examsEnum.getDescription());
-            exam.setActivityReferance(examsEnum.getActivityReferance());
-            examsList.add(exam);
+            ExamType examType = new ExamType();
+            examType.setId(examsEnum.getId());
+            examType.setTitle(examsEnum.getTitle());
+            examType.setDescription(examsEnum.getDescription());
+            examType.setActivityReferance(examsEnum.getActivityReferance());
+            examsList.add(examType);
         }
         return examsList;
     }
