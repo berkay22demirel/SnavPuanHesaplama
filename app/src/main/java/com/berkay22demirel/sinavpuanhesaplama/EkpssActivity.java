@@ -53,7 +53,7 @@ public class EkpssActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.exam_menu, menu);
         return true;
     }
 
@@ -106,6 +106,7 @@ public class EkpssActivity extends AppCompatActivity {
         ekpss.setGeneralKnowledgeNet(CommonUtil.getNet(ekpss.getGeneralKnowledgeTrue(), ekpss.getGeneralKnowledgeFalse()));
         ekpss.setExamSubType(spinnerEKPSSType.getSelectedItemPosition());
         ekpss.setResult(ekpssService.getResult(ekpss.getGeneralAbilityNet(), ekpss.getGeneralKnowledgeNet(), ekpss.getExamSubType()));
+        ekpss.setExamType(ExamsEnum.EKPSS.getId());
         return ekpss;
     }
 

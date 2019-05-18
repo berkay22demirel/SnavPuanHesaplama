@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.berkay22demirel.sinavpuanhesaplama.Adapter.SavedExamsAdapter;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.ExamType;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ValidatorUtil;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            Intent intent = new Intent(MainActivity.this, SavedExamsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

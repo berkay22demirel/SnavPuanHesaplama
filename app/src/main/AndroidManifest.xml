@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EusActivity"></activity>
+        <activity android:name=".SavedExamsActivity"></activity>
+        <activity android:name=".EusActivity" />
         <activity android:name=".TusActivity" />
         <activity android:name=".DusActivity" />
         <activity android:name=".EkpssActivity" />

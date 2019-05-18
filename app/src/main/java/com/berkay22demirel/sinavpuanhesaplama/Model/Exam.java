@@ -1,8 +1,11 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
+import android.content.Intent;
+
 public class Exam {
     private Long id;
     private String name;
+    private Integer examType;
     private Integer examSubType;
 
     public Long getId() {
@@ -19,6 +22,14 @@ public class Exam {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getExamType() {
+        return examType;
+    }
+
+    public void setExamType(Integer examType) {
+        this.examType = examType;
     }
 
     public Integer getExamSubType() {

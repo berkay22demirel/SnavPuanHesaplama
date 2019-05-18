@@ -95,7 +95,7 @@ public class YksActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.exam_menu, menu);
         return true;
     }
 
@@ -254,6 +254,7 @@ public class YksActivity extends AppCompatActivity {
         yks.setResultCalculatedVerbal(yksService.getCalculatedVerbalResult(yks));
         yks.setResultCalculatedEqualWeight(yksService.getCalculatedEqualWeightResult(yks));
         yks.setResultCalculatedLanguage(yksService.getCalculatedLanguageResult(yks));
+        yks.setExamType(ExamsEnum.YKS.getId());
         return yks;
     }
 

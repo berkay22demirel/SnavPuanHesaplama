@@ -8,6 +8,7 @@ import com.berkay22demirel.sinavpuanhesaplama.EusActivity;
 import com.berkay22demirel.sinavpuanhesaplama.KpssActivity;
 import com.berkay22demirel.sinavpuanhesaplama.Model.ExamType;
 import com.berkay22demirel.sinavpuanhesaplama.TusActivity;
+import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.YdsActivity;
 import com.berkay22demirel.sinavpuanhesaplama.YksActivity;
 
@@ -52,6 +53,17 @@ public enum ExamsEnum {
             examsList.add(examType);
         }
         return examsList;
+    }
+
+    public static String getName(Integer id) {
+        if (id != null) {
+            for (ExamsEnum examsEnum : ExamsEnum.values()) {
+                if (id.compareTo(examsEnum.getId()) == 0) {
+                    return examsEnum.getTitle();
+                }
+            }
+        }
+        return CommonUtil.EMPTY_STRING;
     }
 
     public int getId() {

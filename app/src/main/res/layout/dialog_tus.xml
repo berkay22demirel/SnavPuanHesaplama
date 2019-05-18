@@ -206,7 +206,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/middle_text_size"
                         android:textColor="@color/black"
-                        android:hint="@string/result_save_name"/>
+                        android:hint="@string/result_save_name"
+                        android:maxLength="20"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

@@ -50,7 +50,7 @@ public class DusActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.exam_menu, menu);
         return true;
     }
 
@@ -98,6 +98,7 @@ public class DusActivity extends AppCompatActivity {
         dus.setClinicalSciencesFalse(ConverterUtil.convertToInteger(editTextClinicalSciencesFalse.getText().toString()));
         dus.setClinicalSciencesNet(CommonUtil.getNet(dus.getClinicalSciencesTrue(), dus.getClinicalSciencesFalse()));
         dus.setResult(dusService.getResult(dus.getBasicSciencesNet(), dus.getClinicalSciencesNet()));
+        dus.setExamType(ExamsEnum.DUS.getId());
         return dus;
     }
 

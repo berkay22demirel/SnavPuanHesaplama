@@ -50,7 +50,7 @@ public class AlesActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.exam_menu, menu);
         return true;
     }
 
@@ -100,6 +100,7 @@ public class AlesActivity extends AppCompatActivity {
         ales.setNumericalResult(alesService.getNumericalResult(ales.getMathsNet(), ales.getTurkishNet()));
         ales.setVerbalResult(alesService.getVerbalResult(ales.getMathsNet(), ales.getTurkishNet()));
         ales.setEqualWeightResult(alesService.getEqualWeightResult(ales.getMathsNet(), ales.getTurkishNet()));
+        ales.setExamType(ExamsEnum.ALES.getId());
         return ales;
     }
 

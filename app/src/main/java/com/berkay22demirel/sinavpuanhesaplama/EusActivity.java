@@ -47,7 +47,7 @@ public class EusActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.exam_menu, menu);
         return true;
     }
 
@@ -87,6 +87,7 @@ public class EusActivity extends AppCompatActivity {
         eus.setEusFalse(ConverterUtil.convertToInteger(editTextFalse.getText().toString()));
         eus.setEusNet(CommonUtil.getNet(eus.getEusTrue(), eus.getEusFalse()));
         eus.setResult(eusService.getResult(eus.getEusNet()));
+        eus.setExamType(ExamsEnum.EUS.getId());
         return eus;
     }
 

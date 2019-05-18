@@ -47,7 +47,7 @@ public class YdsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.exam_menu, menu);
         return true;
     }
 
@@ -87,6 +87,7 @@ public class YdsActivity extends AppCompatActivity {
         yds.setLanguageFalse(ConverterUtil.convertToInteger(editTextLanguageFalse.getText().toString()));
         yds.setLanguageNet(CommonUtil.getNet(yds.getLanguageTrue(), yds.getLanguageFalse()));
         yds.setResult(ydsService.getResult(yds.getLanguageNet()));
+        yds.setExamType(ExamsEnum.YDS.getId());
         return yds;
     }
 

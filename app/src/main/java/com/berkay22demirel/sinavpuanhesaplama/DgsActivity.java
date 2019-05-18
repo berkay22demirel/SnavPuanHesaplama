@@ -52,7 +52,7 @@ public class DgsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.exam_menu, menu);
         return true;
     }
 
@@ -105,6 +105,7 @@ public class DgsActivity extends AppCompatActivity {
         dgs.setAssociateDegreeSuccessGrade(ConverterUtil.convertToInteger(editTextAssociateDegreeSuccessGrade.getText().toString()));
         dgs.setBeforeResult(checkBoxBeforeResult.isChecked());
         dgsService.setResult(dgs);
+        dgs.setExamType(ExamsEnum.DGS.getId());
         return dgs;
     }
 

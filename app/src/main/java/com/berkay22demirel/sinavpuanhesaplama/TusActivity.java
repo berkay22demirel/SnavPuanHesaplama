@@ -50,7 +50,7 @@ public class TusActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.exam_menu, menu);
         return true;
     }
 
@@ -101,6 +101,7 @@ public class TusActivity extends AppCompatActivity {
         tus.setGraduateMedicineKPoint(tusService.getGraduateMedicineKPoint(tus.getBasicMedicineSciencesNet(), tus.getClinicalMedicineSciencesNet()));
         tus.setGraduateMedicineAPoint(tusService.getGraduateMedicineAPoint(tus.getClinicalMedicineSciencesNet()));
         tus.setNotGraduateMedicineTPoint(tusService.getNotGraduateMedicineTPoint(tus.getBasicMedicineSciencesNet()));
+        tus.setExamType(ExamsEnum.TUS.getId());
         return tus;
     }
 
