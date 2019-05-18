@@ -3,6 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,13 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Model.DGS;
+import com.berkay22demirel.sinavpuanhesaplama.Service.DgsService;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 
 public class DgsActivity extends AppCompatActivity {
 
+    DatabaseManager databaseManager;
     EditText editTextNumericalTrue;
     EditText editTextNumericalFalse;
     EditText editTextNumericalNet;
@@ -39,9 +44,10 @@ public class DgsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dgs);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        databaseManager = new DatabaseManager(this);
         setViewReferences();
         provideViews();
-        setCalculateButtonListener();
+        setViewListeners();
     }
 
     @Override
@@ -87,38 +93,40 @@ public class DgsActivity extends AppCompatActivity {
         DateTimeUtil.addCountDown(textViewDGSTime, PAGE_TITLE);
     }
 
-    private void setCalculateButtonListener() {
+    private DGS getDgs() {
+        DGS dgs = new DGS();
+        DgsService dgsService = DgsService.getDgsService();
+        dgs.setNumericalTrue(ConverterUtil.convertToInteger(editTextNumericalTrue.getText().toString()));
+        dgs.setNumericalFalse(ConverterUtil.convertToInteger(editTextNumericalFalse.getText().toString()));
+        dgs.setNumericalNet(CommonUtil.getNet(dgs.getNumericalTrue(), dgs.getNumericalFalse()));
+        dgs.setVerbalTrue(ConverterUtil.convertToInteger(editTextVerbalTrue.getText().toString()));
+        dgs.setVerbalFalse(ConverterUtil.convertToInteger(editTextVerbalFalse.getText().toString()));
+        dgs.setVerbalNet(CommonUtil.getNet(dgs.getVerbalTrue(), dgs.getVerbalFalse()));
+        dgs.setAssociateDegreeSuccessGrade(ConverterUtil.convertToInteger(editTextAssociateDegreeSuccessGrade.getText().toString()));
+        dgs.setBeforeResult(checkBoxBeforeResult.isChecked());
+        dgsService.setResult(dgs);
+        return dgs;
+    }
+
+    private void setViewListeners() {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int numericalTrue = ConverterUtil.convertToInteger(editTextNumericalTrue.getText().toString());
-                int numericalFalse = ConverterUtil.convertToInteger(editTextNumericalFalse.getText().toString());
-                int verbalTrue = ConverterUtil.convertToInteger(editTextVerbalTrue.getText().toString());
-                int verbalFalse = ConverterUtil.convertToInteger(editTextVerbalFalse.getText().toString());
-                int associateDegreeSuccessGrade = ConverterUtil.convertToInteger(editTextAssociateDegreeSuccessGrade.getText().toString());
-                boolean beforeResult = checkBoxBeforeResult.isChecked();
-                double numericalNet = CommonUtil.getNet(numericalTrue, numericalFalse);
-                double verbalNet = CommonUtil.getNet(verbalTrue, verbalFalse);
-                double numerical = getNumerical(numericalNet);
-                double verbal = getVerbal(verbalNet);
-                double numericalResult = getNumericalResult(numerical, verbal, associateDegreeSuccessGrade, beforeResult);
-                double verbalResult = getVerbalResult(numerical, verbal, associateDegreeSuccessGrade, beforeResult);
-                double equalWeightResult = getEqualWeightResult(numerical, verbal, associateDegreeSuccessGrade, beforeResult);
-                showResultDialog(numericalResult, verbalResult, equalWeightResult);
+                showResultDialog(getDgs());
             }
         });
     }
 
-    private void showResultDialog(double numericalResult, double verbalResult, double equalWeightResult) {
+    private void showResultDialog(DGS dgs) {
         final Dialog dialog = new Dialog(DgsActivity.this);
         dialog.setContentView(R.layout.dialog_dgs);
         TextView textViewResultNumeric = dialog.findViewById(R.id.textViewDGSResultNumeric);
         TextView textViewResultVerbal = dialog.findViewById(R.id.textViewDGSResultVerbal);
         TextView textViewResultEqualWeight = dialog.findViewById(R.id.textViewDGSResultEqualWeight);
-        textViewResultNumeric.setText(String.valueOf(CommonUtil.round(numericalResult, 2)));
-        textViewResultVerbal.setText(String.valueOf(CommonUtil.round(verbalResult, 2)));
-        textViewResultEqualWeight.setText(String.valueOf(CommonUtil.round(equalWeightResult, 2)));
-        setDialogButtonsListener(dialog);
+        textViewResultNumeric.setText(String.valueOf(CommonUtil.round(dgs.getNumericalResult(), 2)));
+        textViewResultVerbal.setText(String.valueOf(CommonUtil.round(dgs.getVerbalResult(), 2)));
+        textViewResultEqualWeight.setText(String.valueOf(CommonUtil.round(dgs.getEqualWeightResult(), 2)));
+        setDialogViewListeners(dialog, dgs);
         dialog.show();
     }
 
@@ -135,59 +143,26 @@ public class DgsActivity extends AppCompatActivity {
                 .show();
     }
 
-    private double getNumericalResult(double numerical, double verbal, double associateDegreeSuccessGrade, boolean beforeResult) {
-        double factor;
-        if (beforeResult) {
-            factor = 0.45;
-        } else {
-            factor = 0.6;
-        }
-        return numerical * 3.0 + verbal * 0.6 + associateDegreeSuccessGrade * 0.8 * factor;
-    }
-
-    private double getVerbalResult(double numerical, double verbal, double associateDegreeSuccessGrade, boolean beforeResult) {
-        double factor;
-        if (beforeResult) {
-            factor = 0.45;
-        } else {
-            factor = 0.6;
-        }
-        return numerical * 0.6 + verbal * 3.0 + associateDegreeSuccessGrade * 0.8 * factor;
-    }
-
-    private double getEqualWeightResult(double numerical, double verbal, double associateDegreeSuccessGrade, boolean beforeResult) {
-        double factor;
-        if (beforeResult) {
-            factor = 0.45;
-        } else {
-            factor = 0.6;
-        }
-        return numerical * 1.8 + verbal * 1.8 + associateDegreeSuccessGrade * 0.8 * factor;
-    }
-
-    private double getNumerical(double numericalNet) {
-        double testMean = 7.58;
-        double testStandardDeviation = 9.45;
-        return 50.0 + 10.0 * ((numericalNet - testMean) / testStandardDeviation);
-    }
-
-    private double getVerbal(double verbalNetNet) {
-        double testMean = 23.91;
-        double testStandardDeviation = 13.59;
-        return 50.0 + 10.0 * ((verbalNetNet - testMean) / testStandardDeviation);
-    }
-
-    private void setDialogButtonsListener(final Dialog dialog) {
-        Button buttonCalculate = dialog.findViewById(R.id.buttonDGSDialogCalculate);
+    private void setDialogViewListeners(final Dialog dialog, final DGS dgs) {
         Button buttonSave = dialog.findViewById(R.id.buttonDGSDialogSave);
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+        Button buttonClose = dialog.findViewById(R.id.buttonDGSDialogClose);
+        final EditText editTextExamName = dialog.findViewById(R.id.editTextDGSDialogExamName);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DgsActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
+                dgs.setName(editTextExamName.getText().toString());
+                long result = databaseManager.put(dgs);
+                if (result == DatabaseManager.ERROR) {
+                    Toast.makeText(DgsActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(DgsActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
+                Intent intent = new Intent(DgsActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

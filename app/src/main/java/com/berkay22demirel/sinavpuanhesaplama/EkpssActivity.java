@@ -3,6 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,14 +16,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.EkpssTypeEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Model.EKPSS;
+import com.berkay22demirel.sinavpuanhesaplama.Service.EkpssService;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 
 public class EkpssActivity extends AppCompatActivity {
 
+    DatabaseManager databaseManager;
     EditText editTextGeneralAbilityTrue;
     EditText editTextGeneralAbilityFalse;
     EditText editTextGeneralAbilityNet;
@@ -40,9 +45,10 @@ public class EkpssActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ekpss);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        databaseManager = new DatabaseManager(this);
         setViewReferences();
         provideViews();
-        setCalculateButtonListener();
+        setViewListeners();
     }
 
     @Override
@@ -89,29 +95,35 @@ public class EkpssActivity extends AppCompatActivity {
         DateTimeUtil.addCountDown(textViewEKPSSTime, PAGE_TITLE);
     }
 
-    private void setCalculateButtonListener() {
+    private EKPSS getEkpss() {
+        EKPSS ekpss = new EKPSS();
+        EkpssService ekpssService = EkpssService.getEkpssService();
+        ekpss.setGeneralAbilityTrue(ConverterUtil.convertToInteger(editTextGeneralAbilityTrue.getText().toString()));
+        ekpss.setGeneralAbilityFalse(ConverterUtil.convertToInteger(editTextGeneralAbilityFalse.getText().toString()));
+        ekpss.setGeneralAbilityNet(CommonUtil.getNet(ekpss.getGeneralAbilityTrue(), ekpss.getGeneralAbilityFalse()));
+        ekpss.setGeneralKnowledgeTrue(ConverterUtil.convertToInteger(editTextGeneralKnowledgeTrue.getText().toString()));
+        ekpss.setGeneralKnowledgeFalse(ConverterUtil.convertToInteger(editTextGeneralKnowledgeFalse.getText().toString()));
+        ekpss.setGeneralKnowledgeNet(CommonUtil.getNet(ekpss.getGeneralKnowledgeTrue(), ekpss.getGeneralKnowledgeFalse()));
+        ekpss.setExamSubType(spinnerEKPSSType.getSelectedItemPosition());
+        ekpss.setResult(ekpssService.getResult(ekpss.getGeneralAbilityNet(), ekpss.getGeneralKnowledgeNet(), ekpss.getExamSubType()));
+        return ekpss;
+    }
+
+    private void setViewListeners() {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int generalAbilityTrue = ConverterUtil.convertToInteger(editTextGeneralAbilityTrue.getText().toString());
-                int generalAbilityFalse = ConverterUtil.convertToInteger(editTextGeneralAbilityFalse.getText().toString());
-                int generalKnowledgeTrue = ConverterUtil.convertToInteger(editTextGeneralKnowledgeTrue.getText().toString());
-                int generalKnowledgeFalse = ConverterUtil.convertToInteger(editTextGeneralKnowledgeFalse.getText().toString());
-                int ekpssType = spinnerEKPSSType.getSelectedItemPosition();
-                double generalAbilityNet = CommonUtil.getNet(generalAbilityTrue, generalAbilityFalse);
-                double generalKnowledgeNet = CommonUtil.getNet(generalKnowledgeTrue, generalKnowledgeFalse);
-                double result = getResult(generalAbilityNet, generalKnowledgeNet, ekpssType);
-                showResultDialog(result);
+                showResultDialog(getEkpss());
             }
         });
     }
 
-    private void showResultDialog(double result) {
+    private void showResultDialog(EKPSS ekpss) {
         final Dialog dialog = new Dialog(EkpssActivity.this);
         dialog.setContentView(R.layout.dialog_ekpss);
         TextView textViewResult = dialog.findViewById(R.id.textViewEKPSSResult);
-        textViewResult.setText(String.valueOf(CommonUtil.round(result, 2)));
-        setDialogButtonsListener(dialog);
+        textViewResult.setText(String.valueOf(CommonUtil.round(ekpss.getResult(), 2)));
+        setDialogViewListeners(dialog, ekpss);
         dialog.show();
     }
 
@@ -128,30 +140,26 @@ public class EkpssActivity extends AppCompatActivity {
                 .show();
     }
 
-    private double getResult(double generalAbilityNet, double generalKnowledgeNet, int ekpssType) {
-        if (generalAbilityNet != 0.0 || generalKnowledgeNet != 0.0) {
-            if (EkpssTypeEnum.SECONDARY_EDUCATION.getId() == ekpssType) {
-                return 57.420 + generalAbilityNet * 0.637 + generalKnowledgeNet * 0.783;
-            } else if (EkpssTypeEnum.ASSOCIATE_DEGREE.getId() == ekpssType) {
-                return 55.262 + generalAbilityNet * 0.772 + generalKnowledgeNet * 0.725;
-            } else if (EkpssTypeEnum.BACHELOR_DEGREE.getId() == ekpssType) {
-                return 50.906 + generalAbilityNet * 0.878 + generalKnowledgeNet * 0.759;
-            }
-        }
-        return 0.0;
-    }
-
-    private void setDialogButtonsListener(final Dialog dialog) {
-        Button buttonCalculate = dialog.findViewById(R.id.buttonEKPSSDialogCalculate);
+    private void setDialogViewListeners(final Dialog dialog, final EKPSS ekpss) {
         Button buttonSave = dialog.findViewById(R.id.buttonEKPSSDialogSave);
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+        Button buttonClose = dialog.findViewById(R.id.buttonEKPSSDialogClose);
+        final EditText editTextExamName = dialog.findViewById(R.id.editTextEKPSSDialogExamName);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EkpssActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
+                ekpss.setName(editTextExamName.getText().toString());
+                long result = databaseManager.put(ekpss);
+                if (result == DatabaseManager.ERROR) {
+                    Toast.makeText(EkpssActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(EkpssActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
+                Intent intent = new Intent(EkpssActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

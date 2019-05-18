@@ -11,6 +11,8 @@ import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 public class CommonUtil {
 
     public static String EMPTY_STRING = "";
+    public static String PUT_EXAM_SUCCESSFUL_STRING = "Sınav başarıyla kaydedildi...";
+    public static String PUT_EXAM_ERROR_STRING = "Sınav kaydedilirken bir hata oluştu! Lütfen daha sonra tekrar deneyiniz...";
     public static int SIX_QUESTIONS = 6;
     public static int TEN_QUESTIONS = 10;
     public static int ELEVEN_QUESTIONS = 11;

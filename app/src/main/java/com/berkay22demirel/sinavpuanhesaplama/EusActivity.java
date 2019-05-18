@@ -3,6 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Model.EUS;
+import com.berkay22demirel.sinavpuanhesaplama.Service.EusService;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 
 public class EusActivity extends AppCompatActivity {
 
+    DatabaseManager databaseManager;
     EditText editTextTrue;
     EditText editTextFalse;
     EditText editTextNet;
@@ -34,9 +39,10 @@ public class EusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eus);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        databaseManager = new DatabaseManager(this);
         setViewReferences();
         provideViews();
-        setCalculateButtonListener();
+        setViewListener();
     }
 
     @Override
@@ -74,25 +80,31 @@ public class EusActivity extends AppCompatActivity {
         DateTimeUtil.addCountDown(textViewEUSTime, PAGE_TITLE);
     }
 
-    private void setCalculateButtonListener() {
+    private EUS getEus() {
+        EUS eus = new EUS();
+        EusService eusService = EusService.getEusService();
+        eus.setEusTrue(ConverterUtil.convertToInteger(editTextTrue.getText().toString()));
+        eus.setEusFalse(ConverterUtil.convertToInteger(editTextFalse.getText().toString()));
+        eus.setEusNet(CommonUtil.getNet(eus.getEusTrue(), eus.getEusFalse()));
+        eus.setResult(eusService.getResult(eus.getEusNet()));
+        return eus;
+    }
+
+    private void setViewListener() {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int eusTrue = ConverterUtil.convertToInteger(editTextTrue.getText().toString());
-                int eusFalse = ConverterUtil.convertToInteger(editTextFalse.getText().toString());
-                double eusNet = CommonUtil.getNet(eusTrue, eusFalse);
-                double result = getResult(eusNet);
-                showResultDialog(result);
+                showResultDialog(getEus());
             }
         });
     }
 
-    private void showResultDialog(double result) {
+    private void showResultDialog(EUS eus) {
         final Dialog dialog = new Dialog(EusActivity.this);
         dialog.setContentView(R.layout.dialog_eus);
         TextView textViewResult = dialog.findViewById(R.id.textViewEUSResult);
-        textViewResult.setText(String.valueOf(CommonUtil.round(result, 2)));
-        setDialogButtonsListener(dialog);
+        textViewResult.setText(String.valueOf(CommonUtil.round(eus.getResult(), 2)));
+        setDialogViewListeners(dialog, eus);
         dialog.show();
     }
 
@@ -109,21 +121,26 @@ public class EusActivity extends AppCompatActivity {
                 .show();
     }
 
-    private double getResult(double net) {
-        return 26.08172 + net * 0.89214;
-    }
-
-    private void setDialogButtonsListener(final Dialog dialog) {
-        Button buttonCalculate = dialog.findViewById(R.id.buttonEUSDialogCalculate);
+    private void setDialogViewListeners(final Dialog dialog, final EUS eus) {
         Button buttonSave = dialog.findViewById(R.id.buttonEUSDialogSave);
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+        Button buttonClose = dialog.findViewById(R.id.buttonEUSDialogClose);
+        final EditText editTextExamName = dialog.findViewById(R.id.editTextEUSDialogExamName);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EusActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
+                eus.setName(editTextExamName.getText().toString());
+                long result = databaseManager.put(eus);
+                if (result == DatabaseManager.ERROR) {
+                    Toast.makeText(EusActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(EusActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
+                Intent intent = new Intent(EusActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

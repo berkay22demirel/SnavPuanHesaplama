@@ -3,6 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Model.YDS;
+import com.berkay22demirel.sinavpuanhesaplama.Service.YdsService;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 
 public class YdsActivity extends AppCompatActivity {
 
+    DatabaseManager databaseManager;
     EditText editTextLanguageTrue;
     EditText editTextLanguageFalse;
     EditText editTextLanguageNet;
@@ -34,9 +39,10 @@ public class YdsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_yds);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        databaseManager = new DatabaseManager(this);
         setViewReferences();
         provideViews();
-        setCalculateButtonListener();
+        setViewListeners();
     }
 
     @Override
@@ -74,29 +80,36 @@ public class YdsActivity extends AppCompatActivity {
         DateTimeUtil.addCountDown(textViewYDSTime, PAGE_TITLE);
     }
 
-    private void setCalculateButtonListener() {
+    private YDS getYds() {
+        YDS yds = new YDS();
+        YdsService ydsService = YdsService.getYdsService();
+        yds.setLanguageTrue(ConverterUtil.convertToInteger(editTextLanguageTrue.getText().toString()));
+        yds.setLanguageFalse(ConverterUtil.convertToInteger(editTextLanguageFalse.getText().toString()));
+        yds.setLanguageNet(CommonUtil.getNet(yds.getLanguageTrue(), yds.getLanguageFalse()));
+        yds.setResult(ydsService.getResult(yds.getLanguageNet()));
+        return yds;
+    }
+
+    private void setViewListeners() {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (controlViewValue()) {
-                    int languageTrue = ConverterUtil.convertToInteger(editTextLanguageTrue.getText().toString());
-                    int languageFalse = ConverterUtil.convertToInteger(editTextLanguageFalse.getText().toString());
-                    double languageNet = CommonUtil.getNet(languageTrue, languageFalse);
-                    double result = getResult(languageNet);
-                    showResultDialog(result);
+                    showResultDialog(getYds());
                 }
             }
         });
     }
 
-    private void showResultDialog(double result) {
+    private void showResultDialog(YDS yds) {
         final Dialog dialog = new Dialog(YdsActivity.this);
+        YdsService ydsService = YdsService.getYdsService();
         dialog.setContentView(R.layout.dialog_yds);
         TextView textViewResult = dialog.findViewById(R.id.textViewYDSResult);
         TextView textViewLevel = dialog.findViewById(R.id.textViewYDSLevel);
-        textViewResult.setText(String.valueOf(CommonUtil.round(result, 2)));
-        textViewLevel.setText(getLevel(result));
-        setDialogButtonsListener(dialog);
+        textViewResult.setText(String.valueOf(CommonUtil.round(yds.getResult(), 2)));
+        textViewLevel.setText(ydsService.getLevel(yds.getResult()));
+        setDialogViewListeners(dialog, yds);
         dialog.show();
     }
 
@@ -113,38 +126,26 @@ public class YdsActivity extends AppCompatActivity {
                 .show();
     }
 
-    private double getResult(double languageNet) {
-        return languageNet * 1.25;
-    }
-
-    private String getLevel(double result) {
-        if (result < 50) {
-            return "Barajı geçemediniz";
-        } else if (result < 60) {
-            return "E";
-        } else if (result < 70) {
-            return "D";
-        } else if (result < 80) {
-            return "C";
-        } else if (result < 90) {
-            return "B";
-        } else if (result <= 100) {
-            return "A";
-        }
-        return CommonUtil.EMPTY_STRING;
-    }
-
-    private void setDialogButtonsListener(final Dialog dialog) {
-        Button buttonCalculate = dialog.findViewById(R.id.buttonYDSDialogCalculate);
+    private void setDialogViewListeners(final Dialog dialog, final YDS yds) {
         Button buttonSave = dialog.findViewById(R.id.buttonYDSDialogSave);
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+        Button buttonClose = dialog.findViewById(R.id.buttonYDSDialogClose);
+        final EditText editTextExamName = dialog.findViewById(R.id.editTextYDSDialogExamName);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(YdsActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
+                yds.setName(editTextExamName.getText().toString());
+                long result = databaseManager.put(yds);
+                if (result == DatabaseManager.ERROR) {
+                    Toast.makeText(YdsActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(YdsActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
+                Intent intent = new Intent(YdsActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

@@ -93,6 +93,7 @@
             android:orientation="vertical"
             android:layout_margin="@dimen/activity_margin">
             <EditText
+                android:id="@+id/editTextDUSDialogExamName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/middle_text_size"
@@ -110,7 +111,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonDUSDialogCalculate"
+            android:id="@+id/buttonDUSDialogSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -123,7 +124,7 @@
             android:text="@string/button_save" />
 
         <Button
-            android:id="@+id/buttonDUSDialogSave"
+            android:id="@+id/buttonDUSDialogClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

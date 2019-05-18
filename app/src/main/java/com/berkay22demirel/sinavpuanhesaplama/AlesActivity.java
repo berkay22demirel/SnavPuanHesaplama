@@ -3,6 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Model.ALES;
+import com.berkay22demirel.sinavpuanhesaplama.Service.AlesService;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 
 public class AlesActivity extends AppCompatActivity {
 
+    DatabaseManager databaseManager;
     EditText editTextMathsTrue;
     EditText editTextMathsFalse;
     EditText editTextMathsNet;
@@ -37,9 +42,10 @@ public class AlesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ales);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        databaseManager = new DatabaseManager(this);
         setViewReferences();
         provideViews();
-        setCalculateButtonListener();
+        setViewListeners();
     }
 
     @Override
@@ -82,34 +88,40 @@ public class AlesActivity extends AppCompatActivity {
         DateTimeUtil.addCountDown(textViewALESTime, PAGE_TITLE);
     }
 
-    private void setCalculateButtonListener() {
+    private ALES getAles() {
+        ALES ales = new ALES();
+        AlesService alesService = AlesService.getAlesService();
+        ales.setTurkishTrue(ConverterUtil.convertToInteger(editTextTurkishTrue.getText().toString()));
+        ales.setTurkishFalse(ConverterUtil.convertToInteger(editTextTurkishFalse.getText().toString()));
+        ales.setTurkishNet(CommonUtil.getNet(ales.getTurkishTrue(), ales.getTurkishFalse()));
+        ales.setMathsTrue(ConverterUtil.convertToInteger(editTextMathsTrue.getText().toString()));
+        ales.setMathsFalse(ConverterUtil.convertToInteger(editTextMathsFalse.getText().toString()));
+        ales.setMathsNet(CommonUtil.getNet(ales.getMathsTrue(), ales.getMathsFalse()));
+        ales.setNumericalResult(alesService.getNumericalResult(ales.getMathsNet(), ales.getTurkishNet()));
+        ales.setVerbalResult(alesService.getVerbalResult(ales.getMathsNet(), ales.getTurkishNet()));
+        ales.setEqualWeightResult(alesService.getEqualWeightResult(ales.getMathsNet(), ales.getTurkishNet()));
+        return ales;
+    }
+
+    private void setViewListeners() {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int mathsTrue = ConverterUtil.convertToInteger(editTextMathsTrue.getText().toString());
-                int mathsFalse = ConverterUtil.convertToInteger(editTextMathsFalse.getText().toString());
-                int turkishTrue = ConverterUtil.convertToInteger(editTextTurkishTrue.getText().toString());
-                int turkishFalse = ConverterUtil.convertToInteger(editTextTurkishFalse.getText().toString());
-                double mathsNet = CommonUtil.getNet(mathsTrue, mathsFalse);
-                double turkishNet = CommonUtil.getNet(turkishTrue, turkishFalse);
-                double numericalResult = getNumericalResult(mathsNet, turkishNet);
-                double verbalResult = getVerbalResult(mathsNet, turkishNet);
-                double equalWeightResult = getEqualWeightResult(mathsNet, turkishNet);
-                showResultDialog(numericalResult, verbalResult, equalWeightResult);
+                showResultDialog(getAles());
             }
         });
     }
 
-    private void showResultDialog(double numericalResult, double verbalResult, double equalWeightResult) {
+    private void showResultDialog(ALES ales) {
         final Dialog dialog = new Dialog(AlesActivity.this);
         dialog.setContentView(R.layout.dialog_ales);
         TextView textViewNumeric = dialog.findViewById(R.id.textViewALESResultNumeric);
         TextView textViewVerbal = dialog.findViewById(R.id.textViewALESResultVerbal);
         TextView textViewEqualWeight = dialog.findViewById(R.id.textViewALESResultEqualWeight);
-        textViewNumeric.setText(String.valueOf(CommonUtil.round(numericalResult, 2)));
-        textViewVerbal.setText(String.valueOf(CommonUtil.round(verbalResult, 2)));
-        textViewEqualWeight.setText(String.valueOf(CommonUtil.round(equalWeightResult, 2)));
-        setDialogButtonsListener(dialog);
+        textViewNumeric.setText(String.valueOf(CommonUtil.round(ales.getNumericalResult(), 2)));
+        textViewVerbal.setText(String.valueOf(CommonUtil.round(ales.getVerbalResult(), 2)));
+        textViewEqualWeight.setText(String.valueOf(CommonUtil.round(ales.getEqualWeightResult(), 2)));
+        setDialogViewListeners(dialog, ales);
         dialog.show();
     }
 
@@ -126,53 +138,26 @@ public class AlesActivity extends AppCompatActivity {
                 .show();
     }
 
-    private double getNumericalResult(double mathsNet, double turkishNet) {
-        //Adayın Ağırlıklı Puanı
-        double ap = mathsNet * 0.75 + turkishNet * 0.25;
-        //Ağırlıklı Puanların Ortalaması
-        double x = 0.75 * 19.07 + 0.25 * 28.85;
-        //Ağırlıklı Puanların Standart Sapması
-        double s = 0.75 * 13.03 + 0.25 * 9.97;
-        //Ağırlıklı Puanların En Büyüğü
-        double b = 50.0;
-        return 70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
-    }
-
-    private double getVerbalResult(double mathsNet, double turkishNet) {
-        //Adayın Ağırlıklı Puanı
-        double ap = mathsNet * 0.25 + turkishNet * 0.75;
-        //Ağırlıklı Puanların Ortalaması
-        double x = 0.25 * 19.07 + 0.75 * 28.85;
-        //Ağırlıklı Puanların Standart Sapması
-        double s = 0.25 * 13.03 + 0.75 * 9.97;
-        //Ağırlıklı Puanların En Büyüğü
-        double b = 50.0;
-        return 70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
-    }
-
-    private double getEqualWeightResult(double mathsNet, double turkishNet) {
-        //Adayın Ağırlıklı Puanı
-        double ap = mathsNet * 0.50 + turkishNet * 0.50;
-        //Ağırlıklı Puanların Ortalaması
-        double x = 0.50 * 19.07 + 0.50 * 28.85;
-        //Ağırlıklı Puanların Standart Sapması
-        double s = 0.50 * 13.03 + 0.50 * 9.97;
-        //Ağırlıklı Puanların En Büyüğü
-        double b = 50.0;
-        return 70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
-    }
-
-    private void setDialogButtonsListener(final Dialog dialog) {
-        Button buttonCalculate = dialog.findViewById(R.id.buttonALESDialogCalculate);
+    private void setDialogViewListeners(final Dialog dialog, final ALES ales) {
         Button buttonSave = dialog.findViewById(R.id.buttonALESDialogSave);
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+        Button buttonClose = dialog.findViewById(R.id.buttonALESDialogClose);
+        final EditText editTextExamName = dialog.findViewById(R.id.editTextALESDialogExamName);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AlesActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
+                ales.setName(editTextExamName.getText().toString());
+                long result = databaseManager.put(ales);
+                if (result == DatabaseManager.ERROR) {
+                    Toast.makeText(AlesActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(AlesActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
+                Intent intent = new Intent(AlesActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

@@ -118,6 +118,7 @@
             android:orientation="vertical"
             android:layout_margin="@dimen/activity_margin">
             <EditText
+                android:id="@+id/editTextYDSDialogExamName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/middle_text_size"
@@ -135,7 +136,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonYDSDialogCalculate"
+            android:id="@+id/buttonYDSDialogSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -148,7 +149,7 @@
             android:text="@string/button_save" />
 
         <Button
-            android:id="@+id/buttonYDSDialogSave"
+            android:id="@+id/buttonYDSDialogClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

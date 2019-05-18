@@ -3,6 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,14 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.YKS;
+import com.berkay22demirel.sinavpuanhesaplama.Service.YksService;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 
 public class YksActivity extends AppCompatActivity {
 
+    DatabaseManager databaseManager;
     EditText editTextDiplomaGrade;
     EditText editTextTurkishTrue;
     EditText editTextTurkishFalse;
@@ -74,11 +78,8 @@ public class YksActivity extends AppCompatActivity {
     TextView textViewYKSTime;
     CheckBox checkBoxDiplamaNotification;
     Button buttonCalculate;
-    YKS yks = new YKS();
 
     private static String PAGE_TITLE = ExamsEnum.YKS.getTitle();
-    private static double INCALCULABLE_RESULT = -0.1;
-    private static double INSUFFICIENT_RESULT = 150;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +87,10 @@ public class YksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_yks);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        databaseManager = new DatabaseManager(this);
         setViewReferences();
         provideViews();
-        setCalculateButtonListener();
+        setViewListeners();
     }
 
     @Override
@@ -205,114 +207,9 @@ public class YksActivity extends AppCompatActivity {
         CommonUtil.setEditTextMaxValue(editTextDiplomaGrade, 100);
     }
 
-    private void setCalculateButtonListener() {
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setYKSValue();
-                showDialog();
-            }
-        });
-    }
-
-    private void showDialog() {
-        double simpleTYTResult = getTYTResult();
-        if (simpleTYTResult == INCALCULABLE_RESULT) {
-            new AlertDialog.Builder(YksActivity.this)
-                    .setTitle("YKS Sonucunuz Hesaplanamaz!")
-                    .setMessage("Türkçe veya Temel Matematik testlerinin en az birinden 0,5 veya üzeri netiniz olmadığı için puanınız hesaplanmadı.")
-                    .setPositiveButton(getResources().getText(R.string.button_ok), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).setIcon(getResources().getDrawable(R.drawable.alert_dialog_icon))
-                    .show();
-        } else if (simpleTYTResult < INSUFFICIENT_RESULT) {
-            new AlertDialog.Builder(YksActivity.this)
-                    .setTitle("TYT Puanınız Yetersiz!")
-                    .setMessage("TYT puanınız 150 puan altında olduğu için meslek yüksekokulları ve lisans programlarından tercih yapamazsınız.")
-                    .setPositiveButton(getResources().getText(R.string.button_show_result), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            showResultDailog();
-                        }
-                    }).setNegativeButton(getResources().getText(R.string.button_recalculate), null)
-                    .setIcon(getResources().getDrawable(R.drawable.alert_dialog_icon))
-                    .show();
-        } else {
-            showResultDailog();
-        }
-    }
-
-    private void showResultDailog() {
-        final Dialog dialog = new Dialog(YksActivity.this);
-        dialog.setContentView(R.layout.dialog_yks);
-        double simpleTYTResult = getTYTResult();
-        double simpleNumericalResult = getSimpleNumericalResult();
-        double simpleVerbalResult = getSimpleVerbalResult();
-        double simpleEqualWeightResult = getSimpleEqualWeightResult();
-        double simpleLanguageResult = getSimpleLanguageResult();
-        TextView textViewYKSResultSimpleTYT = dialog.findViewById(R.id.textViewYKSResultSimpleTYT);
-        TextView textViewYKSResultSimpleNumerical = dialog.findViewById(R.id.textViewYKSResultSimpleNumerical);
-        TextView textViewYKSResultSimpleVerbal = dialog.findViewById(R.id.textViewYKSResultSimpleVerbal);
-        TextView textViewYKSResultSimpleEqualWeight = dialog.findViewById(R.id.textViewYKSResultSimpleEqualWeight);
-        TextView textViewYKSResultSimpleLanguage = dialog.findViewById(R.id.textViewYKSResultSimpleLanguage);
-        TextView textViewYKSResultCalculatedTYT = dialog.findViewById(R.id.textViewYKSResultCalculatedTYT);
-        TextView textViewYKSResultCalculatedNumerical = dialog.findViewById(R.id.textViewYKSResultCalculatedNumerical);
-        TextView textViewYKSResultCalculatedVerbal = dialog.findViewById(R.id.textViewYKSResultCalculatedVerbal);
-        TextView textViewYKSResultCalculatedEqualWeight = dialog.findViewById(R.id.textViewYKSResultCalculatedEqualWeight);
-        TextView textViewYKSResultCalculatedLanguage = dialog.findViewById(R.id.textViewYKSResultCalculatedLanguage);
-        textViewYKSResultSimpleTYT.setText(String.valueOf(CommonUtil.round(simpleTYTResult, 2)));
-        textViewYKSResultSimpleNumerical.setText(String.valueOf(CommonUtil.round(simpleNumericalResult, 2)));
-        textViewYKSResultSimpleVerbal.setText(String.valueOf(CommonUtil.round(simpleVerbalResult, 2)));
-        textViewYKSResultSimpleEqualWeight.setText(String.valueOf(CommonUtil.round(simpleEqualWeightResult, 2)));
-        textViewYKSResultSimpleLanguage.setText(String.valueOf(CommonUtil.round(simpleLanguageResult, 2)));
-        textViewYKSResultCalculatedTYT.setText(String.valueOf(CommonUtil.round(getCalculatedResult(simpleTYTResult), 2)));
-        textViewYKSResultCalculatedNumerical.setText(String.valueOf(CommonUtil.round(getCalculatedResult(simpleNumericalResult), 2)));
-        textViewYKSResultCalculatedVerbal.setText(String.valueOf(CommonUtil.round(getCalculatedResult(simpleVerbalResult), 2)));
-        textViewYKSResultCalculatedEqualWeight.setText(String.valueOf(CommonUtil.round(getCalculatedResult(simpleEqualWeightResult), 2)));
-        textViewYKSResultCalculatedLanguage.setText(String.valueOf(CommonUtil.round(getCalculatedResult(simpleLanguageResult), 2)));
-        setDialogButtonsListener(dialog);
-        dialog.show();
-    }
-
-    private void showAlertDialog() {
-        new AlertDialog.Builder(YksActivity.this)
-                .setTitle("UYARI!")
-                .setMessage("*Sınav Sonucunuz 2018 katsayılarına göre hesaplanmıştır. Gireceğiniz sınavda ufak farklılıklar gösterebilir. " +
-                        "*YTY puanınızın hesaplanabilmesi için Türkçe veya Temel Matematik testlerinin birinden en az 0.5 net yapmanız gerekmektedir. " +
-                        "*AYT puanınızın hesaplanabilmesi için ilgili testlerden en az birinden 0.5 net yapmanız gerekmektedir. " +
-                        "*TYT puanınız 150 puan ve üzerinde olduğunda ön lisans programlarından tercih yapabilir ve özel yetenek gerektiren lisans programlarına ön kayıt yaptırabilirsiniz. " +
-                        "*AYT SAY, EA, SÖZ ve DİL puanlarının herhangi biri 180 ve üzerinde olduğunda, lisans programlarına tercih yapabilirsiniz.")
-                .setPositiveButton(getResources().getText(R.string.button_ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setIcon(getResources().getDrawable(R.drawable.alert_dialog_icon))
-                .show();
-    }
-
-    private void setDialogButtonsListener(final Dialog dialog) {
-        Button buttonCalculate = dialog.findViewById(R.id.buttonALESDialogCalculate);
-        Button buttonSave = dialog.findViewById(R.id.buttonALESDialogSave);
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(YksActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-    }
-
-    private void setYKSValue() {
+    private YKS getYks() {
+        YKS yks = new YKS();
+        YksService yksService = YksService.getYksService();
         yks.setDiplomaGrade(ConverterUtil.convertToInteger(editTextDiplomaGrade.getText().toString()));
         yks.setTurkishTrue(ConverterUtil.convertToInteger(editTextTurkishTrue.getText().toString()));
         yks.setTurkishFalse(ConverterUtil.convertToInteger(editTextTurkishFalse.getText().toString()));
@@ -346,74 +243,126 @@ public class YksActivity extends AppCompatActivity {
         yks.setReligionFalse(ConverterUtil.convertToInteger(editTextReligionFalse.getText().toString()));
         yks.setLanguageTrue(ConverterUtil.convertToInteger(editTextLanguageTrue.getText().toString()));
         yks.setLanguageFalse(ConverterUtil.convertToInteger(editTextLanguageFalse.getText().toString()));
+        yks.setDiplomaNotification(checkBoxDiplamaNotification.isChecked());
+        yks.setResultSimpleTYT(yksService.getSimpleTYTResult(yks));
+        yks.setResultSimpleNumerical(yksService.getSimpleNumericalResult(yks));
+        yks.setResultSimpleVerbal(yksService.getSimpleVerbalResult(yks));
+        yks.setResultSimpleEqualWeight(yksService.getSimpleEqualWeightResult(yks));
+        yks.setResultSimpleLanguage(yksService.getSimpleLanguageResult(yks));
+        yks.setResultCalculatedTYT(yksService.getCalculatedTYTResult(yks));
+        yks.setResultCalculatedNumerical(yksService.getCalculatedNumericalResult(yks));
+        yks.setResultCalculatedVerbal(yksService.getCalculatedVerbalResult(yks));
+        yks.setResultCalculatedEqualWeight(yksService.getCalculatedEqualWeightResult(yks));
+        yks.setResultCalculatedLanguage(yksService.getCalculatedLanguageResult(yks));
+        return yks;
     }
 
-    private double getTYTResult() {
-        if (yks.getTurkishNet() < 0.5 && yks.getMathsNet() < 0.5) {
-            return INCALCULABLE_RESULT;
-        }
-        double simpleResult = yks.getTurkishNet() * 3.3 + yks.getMathsNet() * 3.3 + yks.getSocialNet() * 3.4 + yks.getScienceNet() * 3.4;
-        if (simpleResult > 0) {
-            return 100.0 + simpleResult;
-        }
-        return 0.0;
-    }
-
-    private double getSimpleNumericalResult() {
-        if (yks.getMaths2Net() >= 0.5 || yks.getPhysicsNet() >= 0.5 || yks.getChemistryNet() >= 0.5 || yks.getBiologyNet() >= 0.5) {
-            double simpleResult = yks.getMaths2Net() * 3.0 + yks.getPhysicsNet() * 2.85 + yks.getChemistryNet() * 3.07 + yks.getBiologyNet() * 3.07;
-            if (simpleResult > 0) {
-                return 100.0 + simpleResult + getTYTResultForYKS();
+    private void setViewListeners() {
+        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(getYks());
             }
-        }
-        return 0.0;
+        });
     }
 
-    private double getSimpleVerbalResult() {
-        if (yks.getLiteratureNet() >= 0.5 || yks.getHistoryNet() >= 0.5 || yks.getGeographicNet() >= 0.5 || yks.getHistory2Net() >= 0.5 || yks.getGeographic2Net() >= 0.5 || yks.getPhilosophyNet() >= 0.5 || yks.getReligionNet() >= 0.5) {
-            double simpleResult = yks.getLiteratureNet() * 3.0 + yks.getHistoryNet() * 2.8 + yks.getGeographicNet() * 3.33 + yks.getHistory2Net() * 2.91 + yks.getGeographic2Net() * 2.91 + yks.getPhilosophyNet() * 3 + yks.getReligionNet() * 3.33;
-            if (simpleResult > 0) {
-                return 100.0 + simpleResult + getTYTResultForYKS();
-            }
-        }
-        return 0.0;
-    }
-
-    private double getSimpleEqualWeightResult() {
-        if (yks.getMaths2Net() >= 0.5 || yks.getLiteratureNet() >= 0.5 || yks.getHistoryNet() >= 0.5 || yks.getGeographicNet() >= 0.5) {
-            double simpleResult = yks.getMaths2Net() * 3.0 + yks.getLiteratureNet() * 3.0 + yks.getHistoryNet() * 2.8 + yks.getGeographicNet() * 3.33;
-            if (simpleResult > 0) {
-                return 100.0 + simpleResult + getTYTResultForYKS();
-            }
-        }
-        return 0.0;
-    }
-
-    private double getSimpleLanguageResult() {
-        if (yks.getLanguageNet() >= 0.5) {
-            double simpleResult = yks.getLanguageNet() * 3.0;
-            if (simpleResult > 0) {
-                return 100.0 + simpleResult + getTYTResultForYKS();
-            }
-        }
-        return 0.0;
-    }
-
-    private double getCalculatedResult(double simpleResult) {
-        if (yks.getDiplomaGrade() < 50 || simpleResult <= 0) {
-            return 0.0;
-        }
-        double factor;
-        if (checkBoxDiplamaNotification.isChecked()) {
-            factor = 0.3;
+    private void showDialog(final YKS yks) {
+        if (yks.getResultSimpleTYT() == YksService.INCALCULABLE_RESULT) {
+            new AlertDialog.Builder(YksActivity.this)
+                    .setTitle("YKS Sonucunuz Hesaplanamaz!")
+                    .setMessage("Türkçe veya Temel Matematik testlerinin en az birinden 0,5 veya üzeri netiniz olmadığı için puanınız hesaplanmadı.")
+                    .setPositiveButton(getResources().getText(R.string.button_ok), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setIcon(getResources().getDrawable(R.drawable.alert_dialog_icon))
+                    .show();
+        } else if (yks.getResultSimpleTYT() < YksService.INSUFFICIENT_RESULT) {
+            new AlertDialog.Builder(YksActivity.this)
+                    .setTitle("TYT Puanınız Yetersiz!")
+                    .setMessage("TYT puanınız 150 puan altında olduğu için meslek yüksekokulları ve lisans programlarından tercih yapamazsınız.")
+                    .setPositiveButton(getResources().getText(R.string.button_show_result), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            showResultDailog(yks);
+                        }
+                    }).setNegativeButton(getResources().getText(R.string.button_recalculate), null)
+                    .setIcon(getResources().getDrawable(R.drawable.alert_dialog_icon))
+                    .show();
         } else {
-            factor = 0.6;
+            showResultDailog(yks);
         }
-
-        return simpleResult + factor * yks.getDiplomaGrade();
     }
 
-    private double getTYTResultForYKS() {
-        return yks.getTurkishNet() * 1.32 + yks.getMathsNet() * 1.32 + yks.getSocialNet() * 1.36 + yks.getScienceNet() * 1.36;
+    private void showResultDailog(YKS yks) {
+        final Dialog dialog = new Dialog(YksActivity.this);
+        dialog.setContentView(R.layout.dialog_yks);
+        TextView textViewYKSResultSimpleTYT = dialog.findViewById(R.id.textViewYKSResultSimpleTYT);
+        TextView textViewYKSResultSimpleNumerical = dialog.findViewById(R.id.textViewYKSResultSimpleNumerical);
+        TextView textViewYKSResultSimpleVerbal = dialog.findViewById(R.id.textViewYKSResultSimpleVerbal);
+        TextView textViewYKSResultSimpleEqualWeight = dialog.findViewById(R.id.textViewYKSResultSimpleEqualWeight);
+        TextView textViewYKSResultSimpleLanguage = dialog.findViewById(R.id.textViewYKSResultSimpleLanguage);
+        TextView textViewYKSResultCalculatedTYT = dialog.findViewById(R.id.textViewYKSResultCalculatedTYT);
+        TextView textViewYKSResultCalculatedNumerical = dialog.findViewById(R.id.textViewYKSResultCalculatedNumerical);
+        TextView textViewYKSResultCalculatedVerbal = dialog.findViewById(R.id.textViewYKSResultCalculatedVerbal);
+        TextView textViewYKSResultCalculatedEqualWeight = dialog.findViewById(R.id.textViewYKSResultCalculatedEqualWeight);
+        TextView textViewYKSResultCalculatedLanguage = dialog.findViewById(R.id.textViewYKSResultCalculatedLanguage);
+        textViewYKSResultSimpleTYT.setText(String.valueOf(CommonUtil.round(yks.getResultSimpleTYT(), 2)));
+        textViewYKSResultSimpleNumerical.setText(String.valueOf(CommonUtil.round(yks.getResultSimpleNumerical(), 2)));
+        textViewYKSResultSimpleVerbal.setText(String.valueOf(CommonUtil.round(yks.getResultSimpleVerbal(), 2)));
+        textViewYKSResultSimpleEqualWeight.setText(String.valueOf(CommonUtil.round(yks.getResultSimpleEqualWeight(), 2)));
+        textViewYKSResultSimpleLanguage.setText(String.valueOf(CommonUtil.round(yks.getResultSimpleLanguage(), 2)));
+        textViewYKSResultCalculatedTYT.setText(String.valueOf(CommonUtil.round(yks.getResultCalculatedTYT(), 2)));
+        textViewYKSResultCalculatedNumerical.setText(String.valueOf(CommonUtil.round(yks.getResultCalculatedNumerical(), 2)));
+        textViewYKSResultCalculatedVerbal.setText(String.valueOf(CommonUtil.round(yks.getResultCalculatedVerbal(), 2)));
+        textViewYKSResultCalculatedEqualWeight.setText(String.valueOf(CommonUtil.round(yks.getResultCalculatedEqualWeight(), 2)));
+        textViewYKSResultCalculatedLanguage.setText(String.valueOf(CommonUtil.round(yks.getResultCalculatedLanguage(), 2)));
+        setDialogViewListeners(dialog, yks);
+        dialog.show();
+    }
+
+    private void showAlertDialog() {
+        new AlertDialog.Builder(YksActivity.this)
+                .setTitle("UYARI!")
+                .setMessage("*Sınav Sonucunuz 2018 katsayılarına göre hesaplanmıştır. Gireceğiniz sınavda ufak farklılıklar gösterebilir. " +
+                        "*YTY puanınızın hesaplanabilmesi için Türkçe veya Temel Matematik testlerinin birinden en az 0.5 net yapmanız gerekmektedir. " +
+                        "*AYT puanınızın hesaplanabilmesi için ilgili testlerden en az birinden 0.5 net yapmanız gerekmektedir. " +
+                        "*TYT puanınız 150 puan ve üzerinde olduğunda ön lisans programlarından tercih yapabilir ve özel yetenek gerektiren lisans programlarına ön kayıt yaptırabilirsiniz. " +
+                        "*AYT SAY, EA, SÖZ ve DİL puanlarının herhangi biri 180 ve üzerinde olduğunda, lisans programlarına tercih yapabilirsiniz.")
+                .setPositiveButton(getResources().getText(R.string.button_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setIcon(getResources().getDrawable(R.drawable.alert_dialog_icon))
+                .show();
+    }
+
+    private void setDialogViewListeners(final Dialog dialog, final YKS yks) {
+        Button buttonSave = dialog.findViewById(R.id.buttonALESDialogSave);
+        Button buttonClose = dialog.findViewById(R.id.buttonALESDialogClose);
+        final EditText editTextExamName = dialog.findViewById(R.id.editTextYKSDialogExamName);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yks.setName(editTextExamName.getText().toString());
+                long result = databaseManager.put(yks);
+                if (result == DatabaseManager.ERROR) {
+                    Toast.makeText(YksActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(YksActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+                Intent intent = new Intent(YksActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

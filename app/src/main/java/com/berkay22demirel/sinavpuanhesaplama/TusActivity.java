@@ -3,6 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Model.TUS;
+import com.berkay22demirel.sinavpuanhesaplama.Service.TusService;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 
 public class TusActivity extends AppCompatActivity {
 
+    DatabaseManager databaseManager;
     EditText editTextBasicMedicineSciencesTrue;
     EditText editTextBasicMedicineSciencesFalse;
     EditText editTextBasicMedicineSciencesNet;
@@ -37,9 +42,10 @@ public class TusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tus);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        databaseManager = new DatabaseManager(this);
         setViewReferences();
         provideViews();
-        setCalculateButtonListener();
+        setViewListeners();
     }
 
     @Override
@@ -82,37 +88,43 @@ public class TusActivity extends AppCompatActivity {
         DateTimeUtil.addCountDown(textViewTUSTime, PAGE_TITLE);
     }
 
-    private void setCalculateButtonListener() {
+    private TUS getTus() {
+        TUS tus = new TUS();
+        TusService tusService = TusService.getTusService();
+        tus.setBasicMedicineSciencesTrue(ConverterUtil.convertToInteger(editTextBasicMedicineSciencesTrue.getText().toString()));
+        tus.setBasicMedicineSciencesFalse(ConverterUtil.convertToInteger(editTextBasicMedicineSciencesFalse.getText().toString()));
+        tus.setBasicMedicineSciencesNet(CommonUtil.getNet(tus.getBasicMedicineSciencesTrue(), tus.getBasicMedicineSciencesFalse()));
+        tus.setClinicalMedicineSciencesTrue(ConverterUtil.convertToInteger(editTextClinicalMedicineSciencesTrue.getText().toString()));
+        tus.setClinicalMedicineSciencesFalse(ConverterUtil.convertToInteger(editTextClinicalMedicineSciencesFalse.getText().toString()));
+        tus.setClinicalMedicineSciencesNet(CommonUtil.getNet(tus.getClinicalMedicineSciencesTrue(), tus.getClinicalMedicineSciencesFalse()));
+        tus.setGraduateMedicineTPoint(tusService.getGraduateMedicineTPoint(tus.getBasicMedicineSciencesNet(), tus.getClinicalMedicineSciencesNet()));
+        tus.setGraduateMedicineKPoint(tusService.getGraduateMedicineKPoint(tus.getBasicMedicineSciencesNet(), tus.getClinicalMedicineSciencesNet()));
+        tus.setGraduateMedicineAPoint(tusService.getGraduateMedicineAPoint(tus.getClinicalMedicineSciencesNet()));
+        tus.setNotGraduateMedicineTPoint(tusService.getNotGraduateMedicineTPoint(tus.getBasicMedicineSciencesNet()));
+        return tus;
+    }
+
+    private void setViewListeners() {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int basicMedicineSciencesTrue = ConverterUtil.convertToInteger(editTextBasicMedicineSciencesTrue.getText().toString());
-                int basicMedicineSciencesFalse = ConverterUtil.convertToInteger(editTextBasicMedicineSciencesFalse.getText().toString());
-                int clinicalMedicineSciencesTrue = ConverterUtil.convertToInteger(editTextClinicalMedicineSciencesTrue.getText().toString());
-                int clinicalMedicineSciencesFalse = ConverterUtil.convertToInteger(editTextClinicalMedicineSciencesFalse.getText().toString());
-                double basicMedicineSciencesNet = CommonUtil.getNet(basicMedicineSciencesTrue, basicMedicineSciencesFalse);
-                double clinicalMedicineSciencesNet = CommonUtil.getNet(clinicalMedicineSciencesTrue, clinicalMedicineSciencesFalse);
-                double graduateMedicineKPoint = getGraduateMedicineKPoint(basicMedicineSciencesNet, clinicalMedicineSciencesNet);
-                double graduateMedicineTPoint = getGraduateMedicineTPoint(basicMedicineSciencesNet, clinicalMedicineSciencesNet);
-                double graduateMedicineAPoint = getGraduateMedicineAPoint(clinicalMedicineSciencesNet);
-                double notGraduateMedicineTPoint = getNotGraduateMedicineTPoint(basicMedicineSciencesNet);
-                showResultDialog(graduateMedicineKPoint, graduateMedicineTPoint, graduateMedicineAPoint, notGraduateMedicineTPoint);
+                showResultDialog(getTus());
             }
         });
     }
 
-    private void showResultDialog(double graduateMedicineKPoint, double graduateMedicineTPoint, double graduateMedicineAPoint, double notGraduateMedicineTPoint) {
+    private void showResultDialog(TUS tus) {
         final Dialog dialog = new Dialog(TusActivity.this);
         dialog.setContentView(R.layout.dialog_tus);
         TextView textViewGraduateMedicineKPoint = dialog.findViewById(R.id.textViewTUSResultGraduateMedicineKPoint);
         TextView textViewGraduateMedicineTPoint = dialog.findViewById(R.id.textViewTUSResultGraduateMedicineTPoint);
         TextView textViewGraduateMedicineAPoint = dialog.findViewById(R.id.textViewTUSResultGraduateMedicineAPoint);
         TextView textViewNotGraduateMedicineTPoint = dialog.findViewById(R.id.textViewTUSResultNotGraduateMedicineTPoint);
-        textViewGraduateMedicineKPoint.setText(String.valueOf(CommonUtil.round(graduateMedicineKPoint, 2)));
-        textViewGraduateMedicineTPoint.setText(String.valueOf(CommonUtil.round(graduateMedicineTPoint, 2)));
-        textViewGraduateMedicineAPoint.setText(String.valueOf(CommonUtil.round(graduateMedicineAPoint, 2)));
-        textViewNotGraduateMedicineTPoint.setText(String.valueOf(CommonUtil.round(notGraduateMedicineTPoint, 2)));
-        setDialogButtonsListener(dialog);
+        textViewGraduateMedicineKPoint.setText(String.valueOf(CommonUtil.round(tus.getGraduateMedicineKPoint(), 2)));
+        textViewGraduateMedicineTPoint.setText(String.valueOf(CommonUtil.round(tus.getGraduateMedicineTPoint(), 2)));
+        textViewGraduateMedicineAPoint.setText(String.valueOf(CommonUtil.round(tus.getGraduateMedicineAPoint(), 2)));
+        textViewNotGraduateMedicineTPoint.setText(String.valueOf(CommonUtil.round(tus.getNotGraduateMedicineTPoint(), 2)));
+        setDialogViewListeners(dialog, tus);
         dialog.show();
     }
 
@@ -129,33 +141,26 @@ public class TusActivity extends AppCompatActivity {
                 .show();
     }
 
-    private double getGraduateMedicineKPoint(double basicMedicineSciencesNet, double clinicalMedicineSciencesNet) {
-        return (18.06980 + clinicalMedicineSciencesNet * 0.60489) * 0.5 + (28.27491 + basicMedicineSciencesNet * 0.42438) * 0.5;
-    }
-
-    private double getGraduateMedicineTPoint(double basicMedicineSciencesNet, double clinicalMedicineSciencesNet) {
-        return (18.06980 + clinicalMedicineSciencesNet * 0.60489) * 0.3 + (28.27491 + basicMedicineSciencesNet * 0.42438) * 0.7;
-    }
-
-    private double getGraduateMedicineAPoint(double clinicalMedicineSciencesNet) {
-        return 18.06980 + clinicalMedicineSciencesNet * 0.60489;
-    }
-
-    private double getNotGraduateMedicineTPoint(double basicMedicineSciencesNet) {
-        return 28.27491 + basicMedicineSciencesNet * 0.42438;
-    }
-
-    private void setDialogButtonsListener(final Dialog dialog) {
-        Button buttonCalculate = dialog.findViewById(R.id.buttonTUSDialogCalculate);
+    private void setDialogViewListeners(final Dialog dialog, final TUS tus) {
         Button buttonSave = dialog.findViewById(R.id.buttonTUSDialogSave);
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+        Button buttonClose = dialog.findViewById(R.id.buttonTUSDialogClose);
+        final EditText editTextExamName = dialog.findViewById(R.id.editTextTUSDialogExamName);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(TusActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
+                tus.setName(editTextExamName.getText().toString());
+                long result = databaseManager.put(tus);
+                if (result == DatabaseManager.ERROR) {
+                    Toast.makeText(TusActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(TusActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
+                Intent intent = new Intent(TusActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

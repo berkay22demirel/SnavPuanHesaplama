@@ -3,6 +3,7 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Model.DUS;
+import com.berkay22demirel.sinavpuanhesaplama.Service.DusService;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
 
 public class DusActivity extends AppCompatActivity {
 
+    DatabaseManager databaseManager;
     EditText editTextBasicSciencesTrue;
     EditText editTextBasicSciencesFalse;
     EditText editTextBasicSciencesNet;
@@ -37,9 +42,10 @@ public class DusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dus);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        databaseManager = new DatabaseManager(this);
         setViewReferences();
         provideViews();
-        setCalculateButtonListener();
+        setViewListeners();
     }
 
     @Override
@@ -82,28 +88,35 @@ public class DusActivity extends AppCompatActivity {
         DateTimeUtil.addCountDown(textViewDUSTime, PAGE_TITLE);
     }
 
-    private void setCalculateButtonListener() {
+    private DUS getDus() {
+        DUS dus = new DUS();
+        DusService dusService = DusService.getDusService();
+        dus.setBasicSciencesTrue(ConverterUtil.convertToInteger(editTextBasicSciencesTrue.getText().toString()));
+        dus.setBasicSciencesFalse(ConverterUtil.convertToInteger(editTextBasicSciencesFalse.getText().toString()));
+        dus.setBasicSciencesNet(CommonUtil.getNet(dus.getBasicSciencesTrue(), dus.getBasicSciencesFalse()));
+        dus.setClinicalSciencesTrue(ConverterUtil.convertToInteger(editTextClinicalSciencesTrue.getText().toString()));
+        dus.setClinicalSciencesFalse(ConverterUtil.convertToInteger(editTextClinicalSciencesFalse.getText().toString()));
+        dus.setClinicalSciencesNet(CommonUtil.getNet(dus.getClinicalSciencesTrue(), dus.getClinicalSciencesFalse()));
+        dus.setResult(dusService.getResult(dus.getBasicSciencesNet(), dus.getClinicalSciencesNet()));
+        return dus;
+    }
+
+    private void setViewListeners() {
         buttonCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int basicSciencesTrue = ConverterUtil.convertToInteger(editTextBasicSciencesTrue.getText().toString());
-                int basicSciencesFalse = ConverterUtil.convertToInteger(editTextBasicSciencesFalse.getText().toString());
-                int clinicalSciencesTrue = ConverterUtil.convertToInteger(editTextClinicalSciencesTrue.getText().toString());
-                int clinicalSciencesFalse = ConverterUtil.convertToInteger(editTextClinicalSciencesFalse.getText().toString());
-                double basicSciencesNet = CommonUtil.getNet(basicSciencesTrue, basicSciencesFalse);
-                double clinicalSciencesNet = CommonUtil.getNet(clinicalSciencesTrue, clinicalSciencesFalse);
-                double result = getResult(basicSciencesNet, clinicalSciencesNet);
-                showResultDialog(result);
+                DUS dus = getDus();
+                showResultDialog(dus);
             }
         });
     }
 
-    private void showResultDialog(double result) {
+    private void showResultDialog(DUS dus) {
         final Dialog dialog = new Dialog(DusActivity.this);
         dialog.setContentView(R.layout.dialog_dus);
         TextView textViewResult = dialog.findViewById(R.id.textViewDUSResult);
-        textViewResult.setText(String.valueOf(CommonUtil.round(result, 2)));
-        setDialogButtonsListener(dialog);
+        textViewResult.setText(String.valueOf(CommonUtil.round(dus.getResult(), 2)));
+        setDialogViewListeners(dialog, dus);
         dialog.show();
     }
 
@@ -120,21 +133,27 @@ public class DusActivity extends AppCompatActivity {
                 .show();
     }
 
-    private double getResult(double basicSciencesNet, double clinicalSciencesNet) {
-        return 19.22377 + basicSciencesNet * 0.60299075 + clinicalSciencesNet * 0.415765875;
-    }
 
-    private void setDialogButtonsListener(final Dialog dialog) {
-        Button buttonCalculate = dialog.findViewById(R.id.buttonDUSDialogCalculate);
+    private void setDialogViewListeners(final Dialog dialog, final DUS dus) {
         Button buttonSave = dialog.findViewById(R.id.buttonDUSDialogSave);
-        buttonCalculate.setOnClickListener(new View.OnClickListener() {
+        Button buttonClose = dialog.findViewById(R.id.buttonDUSDialogClose);
+        final EditText editTextExamName = dialog.findViewById(R.id.editTextDUSDialogExamName);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DusActivity.this, "Sınav Kaydedildi", Toast.LENGTH_SHORT).show();
+                dus.setName(editTextExamName.getText().toString());
+                long result = databaseManager.put(dus);
+                if (result == DatabaseManager.ERROR) {
+                    Toast.makeText(DusActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(DusActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
+                Intent intent = new Intent(DusActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
