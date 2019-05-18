@@ -1,8 +1,6 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
-public class ALES {
-    private Long id;
-    private String name;
+public class ALES extends Exam {
     private Integer mathsTrue;
     private Integer mathsFalse;
     private Double mathsNet;
@@ -12,22 +10,6 @@ public class ALES {
     private Double numericalResult;
     private Double verbalResult;
     private Double equalWeightResult;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Integer getMathsTrue() {
         return mathsTrue;

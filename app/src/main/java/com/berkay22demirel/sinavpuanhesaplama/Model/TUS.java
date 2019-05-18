@@ -1,8 +1,6 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
-public class TUS {
-    private Long id;
-    private String name;
+public class TUS extends Exam {
     private Integer basicMedicineSciencesTrue;
     private Integer basicMedicineSciencesFalse;
     private Double basicMedicineSciencesNet;
@@ -13,22 +11,6 @@ public class TUS {
     private Double graduateMedicineTPoint;
     private Double graduateMedicineAPoint;
     private Double notGraduateMedicineTPoint;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Integer getBasicMedicineSciencesTrue() {
         return basicMedicineSciencesTrue;

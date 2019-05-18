@@ -1,10 +1,6 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
-import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
-
-public class YKS {
-    private Long id;
-    private String name;
+public class YKS extends Exam {
     private Integer diplomaGrade;
     private Integer turkishTrue;
     private Integer turkishFalse;
@@ -54,7 +50,7 @@ public class YKS {
     private Integer languageTrue;
     private Integer languageFalse;
     private Double languageNet;
-    private Boolean diplamaNotification;
+    private Boolean diplomaNotification;
     private Double resultSimpleTYT;
     private Double resultSimpleNumerical;
     private Double resultSimpleVerbal;
@@ -65,22 +61,6 @@ public class YKS {
     private Double resultCalculatedVerbal;
     private Double resultCalculatedEqualWeight;
     private Double resultCalculatedLanguage;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Integer getDiplomaGrade() {
         return diplomaGrade;
@@ -474,12 +454,12 @@ public class YKS {
         this.languageNet = languageNet;
     }
 
-    public Boolean getDiplamaNotification() {
-        return diplamaNotification;
+    public Boolean getDiplomaNotification() {
+        return diplomaNotification;
     }
 
-    public void setDiplamaNotification(Boolean diplamaNotification) {
-        this.diplamaNotification = diplamaNotification;
+    public void setDiplomaNotification(Boolean diplomaNotification) {
+        this.diplomaNotification = diplomaNotification;
     }
 
     public Double getResultSimpleTYT() {
