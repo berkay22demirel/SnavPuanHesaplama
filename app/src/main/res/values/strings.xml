@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sınav Puan Hesaplama</string>
+    <string name="app_name">Sınav Puan Hesapla</string>
     <string name="button_calculate">Hesapla</string>
     <string name="button_save">Kaydet</string>
     <string name="button_close">Kapat</string>
