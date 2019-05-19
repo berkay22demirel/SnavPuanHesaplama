@@ -79,18 +79,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_saved_exam) {
             Intent intent = new Intent(MainActivity.this, SavedExamsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_exam_calendar) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_yks) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_dgs) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_ales) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_yds) {
+
+        } else if (id == R.id.nav_kpss) {
+
+        } else if (id == R.id.nav_ekpss) {
+
+        } else if (id == R.id.nav_tus) {
+
+        } else if (id == R.id.nav_dus) {
+
+        } else if (id == R.id.nav_eus) {
 
         }
 
@@ -109,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
-
 
     private void addClickListenerToCardView(CardView cardView, final Class activityReference) {
         cardView.setOnClickListener(new View.OnClickListener() {

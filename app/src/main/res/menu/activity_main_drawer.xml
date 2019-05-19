@@ -5,33 +5,53 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_exam_calendar"
+            android:icon="@drawable/calendar_icon_black"
+            android:title="Sınav Takvimi" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_saved_exam"
+            android:icon="@drawable/saved_exam_icon_black"
+            android:title="Kayıtlı Sınavlarım" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="İstatistikler">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_yks"
+                android:icon="@drawable/yks_icon_black"
+                android:title="YKS" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_dgs"
+                android:icon="@drawable/dgs_icon_black"
+                android:title="DGS" />
+            <item
+                android:id="@+id/nav_ales"
+                android:icon="@drawable/ales_icon_black"
+                android:title="ALES" />
+            <item
+                android:id="@+id/nav_yds"
+                android:icon="@drawable/yds_icon_black"
+                android:title="YDS" />
+            <item
+                android:id="@+id/nav_kpss"
+                android:icon="@drawable/kpss_icon_black"
+                android:title="KPSS" />
+            <item
+                android:id="@+id/nav_ekpss"
+                android:icon="@drawable/ekpss_icon_black"
+                android:title="EKPSS" />
+            <item
+                android:id="@+id/nav_tus"
+                android:icon="@drawable/tus_icon_black"
+                android:title="TUS" />
+            <item
+                android:id="@+id/nav_dus"
+                android:icon="@drawable/dus_icon_black"
+                android:title="DUS" />
+            <item
+                android:id="@+id/nav_eus"
+                android:icon="@drawable/eus_icon_black"
+                android:title="EUS" />
         </menu>
     </item>
 
