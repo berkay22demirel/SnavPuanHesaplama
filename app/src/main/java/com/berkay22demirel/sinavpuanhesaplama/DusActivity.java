@@ -97,7 +97,7 @@ public class DusActivity extends AppCompatActivity {
         dus.setClinicalSciencesTrue(ConverterUtil.convertToInteger(editTextClinicalSciencesTrue.getText().toString()));
         dus.setClinicalSciencesFalse(ConverterUtil.convertToInteger(editTextClinicalSciencesFalse.getText().toString()));
         dus.setClinicalSciencesNet(CommonUtil.getNet(dus.getClinicalSciencesTrue(), dus.getClinicalSciencesFalse()));
-        dus.setResult(dusService.getResult(dus.getBasicSciencesNet(), dus.getClinicalSciencesNet()));
+        dus.setResult(CommonUtil.round(dusService.getResult(dus.getBasicSciencesNet(), dus.getClinicalSciencesNet()), 2));
         dus.setExamType(ExamsEnum.DUS.getId());
         return dus;
     }
@@ -116,7 +116,7 @@ public class DusActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(DusActivity.this);
         dialog.setContentView(R.layout.dialog_dus);
         TextView textViewResult = dialog.findViewById(R.id.textViewDUSResult);
-        textViewResult.setText(String.valueOf(CommonUtil.round(dus.getResult(), 2)));
+        textViewResult.setText(String.valueOf(dus.getResult()));
         setDialogViewListeners(dialog, dus);
         dialog.show();
     }

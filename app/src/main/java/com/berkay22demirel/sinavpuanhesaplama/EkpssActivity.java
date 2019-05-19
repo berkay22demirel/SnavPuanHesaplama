@@ -105,7 +105,7 @@ public class EkpssActivity extends AppCompatActivity {
         ekpss.setGeneralKnowledgeFalse(ConverterUtil.convertToInteger(editTextGeneralKnowledgeFalse.getText().toString()));
         ekpss.setGeneralKnowledgeNet(CommonUtil.getNet(ekpss.getGeneralKnowledgeTrue(), ekpss.getGeneralKnowledgeFalse()));
         ekpss.setExamSubType(spinnerEKPSSType.getSelectedItemPosition());
-        ekpss.setResult(ekpssService.getResult(ekpss.getGeneralAbilityNet(), ekpss.getGeneralKnowledgeNet(), ekpss.getExamSubType()));
+        ekpss.setResult(CommonUtil.round(ekpssService.getResult(ekpss.getGeneralAbilityNet(), ekpss.getGeneralKnowledgeNet(), ekpss.getExamSubType()), 2));
         ekpss.setExamType(ExamsEnum.EKPSS.getId());
         return ekpss;
     }
@@ -123,7 +123,7 @@ public class EkpssActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(EkpssActivity.this);
         dialog.setContentView(R.layout.dialog_ekpss);
         TextView textViewResult = dialog.findViewById(R.id.textViewEKPSSResult);
-        textViewResult.setText(String.valueOf(CommonUtil.round(ekpss.getResult(), 2)));
+        textViewResult.setText(String.valueOf(ekpss.getResult()));
         setDialogViewListeners(dialog, ekpss);
         dialog.show();
     }

@@ -97,10 +97,10 @@ public class TusActivity extends AppCompatActivity {
         tus.setClinicalMedicineSciencesTrue(ConverterUtil.convertToInteger(editTextClinicalMedicineSciencesTrue.getText().toString()));
         tus.setClinicalMedicineSciencesFalse(ConverterUtil.convertToInteger(editTextClinicalMedicineSciencesFalse.getText().toString()));
         tus.setClinicalMedicineSciencesNet(CommonUtil.getNet(tus.getClinicalMedicineSciencesTrue(), tus.getClinicalMedicineSciencesFalse()));
-        tus.setGraduateMedicineTPoint(tusService.getGraduateMedicineTPoint(tus.getBasicMedicineSciencesNet(), tus.getClinicalMedicineSciencesNet()));
-        tus.setGraduateMedicineKPoint(tusService.getGraduateMedicineKPoint(tus.getBasicMedicineSciencesNet(), tus.getClinicalMedicineSciencesNet()));
-        tus.setGraduateMedicineAPoint(tusService.getGraduateMedicineAPoint(tus.getClinicalMedicineSciencesNet()));
-        tus.setNotGraduateMedicineTPoint(tusService.getNotGraduateMedicineTPoint(tus.getBasicMedicineSciencesNet()));
+        tus.setGraduateMedicineTPoint(CommonUtil.round(tusService.getGraduateMedicineTPoint(tus.getBasicMedicineSciencesNet(), tus.getClinicalMedicineSciencesNet()), 2));
+        tus.setGraduateMedicineKPoint(CommonUtil.round(tusService.getGraduateMedicineKPoint(tus.getBasicMedicineSciencesNet(), tus.getClinicalMedicineSciencesNet()), 2));
+        tus.setGraduateMedicineAPoint(CommonUtil.round(tusService.getGraduateMedicineAPoint(tus.getClinicalMedicineSciencesNet()), 2));
+        tus.setNotGraduateMedicineTPoint(CommonUtil.round(tusService.getNotGraduateMedicineTPoint(tus.getBasicMedicineSciencesNet()), 2));
         tus.setExamType(ExamsEnum.TUS.getId());
         return tus;
     }
@@ -121,10 +121,10 @@ public class TusActivity extends AppCompatActivity {
         TextView textViewGraduateMedicineTPoint = dialog.findViewById(R.id.textViewTUSResultGraduateMedicineTPoint);
         TextView textViewGraduateMedicineAPoint = dialog.findViewById(R.id.textViewTUSResultGraduateMedicineAPoint);
         TextView textViewNotGraduateMedicineTPoint = dialog.findViewById(R.id.textViewTUSResultNotGraduateMedicineTPoint);
-        textViewGraduateMedicineKPoint.setText(String.valueOf(CommonUtil.round(tus.getGraduateMedicineKPoint(), 2)));
-        textViewGraduateMedicineTPoint.setText(String.valueOf(CommonUtil.round(tus.getGraduateMedicineTPoint(), 2)));
-        textViewGraduateMedicineAPoint.setText(String.valueOf(CommonUtil.round(tus.getGraduateMedicineAPoint(), 2)));
-        textViewNotGraduateMedicineTPoint.setText(String.valueOf(CommonUtil.round(tus.getNotGraduateMedicineTPoint(), 2)));
+        textViewGraduateMedicineKPoint.setText(String.valueOf(tus.getGraduateMedicineKPoint()));
+        textViewGraduateMedicineTPoint.setText(String.valueOf(tus.getGraduateMedicineTPoint()));
+        textViewGraduateMedicineAPoint.setText(String.valueOf(tus.getGraduateMedicineAPoint()));
+        textViewNotGraduateMedicineTPoint.setText(String.valueOf(tus.getNotGraduateMedicineTPoint()));
         setDialogViewListeners(dialog, tus);
         dialog.show();
     }

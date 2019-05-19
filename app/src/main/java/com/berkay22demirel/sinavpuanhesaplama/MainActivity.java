@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, SavedExamsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_exam_calendar) {
-
+            Intent intent = new Intent(MainActivity.this, ExamCalendarActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_yks) {
 
         } else if (id == R.id.nav_dgs) {

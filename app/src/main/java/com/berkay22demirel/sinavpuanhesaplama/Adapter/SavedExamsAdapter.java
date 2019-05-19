@@ -21,6 +21,7 @@ import com.berkay22demirel.sinavpuanhesaplama.Model.YKS;
 import com.berkay22demirel.sinavpuanhesaplama.R;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class SavedExamsAdapter extends ArrayAdapter<Object> {
@@ -56,19 +57,19 @@ public class SavedExamsAdapter extends ArrayAdapter<Object> {
         int examType = exam.getExamType();
         if (ExamsEnum.ALES.getId() == examType) {
             ALES ales = (ALES) exam;
-            return ales.getNumericalResult() + " - " + ales.getVerbalResult() + " ...";
+            return ales.getNumericalResult() + CommonUtil.DIVISION_STRING + ales.getVerbalResult() + CommonUtil.DIVISION_STRING + ales.getEqualWeightResult();
         } else if (ExamsEnum.KPSS.getId() == examType) {
             KPSS kpss = (KPSS) exam;
             return CommonUtil.EMPTY_STRING;
         } else if (ExamsEnum.YKS.getId() == examType) {
             YKS yks = (YKS) exam;
-            return yks.getResultSimpleTYT() + " - " + yks.getResultSimpleNumerical() + " ...";
+            return yks.getResultSimpleTYT() + CommonUtil.DIVISION_STRING + yks.getResultSimpleNumerical() + CommonUtil.DIVISION_STRING + yks.getResultSimpleVerbal() + " ...";
         } else if (ExamsEnum.YDS.getId() == examType) {
             YDS yds = (YDS) exam;
             return yds.getResult() + "";
         } else if (ExamsEnum.DGS.getId() == examType) {
             DGS dgs = (DGS) exam;
-            return dgs.getNumericalResult() + " - " + dgs.getVerbalResult() + " ...";
+            return dgs.getNumericalResult() + CommonUtil.DIVISION_STRING + dgs.getVerbalResult() + CommonUtil.DIVISION_STRING + dgs.getEqualWeightResult();
         } else if (ExamsEnum.EKPSS.getId() == examType) {
             EKPSS ekpss = (EKPSS) exam;
             return ekpss.getResult() + "";
@@ -77,7 +78,7 @@ public class SavedExamsAdapter extends ArrayAdapter<Object> {
             return dus.getResult() + "";
         } else if (ExamsEnum.TUS.getId() == examType) {
             TUS tus = (TUS) exam;
-            return tus.getGraduateMedicineTPoint() + " - " + tus.getGraduateMedicineKPoint() + " ...";
+            return tus.getGraduateMedicineTPoint() + " - " + tus.getGraduateMedicineKPoint() + CommonUtil.DIVISION_STRING + tus.getGraduateMedicineAPoint() + CommonUtil.DIVISION_STRING;
         } else if (ExamsEnum.EUS.getId() == examType) {
             EUS eus = (EUS) exam;
             return eus.getResult() + "";

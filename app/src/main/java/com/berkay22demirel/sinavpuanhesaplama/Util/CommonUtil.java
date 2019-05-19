@@ -1,16 +1,13 @@
 package com.berkay22demirel.sinavpuanhesaplama.Util;
 
 import android.text.Editable;
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.widget.EditText;
-
-import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 
 public class CommonUtil {
 
     public static String EMPTY_STRING = "";
+    public static String DIVISION_STRING = " - ";
     public static String PUT_EXAM_SUCCESSFUL_STRING = "Sınav başarıyla kaydedildi...";
     public static String PUT_EXAM_ERROR_STRING = "Sınav kaydedilirken bir hata oluştu! Lütfen daha sonra tekrar deneyiniz...";
     public static int SIX_QUESTIONS = 6;

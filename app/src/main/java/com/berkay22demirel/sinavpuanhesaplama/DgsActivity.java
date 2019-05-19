@@ -124,9 +124,9 @@ public class DgsActivity extends AppCompatActivity {
         TextView textViewResultNumeric = dialog.findViewById(R.id.textViewDGSResultNumeric);
         TextView textViewResultVerbal = dialog.findViewById(R.id.textViewDGSResultVerbal);
         TextView textViewResultEqualWeight = dialog.findViewById(R.id.textViewDGSResultEqualWeight);
-        textViewResultNumeric.setText(String.valueOf(CommonUtil.round(dgs.getNumericalResult(), 2)));
-        textViewResultVerbal.setText(String.valueOf(CommonUtil.round(dgs.getVerbalResult(), 2)));
-        textViewResultEqualWeight.setText(String.valueOf(CommonUtil.round(dgs.getEqualWeightResult(), 2)));
+        textViewResultNumeric.setText(String.valueOf(dgs.getNumericalResult()));
+        textViewResultVerbal.setText(String.valueOf(dgs.getVerbalResult()));
+        textViewResultEqualWeight.setText(String.valueOf(dgs.getEqualWeightResult()));
         setDialogViewListeners(dialog, dgs);
         dialog.show();
     }

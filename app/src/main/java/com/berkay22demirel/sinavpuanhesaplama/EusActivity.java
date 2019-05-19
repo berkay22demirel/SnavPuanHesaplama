@@ -86,7 +86,7 @@ public class EusActivity extends AppCompatActivity {
         eus.setEusTrue(ConverterUtil.convertToInteger(editTextTrue.getText().toString()));
         eus.setEusFalse(ConverterUtil.convertToInteger(editTextFalse.getText().toString()));
         eus.setEusNet(CommonUtil.getNet(eus.getEusTrue(), eus.getEusFalse()));
-        eus.setResult(eusService.getResult(eus.getEusNet()));
+        eus.setResult(CommonUtil.round(eusService.getResult(eus.getEusNet()), 2));
         eus.setExamType(ExamsEnum.EUS.getId());
         return eus;
     }
@@ -104,7 +104,7 @@ public class EusActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(EusActivity.this);
         dialog.setContentView(R.layout.dialog_eus);
         TextView textViewResult = dialog.findViewById(R.id.textViewEUSResult);
-        textViewResult.setText(String.valueOf(CommonUtil.round(eus.getResult(), 2)));
+        textViewResult.setText(String.valueOf(eus.getResult()));
         setDialogViewListeners(dialog, eus);
         dialog.show();
     }

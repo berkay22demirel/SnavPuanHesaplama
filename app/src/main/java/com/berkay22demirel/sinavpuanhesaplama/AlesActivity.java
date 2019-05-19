@@ -97,9 +97,9 @@ public class AlesActivity extends AppCompatActivity {
         ales.setMathsTrue(ConverterUtil.convertToInteger(editTextMathsTrue.getText().toString()));
         ales.setMathsFalse(ConverterUtil.convertToInteger(editTextMathsFalse.getText().toString()));
         ales.setMathsNet(CommonUtil.getNet(ales.getMathsTrue(), ales.getMathsFalse()));
-        ales.setNumericalResult(alesService.getNumericalResult(ales.getMathsNet(), ales.getTurkishNet()));
-        ales.setVerbalResult(alesService.getVerbalResult(ales.getMathsNet(), ales.getTurkishNet()));
-        ales.setEqualWeightResult(alesService.getEqualWeightResult(ales.getMathsNet(), ales.getTurkishNet()));
+        ales.setNumericalResult(CommonUtil.round(alesService.getNumericalResult(ales.getMathsNet(), ales.getTurkishNet()), 2));
+        ales.setVerbalResult(CommonUtil.round(alesService.getVerbalResult(ales.getMathsNet(), ales.getTurkishNet()), 2));
+        ales.setEqualWeightResult(CommonUtil.round(alesService.getEqualWeightResult(ales.getMathsNet(), ales.getTurkishNet()), 2));
         ales.setExamType(ExamsEnum.ALES.getId());
         return ales;
     }
@@ -119,9 +119,9 @@ public class AlesActivity extends AppCompatActivity {
         TextView textViewNumeric = dialog.findViewById(R.id.textViewALESResultNumeric);
         TextView textViewVerbal = dialog.findViewById(R.id.textViewALESResultVerbal);
         TextView textViewEqualWeight = dialog.findViewById(R.id.textViewALESResultEqualWeight);
-        textViewNumeric.setText(String.valueOf(CommonUtil.round(ales.getNumericalResult(), 2)));
-        textViewVerbal.setText(String.valueOf(CommonUtil.round(ales.getVerbalResult(), 2)));
-        textViewEqualWeight.setText(String.valueOf(CommonUtil.round(ales.getEqualWeightResult(), 2)));
+        textViewNumeric.setText(String.valueOf(ales.getNumericalResult()));
+        textViewVerbal.setText(String.valueOf(ales.getVerbalResult()));
+        textViewEqualWeight.setText(String.valueOf(ales.getEqualWeightResult()));
         setDialogViewListeners(dialog, ales);
         dialog.show();
     }

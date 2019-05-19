@@ -1,19 +1,18 @@
 package com.berkay22demirel.sinavpuanhesaplama.Util;
 
-import android.os.CountDownTimer;
-import android.widget.TextView;
-
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
-import com.berkay22demirel.sinavpuanhesaplama.R;
+import com.berkay22demirel.sinavpuanhesaplama.Model.Exam;
+import com.berkay22demirel.sinavpuanhesaplama.Model.ExamDate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ExamDateUtil {
 
+    private static List<ExamDate> examDateList;
     private static List<Date> alesDateList;
     private static List<Date> dgsDateList;
     private static List<Date> dusDateList;
@@ -60,6 +59,39 @@ public class ExamDateUtil {
             }
         }
         return null;
+    }
+
+    public static List<ExamDate> getAllExamDateList() {
+        if (examDateList == null) {
+            examDateList = new ArrayList<>();
+            examDateList.addAll(getExamDateList(getAlesDateList(), ExamsEnum.ALES.getId()));
+            examDateList.addAll(getExamDateList(getDgsDateList(), ExamsEnum.DGS.getId()));
+            examDateList.addAll(getExamDateList(getDusDateList(), ExamsEnum.DUS.getId()));
+            examDateList.addAll(getExamDateList(getEkpssDateList(), ExamsEnum.EKPSS.getId()));
+            examDateList.addAll(getExamDateList(getEusDateList(), ExamsEnum.EUS.getId()));
+            examDateList.addAll(getExamDateList(getKpssDateList(), ExamsEnum.KPSS.getId()));
+            examDateList.addAll(getExamDateList(getTusDateList(), ExamsEnum.TUS.getId()));
+            examDateList.addAll(getExamDateList(getYdsDateList(), ExamsEnum.YDS.getId()));
+            examDateList.addAll(getExamDateList(getYksDateList(), ExamsEnum.YKS.getId()));
+            Collections.sort(examDateList, new ExamDateComparer());
+        }
+        return examDateList;
+    }
+
+    private static List<ExamDate> getExamDateList(List<Date> dateList, Integer examType) {
+        List<ExamDate> examDateList = new ArrayList<>();
+        if (ValidatorUtil.isValidList(dateList)) {
+            Date today = new Date();
+            for (Date date : dateList) {
+                if (date.getTime() >= today.getTime()) {
+                    ExamDate examDate = new ExamDate();
+                    examDate.setExamDate(date);
+                    examDate.setExamType(examType);
+                    examDateList.add(examDate);
+                }
+            }
+        }
+        return examDateList;
     }
 
     private static List<Date> getAlesDateList() {

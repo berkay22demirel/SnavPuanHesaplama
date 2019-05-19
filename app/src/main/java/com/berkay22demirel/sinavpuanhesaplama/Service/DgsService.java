@@ -1,6 +1,7 @@
 package com.berkay22demirel.sinavpuanhesaplama.Service;
 
 import com.berkay22demirel.sinavpuanhesaplama.Model.DGS;
+import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 
 public class DgsService {
 
@@ -16,9 +17,9 @@ public class DgsService {
     public void setResult(DGS dgs) {
         double numerical = getNumerical(dgs.getNumericalNet());
         double verbal = getVerbal(dgs.getVerbalNet());
-        dgs.setNumericalResult(getNumericalResult(numerical, verbal, dgs.getAssociateDegreeSuccessGrade(), dgs.getBeforeResult()));
-        dgs.setVerbalResult(getVerbalResult(numerical, verbal, dgs.getAssociateDegreeSuccessGrade(), dgs.getBeforeResult()));
-        dgs.setEqualWeightResult(getEqualWeightResult(numerical, verbal, dgs.getAssociateDegreeSuccessGrade(), dgs.getBeforeResult()));
+        dgs.setNumericalResult(CommonUtil.round(getNumericalResult(numerical, verbal, dgs.getAssociateDegreeSuccessGrade(), dgs.getBeforeResult()), 2));
+        dgs.setVerbalResult(CommonUtil.round(getVerbalResult(numerical, verbal, dgs.getAssociateDegreeSuccessGrade(), dgs.getBeforeResult()), 2));
+        dgs.setEqualWeightResult(CommonUtil.round(getEqualWeightResult(numerical, verbal, dgs.getAssociateDegreeSuccessGrade(), dgs.getBeforeResult()), 2));
     }
 
     private double getNumericalResult(double numerical, double verbal, double associateDegreeSuccessGrade, boolean beforeResult) {

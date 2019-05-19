@@ -86,7 +86,7 @@ public class YdsActivity extends AppCompatActivity {
         yds.setLanguageTrue(ConverterUtil.convertToInteger(editTextLanguageTrue.getText().toString()));
         yds.setLanguageFalse(ConverterUtil.convertToInteger(editTextLanguageFalse.getText().toString()));
         yds.setLanguageNet(CommonUtil.getNet(yds.getLanguageTrue(), yds.getLanguageFalse()));
-        yds.setResult(ydsService.getResult(yds.getLanguageNet()));
+        yds.setResult(CommonUtil.round(ydsService.getResult(yds.getLanguageNet()), 2));
         yds.setExamType(ExamsEnum.YDS.getId());
         return yds;
     }
@@ -108,7 +108,7 @@ public class YdsActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_yds);
         TextView textViewResult = dialog.findViewById(R.id.textViewYDSResult);
         TextView textViewLevel = dialog.findViewById(R.id.textViewYDSLevel);
-        textViewResult.setText(String.valueOf(CommonUtil.round(yds.getResult(), 2)));
+        textViewResult.setText(String.valueOf(yds.getResult()));
         textViewLevel.setText(ydsService.getLevel(yds.getResult()));
         setDialogViewListeners(dialog, yds);
         dialog.show();
