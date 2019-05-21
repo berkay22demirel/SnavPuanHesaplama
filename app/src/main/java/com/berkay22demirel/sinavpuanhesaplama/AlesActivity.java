@@ -146,16 +146,18 @@ public class AlesActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ales.setName(editTextExamName.getText().toString());
-                long result = databaseManager.put(ales);
-                if (result == DatabaseManager.ERROR) {
-                    Toast.makeText(AlesActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(AlesActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
+                    ales.setName(editTextExamName.getText().toString());
+                    long result = databaseManager.put(ales);
+                    if (result == DatabaseManager.ERROR) {
+                        Toast.makeText(AlesActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(AlesActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
+                    Intent intent = new Intent(AlesActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
-                dialog.dismiss();
-                Intent intent = new Intent(AlesActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
         buttonClose.setOnClickListener(new View.OnClickListener() {

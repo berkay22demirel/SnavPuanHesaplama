@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="77dp"
+    android:padding="@dimen/activity_margin">
+
+    <TextView
+        android:id="@+id/textViewListItemExamCalendarExamType"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="@dimen/large_text_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewListItemExamCalendarDate"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/middle_text_size" />
+
+        <TextView
+            android:id="@+id/textViewListItemExamCalendarRemainingTime"
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:text=""
+            android:textColor="@color/blackLight"
+            android:textSize="@dimen/small_text_size" />
+    </LinearLayout>
+</LinearLayout>

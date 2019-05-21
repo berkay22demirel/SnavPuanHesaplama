@@ -32,7 +32,7 @@ public class DatabaseManager {
 
     public Long put(Object data) {
         try {
-            BaseDAO baseDAO = getDAO(data);
+            BaseDAO baseDAO = getDAO(data.getClass());
             if (baseDAO != null) {
                 Long id = baseDAO.put(data);
                 if (id != null && id.compareTo(0L) > 0) {
@@ -89,24 +89,24 @@ public class DatabaseManager {
         }
     }
 
-    private BaseDAO getDAO(Object data) {
-        if (data instanceof ALES) {
+    private BaseDAO getDAO(Class data) {
+        if (data.equals(ALES.class)) {
             return new AlesDAO(this, databaseUtils);
-        } else if (data instanceof DGS) {
+        } else if (data.equals(DGS.class)) {
             return new DgsDAO(this, databaseUtils);
-        } else if (data instanceof DUS) {
+        } else if (data.equals(DUS.class)) {
             return new DusDAO(this, databaseUtils);
-        } else if (data instanceof EKPSS) {
+        } else if (data.equals(EKPSS.class)) {
             return new EkpssDAO(this, databaseUtils);
-        } else if (data instanceof EUS) {
+        } else if (data.equals(EUS.class)) {
             return new EusDAO(this, databaseUtils);
-        } else if (data instanceof KPSS) {
+        } else if (data.equals(KPSS.class)) {
             return new KpssDAO(this, databaseUtils);
-        } else if (data instanceof TUS) {
+        } else if (data.equals(TUS.class)) {
             return new TusDAO(this, databaseUtils);
-        } else if (data instanceof YDS) {
+        } else if (data.equals(YDS.class)) {
             return new YdsDAO(this, databaseUtils);
-        } else if (data instanceof YKS) {
+        } else if (data.equals(YKS.class)) {
             return new YksDAO(this, databaseUtils);
         }
         return null;

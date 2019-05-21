@@ -148,16 +148,18 @@ public class EkpssActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ekpss.setName(editTextExamName.getText().toString());
-                long result = databaseManager.put(ekpss);
-                if (result == DatabaseManager.ERROR) {
-                    Toast.makeText(EkpssActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(EkpssActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
+                    ekpss.setName(editTextExamName.getText().toString());
+                    long result = databaseManager.put(ekpss);
+                    if (result == DatabaseManager.ERROR) {
+                        Toast.makeText(EkpssActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(EkpssActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
+                    Intent intent = new Intent(EkpssActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
-                dialog.dismiss();
-                Intent intent = new Intent(EkpssActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
         buttonClose.setOnClickListener(new View.OnClickListener() {

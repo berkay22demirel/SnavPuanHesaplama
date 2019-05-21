@@ -1,8 +1,11 @@
 package com.berkay22demirel.sinavpuanhesaplama.Util;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
+import com.berkay22demirel.sinavpuanhesaplama.R;
 
 public class CommonUtil {
 
@@ -118,5 +121,14 @@ public class CommonUtil {
 
     public static String getPageTitle(String title) {
         return title + " Puan Hesapla";
+    }
+
+    public static boolean controlEditTextValue(EditText editText, Context context) {
+        String languageTrue = editText.getText().toString();
+        if (languageTrue == null || languageTrue.equals(CommonUtil.EMPTY_STRING)) {
+            editText.setError(context.getResources().getString(R.string.error_validate));
+            return false;
+        }
+        return true;
     }
 }

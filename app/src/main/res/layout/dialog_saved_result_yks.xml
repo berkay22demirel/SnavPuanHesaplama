@@ -65,7 +65,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultSimpleTYT"
+                            android:id="@+id/textViewYKSSavedResultSimpleTYT"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -90,7 +90,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultSimpleNumerical"
+                            android:id="@+id/textViewYKSSavedResultSimpleNumerical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -115,7 +115,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultSimpleVerbal"
+                            android:id="@+id/textViewYKSSavedResultSimpleVerbal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -140,7 +140,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultSimpleEqualWeight"
+                            android:id="@+id/textViewYKSSavedResultSimpleEqualWeight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -165,7 +165,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultSimpleLanguage"
+                            android:id="@+id/textViewYKSSavedResultSimpleLanguage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -223,7 +223,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultCalculatedTYT"
+                            android:id="@+id/textViewYKSSavedResultCalculatedTYT"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -248,7 +248,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultCalculatedNumerical"
+                            android:id="@+id/textViewYKSSavedResultCalculatedNumerical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -273,7 +273,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultCalculatedVerbal"
+                            android:id="@+id/textViewYKSSavedResultCalculatedVerbal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -298,7 +298,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultCalculatedEqualWeight"
+                            android:id="@+id/textViewYKSSavedResultCalculatedEqualWeight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -323,7 +323,7 @@
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultCalculatedLanguage"
+                            android:id="@+id/textViewYKSSavedResultCalculatedLanguage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -332,32 +332,6 @@
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"/>
                     </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_margin"
-                android:layout_marginRight="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/activity_margin"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/activity_margin">
-                    <EditText
-                        android:id="@+id/editTextYKSDialogExamName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/middle_text_size"
-                        android:textColor="@color/black"
-                        android:hint="@string/result_save_name"
-                        android:maxLength="16"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -404,7 +378,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray"></LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -419,7 +392,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonYKSDialogSave"
+            android:id="@+id/buttonYKSSavedResultDialogStatics"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -429,10 +402,10 @@
             android:textColor="@color/yellow"
             android:textStyle="bold"
             android:textSize="@dimen/middle_text_size"
-            android:text="@string/button_save" />
+            android:text="@string/button_statics" />
 
         <Button
-            android:id="@+id/buttonYKSDialogClose"
+            android:id="@+id/buttonYKSSavedResultDialogClose"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"

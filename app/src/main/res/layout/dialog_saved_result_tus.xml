@@ -44,7 +44,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/result_simple_points"
+                            android:text="@string/result_graduate_medicine_title"
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
@@ -60,12 +60,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/result_tyt"
+                            android:text="@string/result_graduate_medicine_k_point"
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultSimpleTYT"
+                            android:id="@+id/textViewTUSSavedResultGraduateMedicineKPoint"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -85,12 +85,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/result_numerical"
+                            android:text="@string/result_graduate_medicine_t_point"
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultSimpleNumerical"
+                            android:id="@+id/textViewTUSSavedResultGraduateMedicineTPoint"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -110,62 +110,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/result_verbal"
+                            android:text="@string/result_graduate_medicine_a_point"
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultSimpleVerbal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_default"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_margin"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_equal_weight"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/textViewYKSResultSimpleEqualWeight"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_default"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_margin"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_language"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/textViewYKSResultSimpleLanguage"
+                            android:id="@+id/textViewTUSSavedResultGraduateMedicineAPoint"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -202,7 +152,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/result_calculated_points"
+                            android:text="@string/result_not_graduate_medicine_title"
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
@@ -218,12 +168,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@string/result_tyt"
+                            android:text="@string/result_not_graduate_medicine_t_point"
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/textViewYKSResultCalculatedTYT"
+                            android:id="@+id/textViewTUSSavedResultNotGraduateMedicineTPoint"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -232,132 +182,6 @@
                             android:textSize="@dimen/middle_text_size"
                             android:textColor="@color/black"/>
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_margin"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_numerical"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/textViewYKSResultCalculatedNumerical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_default"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_margin"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_verbal"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/textViewYKSResultCalculatedVerbal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_default"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_margin"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_equal_weight"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/textViewYKSResultCalculatedEqualWeight"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_default"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_margin"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_language"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/textViewYKSResultCalculatedLanguage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/result_default"
-                            android:textSize="@dimen/middle_text_size"
-                            android:textColor="@color/black"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_margin"
-                android:layout_marginRight="@dimen/activity_margin"
-                android:layout_marginBottom="@dimen/activity_margin"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/activity_margin">
-                    <EditText
-                        android:id="@+id/editTextYKSDialogExamName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/middle_text_size"
-                        android:textColor="@color/black"
-                        android:hint="@string/result_save_name"
-                        android:maxLength="16"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -419,7 +243,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonYKSDialogSave"
+            android:id="@+id/buttonTUSSavedResultDialogStatics"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -429,10 +253,10 @@
             android:textColor="@color/yellow"
             android:textStyle="bold"
             android:textSize="@dimen/middle_text_size"
-            android:text="@string/button_save" />
+            android:text="@string/button_statics" />
 
         <Button
-            android:id="@+id/buttonYKSDialogClose"
+            android:id="@+id/buttonTUSSavedResultDialogClose"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"

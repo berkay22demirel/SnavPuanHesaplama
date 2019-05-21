@@ -129,16 +129,18 @@ public class EusActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eus.setName(editTextExamName.getText().toString());
-                long result = databaseManager.put(eus);
-                if (result == DatabaseManager.ERROR) {
-                    Toast.makeText(EusActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(EusActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
+                    eus.setName(editTextExamName.getText().toString());
+                    long result = databaseManager.put(eus);
+                    if (result == DatabaseManager.ERROR) {
+                        Toast.makeText(EusActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(EusActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
+                    Intent intent = new Intent(EusActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
-                dialog.dismiss();
-                Intent intent = new Intent(EusActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
         buttonClose.setOnClickListener(new View.OnClickListener() {

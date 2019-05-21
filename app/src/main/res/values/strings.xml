@@ -2,8 +2,11 @@
     <string name="app_name">Sınav Puan Hesapla</string>
     <string name="button_calculate">Hesapla</string>
     <string name="button_save">Kaydet</string>
+    <string name="button_statics">İstatistikler</string>
     <string name="button_close">Kapat</string>
     <string name="button_ok">Tamam</string>
+    <string name="button_yes">Evet</string>
+    <string name="button_no">Hayır</string>
     <string name="button_recalculate">Tekrar Hesapla</string>
     <string name="button_show_result">Sonucumu Göster</string>
     <string name="ales">ALES</string>

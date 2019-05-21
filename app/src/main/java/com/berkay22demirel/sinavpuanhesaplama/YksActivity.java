@@ -341,22 +341,24 @@ public class YksActivity extends AppCompatActivity {
     }
 
     private void setDialogViewListeners(final Dialog dialog, final YKS yks) {
-        Button buttonSave = dialog.findViewById(R.id.buttonALESDialogSave);
-        Button buttonClose = dialog.findViewById(R.id.buttonALESDialogClose);
+        Button buttonSave = dialog.findViewById(R.id.buttonYKSDialogSave);
+        Button buttonClose = dialog.findViewById(R.id.buttonYKSDialogClose);
         final EditText editTextExamName = dialog.findViewById(R.id.editTextYKSDialogExamName);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                yks.setName(editTextExamName.getText().toString());
-                long result = databaseManager.put(yks);
-                if (result == DatabaseManager.ERROR) {
-                    Toast.makeText(YksActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(YksActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
+                    yks.setName(editTextExamName.getText().toString());
+                    long result = databaseManager.put(yks);
+                    if (result == DatabaseManager.ERROR) {
+                        Toast.makeText(YksActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(YksActivity.this, CommonUtil.PUT_EXAM_SUCCESSFUL_STRING, Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
+                    Intent intent = new Intent(YksActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
-                dialog.dismiss();
-                Intent intent = new Intent(YksActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
         buttonClose.setOnClickListener(new View.OnClickListener() {
