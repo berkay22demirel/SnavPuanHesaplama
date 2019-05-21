@@ -12,6 +12,10 @@
             android:id="@+id/nav_saved_exam"
             android:icon="@drawable/saved_exam_icon_black"
             android:title="Kayıtlı Sınavlarım" />
+        <item
+            android:id="@+id/nav_asked_questions"
+            android:icon="@drawable/asked_questions_icon_black"
+            android:title="Çıkmış Sorular" />
     </group>
 
     <item android:title="İstatistikler">

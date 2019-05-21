@@ -7,25 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
-import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
-
-public class KpssActivity extends AppCompatActivity {
-
-    private static String PAGE_TITLE = ExamsEnum.KPSS.getTitle();
+public class AskedQuestionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kpss);
-        getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
+        setContentView(R.layout.activity_asked_questions);
+        getSupportActionBar().setTitle("Çıkmış Sorular");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.exam_menu, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -35,15 +31,12 @@ public class KpssActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
-            case R.id.action_alert:
-                showAlertDialog();
-                break;
             case R.id.action_settings:
-                Intent intentSettings = new Intent(KpssActivity.this, SettingsActivity.class);
+                Intent intentSettings = new Intent(AskedQuestionsActivity.this, SettingsActivity.class);
                 startActivity(intentSettings);
                 break;
             case R.id.action_info:
-                Intent intentInfo = new Intent(KpssActivity.this, InfoActivity.class);
+                Intent intentInfo = new Intent(AskedQuestionsActivity.this, InfoActivity.class);
                 startActivity(intentInfo);
                 break;
         }
@@ -51,7 +44,7 @@ public class KpssActivity extends AppCompatActivity {
     }
 
     private void showAlertDialog() {
-        new AlertDialog.Builder(KpssActivity.this)
+        new AlertDialog.Builder(AskedQuestionsActivity.this)
                 .setTitle("UYARI!")
                 .setMessage("*Bu sayfa yapım aşamasındadır!")
                 .setPositiveButton(getResources().getText(R.string.button_ok), new DialogInterface.OnClickListener() {

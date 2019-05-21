@@ -60,16 +60,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intentSettings = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
+                break;
+            case R.id.action_info:
+                Intent intentInfo = new Intent(MainActivity.this, InfoActivity.class);
+                startActivity(intentInfo);
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -85,26 +85,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_exam_calendar) {
             Intent intent = new Intent(MainActivity.this, ExamCalendarActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_asked_questions) {
+            Intent intent = new Intent(MainActivity.this, AskedQuestionsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_yks) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_dgs) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_ales) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_yds) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_kpss) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_ekpss) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_tus) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_dus) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_eus) {
-
+            Intent intent = new Intent(MainActivity.this, StaticsActivity.class);
+            startActivity(intent);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -105,11 +105,16 @@ public class YksActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
-            case R.id.action_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.action_alert:
                 showAlertDialog();
+                break;
+            case R.id.action_settings:
+                Intent intentSettings = new Intent(YksActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
+                break;
+            case R.id.action_info:
+                Intent intentInfo = new Intent(YksActivity.this, InfoActivity.class);
+                startActivity(intentInfo);
                 break;
         }
         return super.onOptionsItemSelected(item);

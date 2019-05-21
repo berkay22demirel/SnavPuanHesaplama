@@ -1,12 +1,11 @@
 package com.berkay22demirel.sinavpuanhesaplama;
 
-import android.provider.ContactsContract;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.berkay22demirel.sinavpuanhesaplama.Adapter.SavedExamsAdapter;
 import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
@@ -42,7 +41,12 @@ public class SavedExamsActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.action_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                Intent intentSettings = new Intent(SavedExamsActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
+                break;
+            case R.id.action_info:
+                Intent intentInfo = new Intent(SavedExamsActivity.this, InfoActivity.class);
+                startActivity(intentInfo);
                 break;
         }
         return super.onOptionsItemSelected(item);

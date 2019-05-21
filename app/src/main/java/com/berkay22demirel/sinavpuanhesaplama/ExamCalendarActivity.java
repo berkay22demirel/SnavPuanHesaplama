@@ -1,19 +1,16 @@
 package com.berkay22demirel.sinavpuanhesaplama;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.berkay22demirel.sinavpuanhesaplama.Adapter.ExamCalendarAdapter;
-import com.berkay22demirel.sinavpuanhesaplama.Adapter.SavedExamsAdapter;
-import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Model.ExamDate;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ExamDateUtil;
 
-import java.util.Date;
 import java.util.List;
 
 public class ExamCalendarActivity extends AppCompatActivity {
@@ -43,7 +40,12 @@ public class ExamCalendarActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.action_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                Intent intentSettings = new Intent(ExamCalendarActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
+                break;
+            case R.id.action_info:
+                Intent intentInfo = new Intent(ExamCalendarActivity.this, InfoActivity.class);
+                startActivity(intentInfo);
                 break;
         }
         return super.onOptionsItemSelected(item);

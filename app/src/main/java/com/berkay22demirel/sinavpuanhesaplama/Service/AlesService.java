@@ -1,6 +1,5 @@
 package com.berkay22demirel.sinavpuanhesaplama.Service;
 
-
 public class AlesService {
 
     private static AlesService alesService;

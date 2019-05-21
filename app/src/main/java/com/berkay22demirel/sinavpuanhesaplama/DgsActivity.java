@@ -62,10 +62,16 @@ public class DgsActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
-            case R.id.action_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
             case R.id.action_alert:
                 showAlertDialog();
+                break;
+            case R.id.action_settings:
+                Intent intentSettings = new Intent(DgsActivity.this, SettingsActivity.class);
+                startActivity(intentSettings);
+                break;
+            case R.id.action_info:
+                Intent intentInfo = new Intent(DgsActivity.this, InfoActivity.class);
+                startActivity(intentInfo);
                 break;
         }
         return super.onOptionsItemSelected(item);
