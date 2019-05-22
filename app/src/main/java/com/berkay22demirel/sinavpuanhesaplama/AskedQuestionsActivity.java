@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
+import com.google.android.gms.ads.AdView;
+
 public class AskedQuestionsActivity extends AppCompatActivity {
 
     @Override
@@ -17,6 +20,8 @@ public class AskedQuestionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_asked_questions);
         getSupportActionBar().setTitle("Çıkmış Sorular");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        AdView adView = findViewById(R.id.adViewAskedQuestions);
+        AdUtil.showAd(adView);
     }
 
     @Override

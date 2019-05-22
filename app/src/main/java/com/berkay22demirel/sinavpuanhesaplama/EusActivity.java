@@ -18,9 +18,11 @@ import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.EUS;
 import com.berkay22demirel.sinavpuanhesaplama.Service.EusService;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
+import com.google.android.gms.ads.AdView;
 
 public class EusActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class EusActivity extends AppCompatActivity {
     EditText editTextNet;
     TextView textViewEUSTime;
     Button buttonCalculate;
+    AdView adView;
 
     private static String PAGE_TITLE = ExamsEnum.EUS.getTitle();
 
@@ -43,6 +46,7 @@ public class EusActivity extends AppCompatActivity {
         setViewReferences();
         provideViews();
         setViewListener();
+        AdUtil.showAd(adView);
     }
 
     @Override
@@ -78,6 +82,7 @@ public class EusActivity extends AppCompatActivity {
         editTextNet = findViewById(R.id.editTextEUSNet);
         textViewEUSTime = findViewById(R.id.textViewEUSTime);
         buttonCalculate = findViewById(R.id.buttonEUSCalculate);
+        adView = findViewById(R.id.adViewEUS);
     }
 
     private void provideViews() {

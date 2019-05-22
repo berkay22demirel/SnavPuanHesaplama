@@ -19,9 +19,11 @@ import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.YKS;
 import com.berkay22demirel.sinavpuanhesaplama.Service.YksService;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
+import com.google.android.gms.ads.AdView;
 
 public class YksActivity extends AppCompatActivity {
 
@@ -78,6 +80,7 @@ public class YksActivity extends AppCompatActivity {
     TextView textViewYKSTime;
     CheckBox checkBoxDiplamaNotification;
     Button buttonCalculate;
+    AdView adView;
 
     private static String PAGE_TITLE = ExamsEnum.YKS.getTitle();
 
@@ -91,6 +94,7 @@ public class YksActivity extends AppCompatActivity {
         setViewReferences();
         provideViews();
         setViewListeners();
+        AdUtil.showAd(adView);
     }
 
     @Override
@@ -174,6 +178,7 @@ public class YksActivity extends AppCompatActivity {
         checkBoxDiplamaNotification = findViewById(R.id.checkBoxYKSDiplomaNotification);
         buttonCalculate = findViewById(R.id.buttonYKSCalculate);
         DateTimeUtil.addCountDown(textViewYKSTime, PAGE_TITLE);
+        adView = findViewById(R.id.adViewYKS);
     }
 
     private void provideViews() {

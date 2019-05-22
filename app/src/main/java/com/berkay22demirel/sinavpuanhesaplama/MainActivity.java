@@ -15,7 +15,9 @@ import android.view.View;
 
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.ExamType;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ValidatorUtil;
+import com.google.android.gms.ads.AdView;
 
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         addClickListenerToCardViews();
 
+        AdUtil.showAd((AdView) findViewById(R.id.adViewMain));
     }
 
     @Override

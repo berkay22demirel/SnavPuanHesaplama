@@ -18,9 +18,11 @@ import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.YDS;
 import com.berkay22demirel.sinavpuanhesaplama.Service.YdsService;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
+import com.google.android.gms.ads.AdView;
 
 public class YdsActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class YdsActivity extends AppCompatActivity {
     EditText editTextLanguageNet;
     TextView textViewYDSTime;
     Button buttonCalculate;
+    AdView adView;
     private static String PAGE_TITLE = ExamsEnum.YDS.getTitle();
 
 
@@ -43,6 +46,7 @@ public class YdsActivity extends AppCompatActivity {
         setViewReferences();
         provideViews();
         setViewListeners();
+        AdUtil.showAd(adView);
     }
 
     @Override
@@ -78,6 +82,7 @@ public class YdsActivity extends AppCompatActivity {
         editTextLanguageNet = findViewById(R.id.editTextYDSLanguageNet);
         textViewYDSTime = findViewById(R.id.textViewYDSTime);
         buttonCalculate = findViewById(R.id.buttonYDSCalculate);
+        adView = findViewById(R.id.adViewYDS);
     }
 
     private void provideViews() {

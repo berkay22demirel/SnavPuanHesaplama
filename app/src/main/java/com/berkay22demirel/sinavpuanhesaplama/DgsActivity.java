@@ -19,9 +19,11 @@ import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.DGS;
 import com.berkay22demirel.sinavpuanhesaplama.Service.DgsService;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
+import com.google.android.gms.ads.AdView;
 
 public class DgsActivity extends AppCompatActivity {
 
@@ -36,6 +38,7 @@ public class DgsActivity extends AppCompatActivity {
     TextView textViewDGSTime;
     CheckBox checkBoxBeforeResult;
     Button buttonCalculate;
+    AdView adView;
     private static String PAGE_TITLE = ExamsEnum.DGS.getTitle();
 
     @Override
@@ -48,6 +51,7 @@ public class DgsActivity extends AppCompatActivity {
         setViewReferences();
         provideViews();
         setViewListeners();
+        AdUtil.showAd(adView);
     }
 
     @Override
@@ -88,6 +92,7 @@ public class DgsActivity extends AppCompatActivity {
         textViewDGSTime = findViewById(R.id.textViewDGSTime);
         checkBoxBeforeResult = findViewById(R.id.checkBoxDGSBeforeResult);
         buttonCalculate = findViewById(R.id.buttonDGSCalculate);
+        adView = findViewById(R.id.adViewDGS);
     }
 
     private void provideViews() {

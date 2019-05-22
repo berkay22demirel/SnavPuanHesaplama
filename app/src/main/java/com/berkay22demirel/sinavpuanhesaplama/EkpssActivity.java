@@ -21,9 +21,11 @@ import com.berkay22demirel.sinavpuanhesaplama.Enum.EkpssTypeEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.EKPSS;
 import com.berkay22demirel.sinavpuanhesaplama.Service.EkpssService;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
+import com.google.android.gms.ads.AdView;
 
 public class EkpssActivity extends AppCompatActivity {
 
@@ -37,6 +39,7 @@ public class EkpssActivity extends AppCompatActivity {
     Spinner spinnerEKPSSType;
     TextView textViewEKPSSTime;
     Button buttonCalculate;
+    AdView adView;
     private static final String PAGE_TITLE = ExamsEnum.EKPSS.getTitle();
 
     @Override
@@ -49,6 +52,7 @@ public class EkpssActivity extends AppCompatActivity {
         setViewReferences();
         provideViews();
         setViewListeners();
+        AdUtil.showAd(adView);
     }
 
     @Override
@@ -88,6 +92,7 @@ public class EkpssActivity extends AppCompatActivity {
         spinnerEKPSSType = findViewById(R.id.spinnerEKPSSType);
         textViewEKPSSTime = findViewById(R.id.textViewEKPSSTime);
         buttonCalculate = findViewById(R.id.buttonEKPSSCalculate);
+        adView = findViewById(R.id.adViewEKPSS);
     }
 
     private void provideViews() {

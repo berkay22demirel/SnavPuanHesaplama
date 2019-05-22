@@ -18,9 +18,11 @@ import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.ALES;
 import com.berkay22demirel.sinavpuanhesaplama.Service.AlesService;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
+import com.google.android.gms.ads.AdView;
 
 public class AlesActivity extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class AlesActivity extends AppCompatActivity {
     EditText editTextTurkishNet;
     TextView textViewALESTime;
     Button buttonCalculate;
+    AdView adView;
 
     private static String PAGE_TITLE = ExamsEnum.ALES.getTitle();
 
@@ -46,6 +49,7 @@ public class AlesActivity extends AppCompatActivity {
         setViewReferences();
         provideViews();
         setViewListeners();
+        AdUtil.showAd(adView);
     }
 
     @Override
@@ -84,6 +88,7 @@ public class AlesActivity extends AppCompatActivity {
         editTextTurkishNet = findViewById(R.id.editTextALESTurkishNet);
         textViewALESTime = findViewById(R.id.textViewALESTime);
         buttonCalculate = findViewById(R.id.buttonALESCalculate);
+        adView = findViewById(R.id.adViewALES);
     }
 
     private void provideViews() {

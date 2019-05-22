@@ -18,9 +18,11 @@ import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.ExamsEnum;
 import com.berkay22demirel.sinavpuanhesaplama.Model.TUS;
 import com.berkay22demirel.sinavpuanhesaplama.Service.TusService;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ConverterUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.DateTimeUtil;
+import com.google.android.gms.ads.AdView;
 
 public class TusActivity extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class TusActivity extends AppCompatActivity {
     EditText editTextClinicalMedicineSciencesNet;
     TextView textViewTUSTime;
     Button buttonCalculate;
+    AdView adView;
 
     private static String PAGE_TITLE = ExamsEnum.TUS.getTitle();
 
@@ -46,6 +49,7 @@ public class TusActivity extends AppCompatActivity {
         setViewReferences();
         provideViews();
         setViewListeners();
+        AdUtil.showAd(adView);
     }
 
     @Override
@@ -84,6 +88,7 @@ public class TusActivity extends AppCompatActivity {
         editTextClinicalMedicineSciencesNet = findViewById(R.id.editTextTUSClinicalMedicineSciencesNet);
         textViewTUSTime = findViewById(R.id.textViewTUSTime);
         buttonCalculate = findViewById(R.id.buttonTUSCalculate);
+        adView = findViewById(R.id.adViewTUS);
     }
 
     private void provideViews() {

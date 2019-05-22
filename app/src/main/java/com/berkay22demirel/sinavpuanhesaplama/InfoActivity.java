@@ -3,12 +3,17 @@ package com.berkay22demirel.sinavpuanhesaplama;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class InfoActivity extends AppCompatActivity {
+
+    CardView cardViewURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +21,8 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
         getSupportActionBar().setTitle("Bilgi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setViewReferences();
+        setViewListeners();
     }
 
     @Override
@@ -42,16 +49,17 @@ public class InfoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showAlertDialog() {
-        new AlertDialog.Builder(InfoActivity.this)
-                .setTitle("UYARI!")
-                .setMessage("*Bu sayfa yapım aşamasındadır!")
-                .setPositiveButton(getResources().getText(R.string.button_ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setIcon(getResources().getDrawable(R.drawable.alert_dialog_icon))
-                .show();
+    private void setViewReferences() {
+        cardViewURL = findViewById(R.id.cardViewInfoURL);
+    }
+
+    private void setViewListeners() {
+        cardViewURL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://berkay22demirel.blogspot.com.tr"));
+                startActivity(browserIntent);
+            }
+        });
     }
 }

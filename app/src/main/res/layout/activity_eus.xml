@@ -142,26 +142,41 @@
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="66dp" />
+                android:layout_height="@dimen/exam_activity_bottom_space" />
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/buttonEUSCalculate"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/my_calculate_button"
-        android:textColor="@color/yellow"
-        android:textStyle="bold"
-        android:textSize="@dimen/middle_text_size"
-        android:text="@string/button_calculate" />
+        android:orientation="vertical">
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adViewEUS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="ca-app-pub-3727603707347204/4208341859">
+        </com.google.android.gms.ads.AdView>
+
+        <Button
+            android:id="@+id/buttonEUSCalculate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/my_calculate_button"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:textSize="@dimen/middle_text_size"
+            android:text="@string/button_calculate" />
+
+    </LinearLayout>
 
 </RelativeLayout>

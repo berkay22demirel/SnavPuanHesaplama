@@ -9,13 +9,16 @@ import android.widget.ListView;
 
 import com.berkay22demirel.sinavpuanhesaplama.Adapter.ExamCalendarAdapter;
 import com.berkay22demirel.sinavpuanhesaplama.Model.ExamDate;
+import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ExamDateUtil;
+import com.google.android.gms.ads.AdView;
 
 import java.util.List;
 
 public class ExamCalendarActivity extends AppCompatActivity {
 
     ListView listViewExamCalendar;
+    AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class ExamCalendarActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setViewReferences();
         provideViews();
+        AdUtil.showAd(adView);
     }
 
     @Override
@@ -53,6 +57,7 @@ public class ExamCalendarActivity extends AppCompatActivity {
 
     private void setViewReferences() {
         listViewExamCalendar = findViewById(R.id.listViewExamCalendar);
+        adView = findViewById(R.id.adViewExamCalendar);
     }
 
     private void provideViews() {
