@@ -19,7 +19,6 @@ import java.util.List;
 public class DatabaseManager {
     public static final long SUCCESSFUL = 1;
     public static final long ERROR = -1;
-    private DatabaseManager databaseManager;
     private DatabaseHelper databaseHelper;
     private DatabaseUtils databaseUtils;
     private Context context;

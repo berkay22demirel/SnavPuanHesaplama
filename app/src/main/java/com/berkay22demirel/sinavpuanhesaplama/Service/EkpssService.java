@@ -1,16 +1,18 @@
 package com.berkay22demirel.sinavpuanhesaplama.Service;
 
+import android.content.Context;
+
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
 import com.berkay22demirel.sinavpuanhesaplama.Enum.EkpssTypeEnum;
+import com.berkay22demirel.sinavpuanhesaplama.Interface.IDatabase;
+import com.berkay22demirel.sinavpuanhesaplama.Model.EKPSS;
 
-public class EkpssService {
+public class EkpssService implements IDatabase {
 
-    private static EkpssService ekpssService;
+    DatabaseManager databaseManager;
 
-    public static EkpssService getEkpssService() {
-        if (ekpssService == null) {
-            ekpssService = new EkpssService();
-        }
-        return ekpssService;
+    public EkpssService(Context context) {
+        this.databaseManager = new DatabaseManager(context);
     }
 
     public double getResult(double generalAbilityNet, double generalKnowledgeNet, int ekpssType) {
@@ -24,5 +26,20 @@ public class EkpssService {
             }
         }
         return 0.0;
+    }
+
+    @Override
+    public Long put(Object data) {
+        return databaseManager.put(data);
+    }
+
+    @Override
+    public Object get(Long examID) {
+        return databaseManager.get(examID, EKPSS.class);
+    }
+
+    @Override
+    public Long delete(Long examID) {
+        return databaseManager.delete(examID, EKPSS.class);
     }
 }

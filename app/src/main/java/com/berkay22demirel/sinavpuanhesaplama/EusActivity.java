@@ -26,7 +26,7 @@ import com.google.android.gms.ads.AdView;
 
 public class EusActivity extends AppCompatActivity {
 
-    DatabaseManager databaseManager;
+    EusService eusService;
     EditText editTextTrue;
     EditText editTextFalse;
     EditText editTextNet;
@@ -42,7 +42,7 @@ public class EusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eus);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        databaseManager = new DatabaseManager(this);
+        eusService = new EusService(this);
         setViewReferences();
         provideViews();
         setViewListener();
@@ -93,7 +93,6 @@ public class EusActivity extends AppCompatActivity {
 
     private EUS getEus() {
         EUS eus = new EUS();
-        EusService eusService = EusService.getEusService();
         eus.setEusTrue(ConverterUtil.convertToInteger(editTextTrue.getText().toString()));
         eus.setEusFalse(ConverterUtil.convertToInteger(editTextFalse.getText().toString()));
         eus.setEusNet(CommonUtil.getNet(eus.getEusTrue(), eus.getEusFalse()));
@@ -142,7 +141,7 @@ public class EusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
                     eus.setName(editTextExamName.getText().toString());
-                    long result = databaseManager.put(eus);
+                    long result = eusService.put(eus);
                     if (result == DatabaseManager.ERROR) {
                         Toast.makeText(EusActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
                     } else {

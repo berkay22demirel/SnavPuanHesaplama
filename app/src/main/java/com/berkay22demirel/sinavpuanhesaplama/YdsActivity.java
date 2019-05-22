@@ -26,7 +26,7 @@ import com.google.android.gms.ads.AdView;
 
 public class YdsActivity extends AppCompatActivity {
 
-    DatabaseManager databaseManager;
+    YdsService ydsService;
     EditText editTextLanguageTrue;
     EditText editTextLanguageFalse;
     EditText editTextLanguageNet;
@@ -42,7 +42,7 @@ public class YdsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_yds);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        databaseManager = new DatabaseManager(this);
+        ydsService = new YdsService(this);
         setViewReferences();
         provideViews();
         setViewListeners();
@@ -93,7 +93,6 @@ public class YdsActivity extends AppCompatActivity {
 
     private YDS getYds() {
         YDS yds = new YDS();
-        YdsService ydsService = YdsService.getYdsService();
         yds.setLanguageTrue(ConverterUtil.convertToInteger(editTextLanguageTrue.getText().toString()));
         yds.setLanguageFalse(ConverterUtil.convertToInteger(editTextLanguageFalse.getText().toString()));
         yds.setLanguageNet(CommonUtil.getNet(yds.getLanguageTrue(), yds.getLanguageFalse()));
@@ -115,7 +114,6 @@ public class YdsActivity extends AppCompatActivity {
 
     private void showResultDialog(YDS yds) {
         final Dialog dialog = new Dialog(YdsActivity.this);
-        YdsService ydsService = YdsService.getYdsService();
         dialog.setContentView(R.layout.dialog_yds);
         TextView textViewResult = dialog.findViewById(R.id.textViewYDSResult);
         TextView textViewLevel = dialog.findViewById(R.id.textViewYDSLevel);
@@ -147,7 +145,7 @@ public class YdsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
                     yds.setName(editTextExamName.getText().toString());
-                    long result = databaseManager.put(yds);
+                    long result = ydsService.put(yds);
                     if (result == DatabaseManager.ERROR) {
                         Toast.makeText(YdsActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
                     } else {

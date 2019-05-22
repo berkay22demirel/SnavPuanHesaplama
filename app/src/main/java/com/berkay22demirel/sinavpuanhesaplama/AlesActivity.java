@@ -26,7 +26,7 @@ import com.google.android.gms.ads.AdView;
 
 public class AlesActivity extends AppCompatActivity {
 
-    DatabaseManager databaseManager;
+    AlesService alesService;
     EditText editTextMathsTrue;
     EditText editTextMathsFalse;
     EditText editTextMathsNet;
@@ -45,7 +45,7 @@ public class AlesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ales);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        databaseManager = new DatabaseManager(this);
+        alesService = new AlesService(this);
         setViewReferences();
         provideViews();
         setViewListeners();
@@ -101,7 +101,6 @@ public class AlesActivity extends AppCompatActivity {
 
     private ALES getAles() {
         ALES ales = new ALES();
-        AlesService alesService = AlesService.getAlesService();
         ales.setTurkishTrue(ConverterUtil.convertToInteger(editTextTurkishTrue.getText().toString()));
         ales.setTurkishFalse(ConverterUtil.convertToInteger(editTextTurkishFalse.getText().toString()));
         ales.setTurkishNet(CommonUtil.getNet(ales.getTurkishTrue(), ales.getTurkishFalse()));
@@ -159,7 +158,7 @@ public class AlesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
                     ales.setName(editTextExamName.getText().toString());
-                    long result = databaseManager.put(ales);
+                    long result = alesService.put(ales);
                     if (result == DatabaseManager.ERROR) {
                         Toast.makeText(AlesActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
                     } else {

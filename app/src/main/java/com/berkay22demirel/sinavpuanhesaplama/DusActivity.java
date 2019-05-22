@@ -26,7 +26,7 @@ import com.google.android.gms.ads.AdView;
 
 public class DusActivity extends AppCompatActivity {
 
-    DatabaseManager databaseManager;
+    DusService dusService;
     EditText editTextBasicSciencesTrue;
     EditText editTextBasicSciencesFalse;
     EditText editTextBasicSciencesNet;
@@ -45,7 +45,7 @@ public class DusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dus);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        databaseManager = new DatabaseManager(this);
+        dusService = new DusService(this);
         setViewReferences();
         provideViews();
         setViewListeners();
@@ -101,7 +101,6 @@ public class DusActivity extends AppCompatActivity {
 
     private DUS getDus() {
         DUS dus = new DUS();
-        DusService dusService = DusService.getDusService();
         dus.setBasicSciencesTrue(ConverterUtil.convertToInteger(editTextBasicSciencesTrue.getText().toString()));
         dus.setBasicSciencesFalse(ConverterUtil.convertToInteger(editTextBasicSciencesFalse.getText().toString()));
         dus.setBasicSciencesNet(CommonUtil.getNet(dus.getBasicSciencesTrue(), dus.getBasicSciencesFalse()));
@@ -155,7 +154,7 @@ public class DusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
                     dus.setName(editTextExamName.getText().toString());
-                    long result = databaseManager.put(dus);
+                    long result = dusService.put(dus);
                     if (result == DatabaseManager.ERROR) {
                         Toast.makeText(DusActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
                     } else {

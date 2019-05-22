@@ -1,14 +1,17 @@
 package com.berkay22demirel.sinavpuanhesaplama.Service;
 
-public class TusService {
+import android.content.Context;
 
-    private static TusService tusService;
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
+import com.berkay22demirel.sinavpuanhesaplama.Interface.IDatabase;
+import com.berkay22demirel.sinavpuanhesaplama.Model.TUS;
 
-    public static TusService getTusService() {
-        if (tusService == null) {
-            tusService = new TusService();
-        }
-        return tusService;
+public class TusService implements IDatabase {
+
+    DatabaseManager databaseManager;
+
+    public TusService(Context context) {
+        this.databaseManager = new DatabaseManager(context);
     }
 
     public double getGraduateMedicineKPoint(double basicMedicineSciencesNet, double clinicalMedicineSciencesNet) {
@@ -25,5 +28,20 @@ public class TusService {
 
     public double getNotGraduateMedicineTPoint(double basicMedicineSciencesNet) {
         return 28.27491 + basicMedicineSciencesNet * 0.42438;
+    }
+
+    @Override
+    public Long put(Object data) {
+        return databaseManager.put(data);
+    }
+
+    @Override
+    public Object get(Long examID) {
+        return databaseManager.get(examID, TUS.class);
+    }
+
+    @Override
+    public Long delete(Long examID) {
+        return databaseManager.delete(examID, TUS.class);
     }
 }

@@ -185,7 +185,7 @@ public class SavedExamsActivity extends AppCompatActivity {
             textViewYKSResultCalculatedLanguage.setText(String.valueOf(yks.getResultCalculatedLanguage()));
             setDialogViewListeners(dialog, buttonStatics, buttonClose);
         } else if (ExamsEnum.YDS.getId() == examType) {
-            YdsService ydsService = YdsService.getYdsService();
+            YdsService ydsService = new YdsService(this);
             dialog.setContentView(R.layout.dialog_saved_result_yds);
             TextView textViewResult = dialog.findViewById(R.id.textViewYDSSavedResult);
             TextView textViewLevel = dialog.findViewById(R.id.textViewYDSSavedResultLevel);

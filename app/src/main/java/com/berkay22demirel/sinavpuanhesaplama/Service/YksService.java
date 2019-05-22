@@ -1,17 +1,18 @@
 package com.berkay22demirel.sinavpuanhesaplama.Service;
 
+import android.content.Context;
+
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
+import com.berkay22demirel.sinavpuanhesaplama.Interface.IDatabase;
 import com.berkay22demirel.sinavpuanhesaplama.Model.YKS;
 
-public class YksService {
-    private static YksService yksService;
+public class YksService implements IDatabase {
+    DatabaseManager databaseManager;
     public static double INCALCULABLE_RESULT = -0.1;
     public static double INSUFFICIENT_RESULT = 150;
 
-    public static YksService getYksService() {
-        if (yksService == null) {
-            yksService = new YksService();
-        }
-        return yksService;
+    public YksService(Context context) {
+        this.databaseManager = new DatabaseManager(context);
     }
 
     public double getSimpleTYTResult(YKS yks) {
@@ -101,5 +102,20 @@ public class YksService {
 
     private double getTYTResultForYKS(YKS yks) {
         return yks.getTurkishNet() * 1.32 + yks.getMathsNet() * 1.32 + yks.getSocialNet() * 1.36 + yks.getScienceNet() * 1.36;
+    }
+
+    @Override
+    public Long put(Object data) {
+        return databaseManager.put(data);
+    }
+
+    @Override
+    public Object get(Long examID) {
+        return databaseManager.get(examID, YKS.class);
+    }
+
+    @Override
+    public Long delete(Long examID) {
+        return databaseManager.delete(examID, YKS.class);
     }
 }

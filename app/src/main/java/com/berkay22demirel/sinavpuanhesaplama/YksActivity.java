@@ -27,7 +27,7 @@ import com.google.android.gms.ads.AdView;
 
 public class YksActivity extends AppCompatActivity {
 
-    DatabaseManager databaseManager;
+    YksService yksService;
     EditText editTextDiplomaGrade;
     EditText editTextTurkishTrue;
     EditText editTextTurkishFalse;
@@ -90,7 +90,7 @@ public class YksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_yks);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        databaseManager = new DatabaseManager(this);
+        yksService = new YksService(this);
         setViewReferences();
         provideViews();
         setViewListeners();
@@ -219,7 +219,6 @@ public class YksActivity extends AppCompatActivity {
 
     private YKS getYks() {
         YKS yks = new YKS();
-        YksService yksService = YksService.getYksService();
         yks.setDiplomaGrade(ConverterUtil.convertToInteger(editTextDiplomaGrade.getText().toString()));
         yks.setTurkishTrue(ConverterUtil.convertToInteger(editTextTurkishTrue.getText().toString()));
         yks.setTurkishFalse(ConverterUtil.convertToInteger(editTextTurkishFalse.getText().toString()));
@@ -359,7 +358,7 @@ public class YksActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
                     yks.setName(editTextExamName.getText().toString());
-                    long result = databaseManager.put(yks);
+                    long result = yksService.put(yks);
                     if (result == DatabaseManager.ERROR) {
                         Toast.makeText(YksActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
                     } else {

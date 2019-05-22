@@ -27,7 +27,7 @@ import com.google.android.gms.ads.AdView;
 
 public class DgsActivity extends AppCompatActivity {
 
-    DatabaseManager databaseManager;
+    DgsService dgsService;
     EditText editTextNumericalTrue;
     EditText editTextNumericalFalse;
     EditText editTextNumericalNet;
@@ -47,7 +47,7 @@ public class DgsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dgs);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        databaseManager = new DatabaseManager(this);
+        dgsService = new DgsService(this);
         setViewReferences();
         provideViews();
         setViewListeners();
@@ -106,7 +106,6 @@ public class DgsActivity extends AppCompatActivity {
 
     private DGS getDgs() {
         DGS dgs = new DGS();
-        DgsService dgsService = DgsService.getDgsService();
         dgs.setNumericalTrue(ConverterUtil.convertToInteger(editTextNumericalTrue.getText().toString()));
         dgs.setNumericalFalse(ConverterUtil.convertToInteger(editTextNumericalFalse.getText().toString()));
         dgs.setNumericalNet(CommonUtil.getNet(dgs.getNumericalTrue(), dgs.getNumericalFalse()));
@@ -164,7 +163,7 @@ public class DgsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
                     dgs.setName(editTextExamName.getText().toString());
-                    long result = databaseManager.put(dgs);
+                    long result = dgsService.put(dgs);
                     if (result == DatabaseManager.ERROR) {
                         Toast.makeText(DgsActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
                     } else {

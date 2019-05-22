@@ -1,17 +1,18 @@
 package com.berkay22demirel.sinavpuanhesaplama.Service;
 
+import android.content.Context;
+
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
+import com.berkay22demirel.sinavpuanhesaplama.Interface.IDatabase;
 import com.berkay22demirel.sinavpuanhesaplama.Model.DGS;
 import com.berkay22demirel.sinavpuanhesaplama.Util.CommonUtil;
 
-public class DgsService {
+public class DgsService implements IDatabase {
 
-    private static DgsService dgsService;
+    DatabaseManager databaseManager;
 
-    public static DgsService getDgsService() {
-        if (dgsService == null) {
-            dgsService = new DgsService();
-        }
-        return dgsService;
+    public DgsService(Context context) {
+        this.databaseManager = new DatabaseManager(context);
     }
 
     public void setResult(DGS dgs) {
@@ -62,5 +63,20 @@ public class DgsService {
         double testMean = 23.91;
         double testStandardDeviation = 13.59;
         return 50.0 + 10.0 * ((verbalNetNet - testMean) / testStandardDeviation);
+    }
+
+    @Override
+    public Long put(Object data) {
+        return databaseManager.put(data);
+    }
+
+    @Override
+    public Object get(Long examID) {
+        return databaseManager.get(examID, DGS.class);
+    }
+
+    @Override
+    public Long delete(Long examID) {
+        return databaseManager.delete(examID, DGS.class);
     }
 }

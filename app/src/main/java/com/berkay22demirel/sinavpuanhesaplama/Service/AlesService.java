@@ -1,14 +1,17 @@
 package com.berkay22demirel.sinavpuanhesaplama.Service;
 
-public class AlesService {
+import android.content.Context;
 
-    private static AlesService alesService;
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
+import com.berkay22demirel.sinavpuanhesaplama.Interface.IDatabase;
+import com.berkay22demirel.sinavpuanhesaplama.Model.ALES;
 
-        public static AlesService getAlesService() {
-            if (alesService == null) {
-                alesService = new AlesService();
-            }
-            return alesService;
+public class AlesService implements IDatabase {
+
+    DatabaseManager databaseManager;
+
+    public AlesService(Context context) {
+        this.databaseManager = new DatabaseManager(context);
     }
 
     public double getNumericalResult(double mathsNet, double turkishNet) {
@@ -47,4 +50,18 @@ public class AlesService {
         return 70.0 + (30.0 * (2.0 * (ap - x) - s)) / (2.0 * (b - x) - s);
     }
 
+    @Override
+    public Long put(Object data) {
+        return databaseManager.put(data);
+    }
+
+    @Override
+    public Object get(Long examID) {
+        return databaseManager.get(examID, ALES.class);
+    }
+
+    @Override
+    public Long delete(Long examID) {
+        return databaseManager.delete(examID, ALES.class);
+    }
 }

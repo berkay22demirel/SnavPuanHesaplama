@@ -1,17 +1,35 @@
 package com.berkay22demirel.sinavpuanhesaplama.Service;
 
-public class EusService {
+import android.content.Context;
 
-    private static EusService eusService;
+import com.berkay22demirel.sinavpuanhesaplama.Database.DatabaseManager;
+import com.berkay22demirel.sinavpuanhesaplama.Interface.IDatabase;
+import com.berkay22demirel.sinavpuanhesaplama.Model.EUS;
 
-    public static EusService getEusService() {
-        if (eusService == null) {
-            eusService = new EusService();
-        }
-        return eusService;
+public class EusService implements IDatabase {
+
+    DatabaseManager databaseManager;
+
+    public EusService(Context context) {
+        this.databaseManager = new DatabaseManager(context);
     }
 
     public double getResult(double net) {
         return 26.08172 + net * 0.89214;
+    }
+
+    @Override
+    public Long put(Object data) {
+        return databaseManager.put(data);
+    }
+
+    @Override
+    public Object get(Long examID) {
+        return databaseManager.get(examID, EUS.class);
+    }
+
+    @Override
+    public Long delete(Long examID) {
+        return databaseManager.delete(examID, EUS.class);
     }
 }

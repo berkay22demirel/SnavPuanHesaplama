@@ -29,7 +29,7 @@ import com.google.android.gms.ads.AdView;
 
 public class EkpssActivity extends AppCompatActivity {
 
-    DatabaseManager databaseManager;
+    EkpssService ekpssService;
     EditText editTextGeneralAbilityTrue;
     EditText editTextGeneralAbilityFalse;
     EditText editTextGeneralAbilityNet;
@@ -48,7 +48,7 @@ public class EkpssActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ekpss);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        databaseManager = new DatabaseManager(this);
+        ekpssService = new EkpssService(this);
         setViewReferences();
         provideViews();
         setViewListeners();
@@ -108,7 +108,6 @@ public class EkpssActivity extends AppCompatActivity {
 
     private EKPSS getEkpss() {
         EKPSS ekpss = new EKPSS();
-        EkpssService ekpssService = EkpssService.getEkpssService();
         ekpss.setGeneralAbilityTrue(ConverterUtil.convertToInteger(editTextGeneralAbilityTrue.getText().toString()));
         ekpss.setGeneralAbilityFalse(ConverterUtil.convertToInteger(editTextGeneralAbilityFalse.getText().toString()));
         ekpss.setGeneralAbilityNet(CommonUtil.getNet(ekpss.getGeneralAbilityTrue(), ekpss.getGeneralAbilityFalse()));
@@ -161,7 +160,7 @@ public class EkpssActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
                     ekpss.setName(editTextExamName.getText().toString());
-                    long result = databaseManager.put(ekpss);
+                    long result = ekpssService.put(ekpss);
                     if (result == DatabaseManager.ERROR) {
                         Toast.makeText(EkpssActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
                     } else {

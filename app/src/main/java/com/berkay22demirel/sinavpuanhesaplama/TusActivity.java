@@ -26,7 +26,7 @@ import com.google.android.gms.ads.AdView;
 
 public class TusActivity extends AppCompatActivity {
 
-    DatabaseManager databaseManager;
+    TusService tusService;
     EditText editTextBasicMedicineSciencesTrue;
     EditText editTextBasicMedicineSciencesFalse;
     EditText editTextBasicMedicineSciencesNet;
@@ -45,7 +45,7 @@ public class TusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tus);
         getSupportActionBar().setTitle(CommonUtil.getPageTitle(PAGE_TITLE));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        databaseManager = new DatabaseManager(this);
+        tusService = new TusService(this);
         setViewReferences();
         provideViews();
         setViewListeners();
@@ -101,7 +101,6 @@ public class TusActivity extends AppCompatActivity {
 
     private TUS getTus() {
         TUS tus = new TUS();
-        TusService tusService = TusService.getTusService();
         tus.setBasicMedicineSciencesTrue(ConverterUtil.convertToInteger(editTextBasicMedicineSciencesTrue.getText().toString()));
         tus.setBasicMedicineSciencesFalse(ConverterUtil.convertToInteger(editTextBasicMedicineSciencesFalse.getText().toString()));
         tus.setBasicMedicineSciencesNet(CommonUtil.getNet(tus.getBasicMedicineSciencesTrue(), tus.getBasicMedicineSciencesFalse()));
@@ -162,7 +161,7 @@ public class TusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtil.controlEditTextValue(editTextExamName, getBaseContext())) {
                     tus.setName(editTextExamName.getText().toString());
-                    long result = databaseManager.put(tus);
+                    long result = tusService.put(tus);
                     if (result == DatabaseManager.ERROR) {
                         Toast.makeText(TusActivity.this, CommonUtil.PUT_EXAM_ERROR_STRING, Toast.LENGTH_LONG).show();
                     } else {
