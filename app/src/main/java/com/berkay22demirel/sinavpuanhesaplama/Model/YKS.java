@@ -1,544 +1,544 @@
 package com.berkay22demirel.sinavpuanhesaplama.Model;
 
 public class YKS extends Exam {
-    private Integer diplomaGrade;
-    private Integer turkishTrue;
-    private Integer turkishFalse;
-    private Double turkishNet;
-    private Integer socialTrue;
-    private Integer socialFalse;
-    private Double socialNet;
-    private Integer mathsTrue;
-    private Integer mathsFalse;
-    private Double mathsNet;
-    private Integer scienceTrue;
-    private Integer scienceFalse;
-    private Double scienceNet;
-    private Integer maths2True;
-    private Integer maths2False;
-    private Double maths2Net;
-    private Integer physicsTrue;
-    private Integer physicsFalse;
-    private Double physicsNet;
-    private Integer chemistryTrue;
-    private Integer chemistryFalse;
-    private Double chemistryNet;
-    private Integer biologyTrue;
-    private Integer biologyFalse;
-    private Double biologyNet;
-    private Integer literatureTrue;
-    private Integer literatureFalse;
-    private Double literatureNet;
-    private Integer historyTrue;
-    private Integer historyFalse;
-    private Double historyNet;
-    private Integer geographicsTrue;
-    private Integer geographicsFalse;
-    private Double geographicsNet;
-    private Integer history2True;
-    private Integer history2False;
-    private Double history2Net;
-    private Integer geographics2True;
-    private Integer geographics2False;
-    private Double geographics2Net;
-    private Integer philosophyTrue;
-    private Integer philosophyFalse;
-    private Double philosophyNet;
-    private Integer religionTrue;
-    private Integer religionFalse;
-    private Double religionNet;
-    private Integer languageTrue;
-    private Integer languageFalse;
-    private Double languageNet;
-    private Boolean diplomaNotification;
-    private Double resultSimpleTYT;
-    private Double resultSimpleNumerical;
-    private Double resultSimpleVerbal;
-    private Double resultSimpleEqualWeight;
-    private Double resultSimpleLanguage;
-    private Double resultCalculatedTYT;
-    private Double resultCalculatedNumerical;
-    private Double resultCalculatedVerbal;
-    private Double resultCalculatedEqualWeight;
-    private Double resultCalculatedLanguage;
+    private int diplomaGrade;
+    private int turkishTrue;
+    private int turkishFalse;
+    private double turkishNet;
+    private int socialTrue;
+    private int socialFalse;
+    private double socialNet;
+    private int mathsTrue;
+    private int mathsFalse;
+    private double mathsNet;
+    private int scienceTrue;
+    private int scienceFalse;
+    private double scienceNet;
+    private int maths2True;
+    private int maths2False;
+    private double maths2Net;
+    private int physicsTrue;
+    private int physicsFalse;
+    private double physicsNet;
+    private int chemistryTrue;
+    private int chemistryFalse;
+    private double chemistryNet;
+    private int biologyTrue;
+    private int biologyFalse;
+    private double biologyNet;
+    private int literatureTrue;
+    private int literatureFalse;
+    private double literatureNet;
+    private int historyTrue;
+    private int historyFalse;
+    private double historyNet;
+    private int geographicsTrue;
+    private int geographicsFalse;
+    private double geographicsNet;
+    private int history2True;
+    private int history2False;
+    private double history2Net;
+    private int geographics2True;
+    private int geographics2False;
+    private double geographics2Net;
+    private int philosophyTrue;
+    private int philosophyFalse;
+    private double philosophyNet;
+    private int religionTrue;
+    private int religionFalse;
+    private double religionNet;
+    private int languageTrue;
+    private int languageFalse;
+    private double languageNet;
+    private boolean diplomaNotification;
+    private double resultSimpleTYT;
+    private double resultSimpleNumerical;
+    private double resultSimpleVerbal;
+    private double resultSimpleEqualWeight;
+    private double resultSimpleLanguage;
+    private double resultCalculatedTYT;
+    private double resultCalculatedNumerical;
+    private double resultCalculatedVerbal;
+    private double resultCalculatedEqualWeight;
+    private double resultCalculatedLanguage;
 
-    public Integer getDiplomaGrade() {
+    public int getDiplomaGrade() {
         return diplomaGrade;
     }
 
-    public void setDiplomaGrade(Integer diplomaGrade) {
+    public void setDiplomaGrade(int diplomaGrade) {
         this.diplomaGrade = diplomaGrade;
     }
 
-    public Integer getTurkishTrue() {
+    public int getTurkishTrue() {
         return turkishTrue;
     }
 
-    public void setTurkishTrue(Integer turkishTrue) {
+    public void setTurkishTrue(int turkishTrue) {
         this.turkishTrue = turkishTrue;
     }
 
-    public Integer getTurkishFalse() {
+    public int getTurkishFalse() {
         return turkishFalse;
     }
 
-    public void setTurkishFalse(Integer turkishFalse) {
+    public void setTurkishFalse(int turkishFalse) {
         this.turkishFalse = turkishFalse;
     }
 
-    public Double getTurkishNet() {
+    public double getTurkishNet() {
         return turkishNet;
     }
 
-    public void setTurkishNet(Double turkishNet) {
+    public void setTurkishNet(double turkishNet) {
         this.turkishNet = turkishNet;
     }
 
-    public Integer getSocialTrue() {
+    public int getSocialTrue() {
         return socialTrue;
     }
 
-    public void setSocialTrue(Integer socialTrue) {
+    public void setSocialTrue(int socialTrue) {
         this.socialTrue = socialTrue;
     }
 
-    public Integer getSocialFalse() {
+    public int getSocialFalse() {
         return socialFalse;
     }
 
-    public void setSocialFalse(Integer socialFalse) {
+    public void setSocialFalse(int socialFalse) {
         this.socialFalse = socialFalse;
     }
 
-    public Double getSocialNet() {
+    public double getSocialNet() {
         return socialNet;
     }
 
-    public void setSocialNet(Double socialNet) {
+    public void setSocialNet(double socialNet) {
         this.socialNet = socialNet;
     }
 
-    public Integer getMathsTrue() {
+    public int getMathsTrue() {
         return mathsTrue;
     }
 
-    public void setMathsTrue(Integer mathsTrue) {
+    public void setMathsTrue(int mathsTrue) {
         this.mathsTrue = mathsTrue;
     }
 
-    public Integer getMathsFalse() {
+    public int getMathsFalse() {
         return mathsFalse;
     }
 
-    public void setMathsFalse(Integer mathsFalse) {
+    public void setMathsFalse(int mathsFalse) {
         this.mathsFalse = mathsFalse;
     }
 
-    public Double getMathsNet() {
+    public double getMathsNet() {
         return mathsNet;
     }
 
-    public void setMathsNet(Double mathsNet) {
+    public void setMathsNet(double mathsNet) {
         this.mathsNet = mathsNet;
     }
 
-    public Integer getScienceTrue() {
+    public int getScienceTrue() {
         return scienceTrue;
     }
 
-    public void setScienceTrue(Integer scienceTrue) {
+    public void setScienceTrue(int scienceTrue) {
         this.scienceTrue = scienceTrue;
     }
 
-    public Integer getScienceFalse() {
+    public int getScienceFalse() {
         return scienceFalse;
     }
 
-    public void setScienceFalse(Integer scienceFalse) {
+    public void setScienceFalse(int scienceFalse) {
         this.scienceFalse = scienceFalse;
     }
 
-    public Double getScienceNet() {
+    public double getScienceNet() {
         return scienceNet;
     }
 
-    public void setScienceNet(Double scienceNet) {
+    public void setScienceNet(double scienceNet) {
         this.scienceNet = scienceNet;
     }
 
-    public Integer getMaths2True() {
+    public int getMaths2True() {
         return maths2True;
     }
 
-    public void setMaths2True(Integer maths2True) {
+    public void setMaths2True(int maths2True) {
         this.maths2True = maths2True;
     }
 
-    public Integer getMaths2False() {
+    public int getMaths2False() {
         return maths2False;
     }
 
-    public void setMaths2False(Integer maths2False) {
+    public void setMaths2False(int maths2False) {
         this.maths2False = maths2False;
     }
 
-    public Double getMaths2Net() {
+    public double getMaths2Net() {
         return maths2Net;
     }
 
-    public void setMaths2Net(Double maths2Net) {
+    public void setMaths2Net(double maths2Net) {
         this.maths2Net = maths2Net;
     }
 
-    public Integer getPhysicsTrue() {
+    public int getPhysicsTrue() {
         return physicsTrue;
     }
 
-    public void setPhysicsTrue(Integer physicsTrue) {
+    public void setPhysicsTrue(int physicsTrue) {
         this.physicsTrue = physicsTrue;
     }
 
-    public Integer getPhysicsFalse() {
+    public int getPhysicsFalse() {
         return physicsFalse;
     }
 
-    public void setPhysicsFalse(Integer physicsFalse) {
+    public void setPhysicsFalse(int physicsFalse) {
         this.physicsFalse = physicsFalse;
     }
 
-    public Double getPhysicsNet() {
+    public double getPhysicsNet() {
         return physicsNet;
     }
 
-    public void setPhysicsNet(Double physicsNet) {
+    public void setPhysicsNet(double physicsNet) {
         this.physicsNet = physicsNet;
     }
 
-    public Integer getChemistryTrue() {
+    public int getChemistryTrue() {
         return chemistryTrue;
     }
 
-    public void setChemistryTrue(Integer chemistryTrue) {
+    public void setChemistryTrue(int chemistryTrue) {
         this.chemistryTrue = chemistryTrue;
     }
 
-    public Integer getChemistryFalse() {
+    public int getChemistryFalse() {
         return chemistryFalse;
     }
 
-    public void setChemistryFalse(Integer chemistryFalse) {
+    public void setChemistryFalse(int chemistryFalse) {
         this.chemistryFalse = chemistryFalse;
     }
 
-    public Double getChemistryNet() {
+    public double getChemistryNet() {
         return chemistryNet;
     }
 
-    public void setChemistryNet(Double chemistryNet) {
+    public void setChemistryNet(double chemistryNet) {
         this.chemistryNet = chemistryNet;
     }
 
-    public Integer getBiologyTrue() {
+    public int getBiologyTrue() {
         return biologyTrue;
     }
 
-    public void setBiologyTrue(Integer biologyTrue) {
+    public void setBiologyTrue(int biologyTrue) {
         this.biologyTrue = biologyTrue;
     }
 
-    public Integer getBiologyFalse() {
+    public int getBiologyFalse() {
         return biologyFalse;
     }
 
-    public void setBiologyFalse(Integer biologyFalse) {
+    public void setBiologyFalse(int biologyFalse) {
         this.biologyFalse = biologyFalse;
     }
 
-    public Double getBiologyNet() {
+    public double getBiologyNet() {
         return biologyNet;
     }
 
-    public void setBiologyNet(Double biologyNet) {
+    public void setBiologyNet(double biologyNet) {
         this.biologyNet = biologyNet;
     }
 
-    public Integer getLiteratureTrue() {
+    public int getLiteratureTrue() {
         return literatureTrue;
     }
 
-    public void setLiteratureTrue(Integer literatureTrue) {
+    public void setLiteratureTrue(int literatureTrue) {
         this.literatureTrue = literatureTrue;
     }
 
-    public Integer getLiteratureFalse() {
+    public int getLiteratureFalse() {
         return literatureFalse;
     }
 
-    public void setLiteratureFalse(Integer literatureFalse) {
+    public void setLiteratureFalse(int literatureFalse) {
         this.literatureFalse = literatureFalse;
     }
 
-    public Double getLiteratureNet() {
+    public double getLiteratureNet() {
         return literatureNet;
     }
 
-    public void setLiteratureNet(Double literatureNet) {
+    public void setLiteratureNet(double literatureNet) {
         this.literatureNet = literatureNet;
     }
 
-    public Integer getHistoryTrue() {
+    public int getHistoryTrue() {
         return historyTrue;
     }
 
-    public void setHistoryTrue(Integer historyTrue) {
+    public void setHistoryTrue(int historyTrue) {
         this.historyTrue = historyTrue;
     }
 
-    public Integer getHistoryFalse() {
+    public int getHistoryFalse() {
         return historyFalse;
     }
 
-    public void setHistoryFalse(Integer historyFalse) {
+    public void setHistoryFalse(int historyFalse) {
         this.historyFalse = historyFalse;
     }
 
-    public Double getHistoryNet() {
+    public double getHistoryNet() {
         return historyNet;
     }
 
-    public void setHistoryNet(Double historyNet) {
+    public void setHistoryNet(double historyNet) {
         this.historyNet = historyNet;
     }
 
-    public Integer getGeographicsTrue() {
+    public int getGeographicsTrue() {
         return geographicsTrue;
     }
 
-    public void setGeographicsTrue(Integer geographicsTrue) {
+    public void setGeographicsTrue(int geographicsTrue) {
         this.geographicsTrue = geographicsTrue;
     }
 
-    public Integer getGeographicsFalse() {
+    public int getGeographicsFalse() {
         return geographicsFalse;
     }
 
-    public void setGeographicsFalse(Integer geographicsFalse) {
+    public void setGeographicsFalse(int geographicsFalse) {
         this.geographicsFalse = geographicsFalse;
     }
 
-    public Double getGeographicsNet() {
+    public double getGeographicsNet() {
         return geographicsNet;
     }
 
-    public void setGeographicsNet(Double geographicsNet) {
+    public void setGeographicsNet(double geographicsNet) {
         this.geographicsNet = geographicsNet;
     }
 
-    public Integer getHistory2True() {
+    public int getHistory2True() {
         return history2True;
     }
 
-    public void setHistory2True(Integer history2True) {
+    public void setHistory2True(int history2True) {
         this.history2True = history2True;
     }
 
-    public Integer getHistory2False() {
+    public int getHistory2False() {
         return history2False;
     }
 
-    public void setHistory2False(Integer history2False) {
+    public void setHistory2False(int history2False) {
         this.history2False = history2False;
     }
 
-    public Double getHistory2Net() {
+    public double getHistory2Net() {
         return history2Net;
     }
 
-    public void setHistory2Net(Double history2Net) {
+    public void setHistory2Net(double history2Net) {
         this.history2Net = history2Net;
     }
 
-    public Integer getGeographics2True() {
+    public int getGeographics2True() {
         return geographics2True;
     }
 
-    public void setGeographics2True(Integer geographics2True) {
+    public void setGeographics2True(int geographics2True) {
         this.geographics2True = geographics2True;
     }
 
-    public Integer getGeographics2False() {
+    public int getGeographics2False() {
         return geographics2False;
     }
 
-    public void setGeographics2False(Integer geographics2False) {
+    public void setGeographics2False(int geographics2False) {
         this.geographics2False = geographics2False;
     }
 
-    public Double getGeographics2Net() {
+    public double getGeographics2Net() {
         return geographics2Net;
     }
 
-    public void setGeographics2Net(Double geographics2Net) {
+    public void setGeographics2Net(double geographics2Net) {
         this.geographics2Net = geographics2Net;
     }
 
-    public Integer getPhilosophyTrue() {
+    public int getPhilosophyTrue() {
         return philosophyTrue;
     }
 
-    public void setPhilosophyTrue(Integer philosophyTrue) {
+    public void setPhilosophyTrue(int philosophyTrue) {
         this.philosophyTrue = philosophyTrue;
     }
 
-    public Integer getPhilosophyFalse() {
+    public int getPhilosophyFalse() {
         return philosophyFalse;
     }
 
-    public void setPhilosophyFalse(Integer philosophyFalse) {
+    public void setPhilosophyFalse(int philosophyFalse) {
         this.philosophyFalse = philosophyFalse;
     }
 
-    public Double getPhilosophyNet() {
+    public double getPhilosophyNet() {
         return philosophyNet;
     }
 
-    public void setPhilosophyNet(Double philosophyNet) {
+    public void setPhilosophyNet(double philosophyNet) {
         this.philosophyNet = philosophyNet;
     }
 
-    public Integer getReligionTrue() {
+    public int getReligionTrue() {
         return religionTrue;
     }
 
-    public void setReligionTrue(Integer religionTrue) {
+    public void setReligionTrue(int religionTrue) {
         this.religionTrue = religionTrue;
     }
 
-    public Integer getReligionFalse() {
+    public int getReligionFalse() {
         return religionFalse;
     }
 
-    public void setReligionFalse(Integer religionFalse) {
+    public void setReligionFalse(int religionFalse) {
         this.religionFalse = religionFalse;
     }
 
-    public Double getReligionNet() {
+    public double getReligionNet() {
         return religionNet;
     }
 
-    public void setReligionNet(Double religionNet) {
+    public void setReligionNet(double religionNet) {
         this.religionNet = religionNet;
     }
 
-    public Integer getLanguageTrue() {
+    public int getLanguageTrue() {
         return languageTrue;
     }
 
-    public void setLanguageTrue(Integer languageTrue) {
+    public void setLanguageTrue(int languageTrue) {
         this.languageTrue = languageTrue;
     }
 
-    public Integer getLanguageFalse() {
+    public int getLanguageFalse() {
         return languageFalse;
     }
 
-    public void setLanguageFalse(Integer languageFalse) {
+    public void setLanguageFalse(int languageFalse) {
         this.languageFalse = languageFalse;
     }
 
-    public Double getLanguageNet() {
+    public double getLanguageNet() {
         return languageNet;
     }
 
-    public void setLanguageNet(Double languageNet) {
+    public void setLanguageNet(double languageNet) {
         this.languageNet = languageNet;
     }
 
-    public Boolean getDiplomaNotification() {
+    public boolean isDiplomaNotification() {
         return diplomaNotification;
     }
 
-    public void setDiplomaNotification(Boolean diplomaNotification) {
+    public void setDiplomaNotification(boolean diplomaNotification) {
         this.diplomaNotification = diplomaNotification;
     }
 
-    public Double getResultSimpleTYT() {
+    public double getResultSimpleTYT() {
         return resultSimpleTYT;
     }
 
-    public void setResultSimpleTYT(Double resultSimpleTYT) {
+    public void setResultSimpleTYT(double resultSimpleTYT) {
         this.resultSimpleTYT = resultSimpleTYT;
     }
 
-    public Double getResultSimpleNumerical() {
+    public double getResultSimpleNumerical() {
         return resultSimpleNumerical;
     }
 
-    public void setResultSimpleNumerical(Double resultSimpleNumerical) {
+    public void setResultSimpleNumerical(double resultSimpleNumerical) {
         this.resultSimpleNumerical = resultSimpleNumerical;
     }
 
-    public Double getResultSimpleVerbal() {
+    public double getResultSimpleVerbal() {
         return resultSimpleVerbal;
     }
 
-    public void setResultSimpleVerbal(Double resultSimpleVerbal) {
+    public void setResultSimpleVerbal(double resultSimpleVerbal) {
         this.resultSimpleVerbal = resultSimpleVerbal;
     }
 
-    public Double getResultSimpleEqualWeight() {
+    public double getResultSimpleEqualWeight() {
         return resultSimpleEqualWeight;
     }
 
-    public void setResultSimpleEqualWeight(Double resultSimpleEqualWeight) {
+    public void setResultSimpleEqualWeight(double resultSimpleEqualWeight) {
         this.resultSimpleEqualWeight = resultSimpleEqualWeight;
     }
 
-    public Double getResultSimpleLanguage() {
+    public double getResultSimpleLanguage() {
         return resultSimpleLanguage;
     }
 
-    public void setResultSimpleLanguage(Double resultSimpleLanguage) {
+    public void setResultSimpleLanguage(double resultSimpleLanguage) {
         this.resultSimpleLanguage = resultSimpleLanguage;
     }
 
-    public Double getResultCalculatedTYT() {
+    public double getResultCalculatedTYT() {
         return resultCalculatedTYT;
     }
 
-    public void setResultCalculatedTYT(Double resultCalculatedTYT) {
+    public void setResultCalculatedTYT(double resultCalculatedTYT) {
         this.resultCalculatedTYT = resultCalculatedTYT;
     }
 
-    public Double getResultCalculatedNumerical() {
+    public double getResultCalculatedNumerical() {
         return resultCalculatedNumerical;
     }
 
-    public void setResultCalculatedNumerical(Double resultCalculatedNumerical) {
+    public void setResultCalculatedNumerical(double resultCalculatedNumerical) {
         this.resultCalculatedNumerical = resultCalculatedNumerical;
     }
 
-    public Double getResultCalculatedVerbal() {
+    public double getResultCalculatedVerbal() {
         return resultCalculatedVerbal;
     }
 
-    public void setResultCalculatedVerbal(Double resultCalculatedVerbal) {
+    public void setResultCalculatedVerbal(double resultCalculatedVerbal) {
         this.resultCalculatedVerbal = resultCalculatedVerbal;
     }
 
-    public Double getResultCalculatedEqualWeight() {
+    public double getResultCalculatedEqualWeight() {
         return resultCalculatedEqualWeight;
     }
 
-    public void setResultCalculatedEqualWeight(Double resultCalculatedEqualWeight) {
+    public void setResultCalculatedEqualWeight(double resultCalculatedEqualWeight) {
         this.resultCalculatedEqualWeight = resultCalculatedEqualWeight;
     }
 
-    public Double getResultCalculatedLanguage() {
+    public double getResultCalculatedLanguage() {
         return resultCalculatedLanguage;
     }
 
-    public void setResultCalculatedLanguage(Double resultCalculatedLanguage) {
+    public void setResultCalculatedLanguage(double resultCalculatedLanguage) {
         this.resultCalculatedLanguage = resultCalculatedLanguage;
     }
 }

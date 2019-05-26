@@ -91,7 +91,7 @@ public class YksService implements IDatabase {
             return 0.0;
         }
         double factor;
-        if (yks.getDiplomaNotification()) {
+        if (yks.isDiplomaNotification()) {
             factor = 0.3;
         } else {
             factor = 0.6;

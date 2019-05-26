@@ -18,6 +18,7 @@ import com.berkay22demirel.sinavpuanhesaplama.Model.ExamType;
 import com.berkay22demirel.sinavpuanhesaplama.Util.AdUtil;
 import com.berkay22demirel.sinavpuanhesaplama.Util.ValidatorUtil;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.List;
 
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         addClickListenerToCardViews();
+
+        MobileAds.initialize(this, "ca-app-pub-3727603707347204~7305031067");
 
         AdUtil.showAd((AdView) findViewById(R.id.adViewMain));
     }
